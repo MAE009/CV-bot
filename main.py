@@ -35,8 +35,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
 def run_bot():
-    TELEGRAM_BOT_TOKEN="7652152321:AAGnR9dzEbyd8mUfeeQR-ZMrEacoR28R_eU"
-    token = os.getenv("7652152321:AAGnR9dzEbyd8mUfeeQR-ZMrEacoR28R_eU")
+    # Soit tu le lis depuis Render (sécurisé) :
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+
+    # Soit, temporairement pour tester sans Render :
+    # token = "7652152321:AAGnR9dzEbyd8mUfeeQR-ZMrEacoR28R_eU"
+
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
