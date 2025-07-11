@@ -1,15 +1,16 @@
+import os
+import asyncio
+import threading
 from flask import Flask
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
-import threading
-import os
 
-# Flask app (nécessaire pour Render)
+# Flask app
 flask_app = Flask(__name__)
 
 @flask_app.route('/')
 def home():
-    return "✅ Le bot est en ligne !"
+    return "✅ Bot Telegram CV en ligne !"
 
 # --- Bot Telegram ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -22,7 +23,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
-
     if text == "📝 Créer un CV":
         await update.message.reply_text("Super ! Commençons. Quel est ton prénom ?")
     elif text == "📄 Voir un exemple":
@@ -34,19 +34,17 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
-def run_bot():
-    # Soit tu le lis depuis Render (sécurisé) :
+async def run_bot():
     token = os.getenv("TELEGRAM_BOT_TOKEN")
-
-    # Soit, temporairement pour tester sans Render :
-    # token = "7652152321:AAGnR9dzEbyd8mUfeeQR-ZMrEacoR28R_eU"
-
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    app.run_polling()
+    await app.run_polling()
 
-# --- Lancement parallèle du bot + serveur Flask ---
+def start_bot_thread():
+    asyncio.run(run_bot())
+
+# Lancement parallèle du bot + serveur Flask
 if __name__ == '__main__':
-    threading.Thread(target=run_bot).start()
+    threading.Thread(target=start_bot_thread).start()
     flask_app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
