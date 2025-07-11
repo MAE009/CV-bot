@@ -22,11 +22,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     # 1. Envoie du message de bienvenue
-    await update.message.reply_text("👋 Bienvenue, je suis CV-bot ! Que veux-tu faire ?", reply_markup=reply_markup)
+    #await update.message.reply_text("👋 Bienvenue, je suis CV-bot ! Que veux-tu faire ?", reply_markup=reply_markup)
 
     # 2. Envoi de l'image juste après le message
     with open('CV_bot.jpeg', 'rb') as photo:
-        await update.message.reply_photo(photo=photo, caption="Voici une image d'exemple 🖼️")
+        await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot ! Que veux-tu faire ?")
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
