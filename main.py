@@ -16,7 +16,7 @@ def home():
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")]
+        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
         [KeyboardButton("🧽 Clean")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
