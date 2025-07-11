@@ -26,7 +26,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 2. Envoi de l'image juste après le message
     with open('CV_bot.jpeg', 'rb') as photo:
-        await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot ! Que veux-tu faire ?")
+        await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot !")
+            # 1. Envoie du message de bienvenue
+        await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)
+
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
