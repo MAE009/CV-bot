@@ -1,17 +1,18 @@
 import os
 import asyncio
+import nest_asyncio
 from flask import Flask
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-# Flask pour que Render détecte que le service tourne
+nest_asyncio.apply()
+
 flask_app = Flask(__name__)
 
 @flask_app.route('/')
 def home():
     return "✅ Bot Telegram CV en ligne !"
 
-# --- Bot Telegram ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
@@ -33,19 +34,20 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
-async def main():
-    # Démarre le bot Telegram
+async def run():
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    # Lance le bot dans une tâche parallèle
-    asyncio.create_task(app.run_polling())
-
-    # Lance le serveur Flask pour Render
-    port = int(os.environ.get("PORT", 10000))
-    await asyncio.to_thread(flask_app.run, host="0.0.0.0", port=port)
+    # Lancer le bot Telegram
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    
+    # Lancer Flask (dans une boucle parallèle)
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, lambda: flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000))))
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    asyncio.get_event_loop().run_until_complete(run())
