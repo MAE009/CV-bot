@@ -71,17 +71,15 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         elif session.step == 5:
             session.update_info("email", update.message.text)
+            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+          
             # Résumé de l’en-tête déjà rempli
             await update.message.reply_text(
             f"🧾 En-tête :\n"
             f"{session.data['nom']} {session.data['prenom']}\n"
-            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {session.data.get('autre', 'N/A')}"
-                               )
-            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
-            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
-
-            
+            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {session.data.get('autre', 'N/A')}")
 
             session.next_step()
 
