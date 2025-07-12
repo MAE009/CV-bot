@@ -47,7 +47,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
   
 
     if session.step <= 5 :
-        await update.message.reply_text(session.step)
+        await update.message.reply_text(session.step, session)
         if session.step == 0:
             session.update_info("nom", update.message.text)
             await update.message.reply_text("Partie N° 1 : l'entête 🪧")
@@ -121,9 +121,10 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     text = update.message.text  
   
-    if text == "📝 Créer un CV":  
+    if text == "📝 Créer un CV":
+        begin_cv = True
         await update.message.reply_text("Super ! Commençons la création du CV.")  
-        await event_CVbuilding(update, context)  
+        # await event_CVbuilding(update, context)  
   
     elif text == "📄 Voir un exemple":  
         await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")  
