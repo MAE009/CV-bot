@@ -57,7 +57,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Partie N° 1 : l'entête 🪧")
 
         if session.step == 0:
-	    session.update_info("om", update.message.text)
+	    session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton nom de famille ?")
             session.next_step()
 
