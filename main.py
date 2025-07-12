@@ -47,62 +47,84 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)
 
 
-def event_CVbuilding():
-	begin_cv = True
-	user_id = update.message.from_user.id
-	session = get_session(user_id)
-	
-	if session.step <=5 :
-	    await update.message.reply_text("Partie N° 1 l'entête 🪧")
-    	if session.step == 0:
-    	    await update.message.reply_text("Quel est ton nom de famille ?")
-    	    session.next_step()
-    	    
-    	elif session.step == 1:
-    	    session.update_info("prenom(s)", update.message.text)
-    	    session.next_step()
-    	
-    	    
-    	elif session.step == 2:
-    	    await update.message.reply_text("Quel est le nom de ta ville ? ")
-    	    session.next_step()
-    	               
-    	elif session.step == 3:   
-    	    await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")
-    	    session.next_step()
-    	
-    	elif session.step == 4:
-    	    await update.message.reply_text("Quel est ton adresse email 📧 ?")
-    	    session.next_step()
-    	    
-       elif session.step == 5:
-           Keyboard = [keyboardButton("Je n'en ai pas !!!")]
-           reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-           await update.message.reply_text("Quel est compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
-           session.next_step()
-       
-  elif session.step == 6:
-      await update.message.reply_text("Quel nombre d'expérience as tu ?")
-      
-      for f in(0, n):
-          pass
+async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    global begin_cv
+    begin_cv = True
+    user_id = update.message.from_user.id
+    session = get_session(user_id)
+
+    if session.step <= 5:
+        await update.message.reply_text("Partie N° 1 : l'entête 🪧")
+
+        if session.step == 0:
+	    session.update_info("om", update.message.text)
+            await update.message.reply_text("Quel est ton nom de famille ?")
+            session.next_step()
+
+        elif session.step == 1:
+            session.update_info("prenom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
+
+        elif session.step == 2:
+            session.update_info("ville", update.message.text)
+            await update.message.reply_text("Quel est le nom de ta ville ?")
+            session.next_step()
+
+        elif session.step == 3:
+            session.update_info("tel", update.message.text)
+            await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")
+            session.next_step()
+
+        elif session.step == 4:
+            session.update_info("email", update.message.text)
+            await update.message.reply_text("Quel est ton adresse email 📧 ?")
+            session.next_step()
+
+        elif session.step == 5:
+            session.update_info("autre", update.message.text)
+            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+            session.next_step()
+
+    elif session.step == 6:
+	    pass
+        #session.update_info("linkedin", update.message.text)
+        #await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")
+        #session.next_step()
+	    
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
+
     if text == "📝 Créer un CV":
-        event_CVbuilder()
-        await update.message.reply_text("Super ! Commençons. Quel est ton prénom ?")
+        await update.message.reply_text("Super ! Commençons la création du CV.")
+        await event_CVbuilding(update, context)
+
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")
+
     elif text == "⚙️ Aide":
         await update.message.reply_text("Je suis là pour t’aider à créer un CV étape par étape.")
+
     elif text == "❌ Quitter":
         await update.message.reply_text("Merci et à bientôt !")
-    else: 
-        await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
-    if begin_cv:
-       await update.message.reply_text("Il va contenir 6 parties")
+    elif text == "🧽 Clean":
+        user_id = update.message.from_user.id
+        if user_id in sessions:
+            del sessions[user_id]
+        await update.message.reply_text("Données utilisateur réinitialisées.")
+
+    else:
+        # Continuer le processus CV si déjà commencé
+        user_id = update.message.from_user.id
+        session = get_session(user_id)
+        if begin_cv:
+            await event_CVbuilding(update, context)
+        else:
+            await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
 
 
