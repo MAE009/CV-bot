@@ -45,13 +45,11 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = get_session(user_id)
   
 
-    if session.step <= 5:
-        
-
+    if session.step <= 5 :
         if session.step == 0:
-            session.update_info("nom", update.message.text)
-            await update.message.reply_text("Partie N° 1 : l'entête 🪧")
+            session.update_info("nom", update.message.text
             await update.message.reply_text("Quel est ton nom de famille ?")
+            await update.message.reply_text("Partie N° 1 : l'entête 🪧")
             session.next_step()
 
         elif session.step == 1:
@@ -75,7 +73,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.next_step()
 
         elif session.step == 5:
-            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+            await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
           
             session.update_info("autre", update.message.text)
             keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
