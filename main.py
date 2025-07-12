@@ -47,6 +47,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)
 
 
+
+        elif session.step == 1:
+            session.update_info("prenom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
+
+        elif session.step == 2:
+            session.update_info("ville", update.message.text)
+            await update.message.reply_text("Quel est le nom de ta ville ?")
+	    
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global begin_cv
     begin_cv = True
@@ -57,19 +67,9 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Partie N° 1 : l'entête 🪧")
 
         if session.step == 0:
-		session.update_info("nom", update.message.text)
+            session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton nom de famille ?")
-            session.next_step()
-
-        elif session.step == 1:
-            session.update_info("prenom", update.message.text)
-            await update.message.reply_text("Quel est ton prénom ?")
-            session.next_step()
-
-        elif session.step == 2:
-            session.update_info("ville", update.message.text)
-            await update.message.reply_text("Quel est le nom de ta ville ?")
-            session.next_step()
+            session.next_step()ion.next_step()
 
         elif session.step == 3:
             session.update_info("tel", update.message.text)
