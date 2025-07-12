@@ -48,14 +48,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-        elif session.step == 1:
-            session.update_info("prenom", update.message.text)
-            await update.message.reply_text("Quel est ton prénom ?")
-            session.next_step()
-
-        elif session.step == 2:
-            session.update_info("ville", update.message.text)
-            await update.message.reply_text("Quel est le nom de ta ville ?")
+        
 	    
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global begin_cv
@@ -71,7 +64,16 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Quel est ton nom de famille ?")
             session.next_step()ion.next_step()
 
-        elif session.step == 3:
+        elif session.step == 1:
+            session.update_info("prenom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
+
+        elif session.step == 2:
+            session.update_info("ville", update.message.text)
+            await update.message.reply_text("Quel est le nom de ta ville ?")
+	
+	elif session.step == 3:
             session.update_info("tel", update.message.text)
             await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")
             session.next_step()
