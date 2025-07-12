@@ -6,7 +6,7 @@ class CVBuilder:
             "nom": "",
             "email": "",
             "telephone": "",
-            "profil": "",
+            "resume": "",
             "competences": [],
             "experiences": [],
             "formations": []
