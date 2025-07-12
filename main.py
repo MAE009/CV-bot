@@ -34,6 +34,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     with open('CV_bot.jpeg', 'rb') as photo:  
         await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot !")  
         await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)  
+
+
   
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     global begin_cv  
@@ -81,11 +83,13 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
 
     elif session.step == 6:
+        keyboard = [[KeyboardButton("🧽 Clean")]]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         # Résumé de l’en-tête déjà rempli
         await update.message.reply_text(
             f"🧾 En-tête :\n"
             f"{session.data['nom']} {session.data['prenom']}\n"
-            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {session.data.get('autre', 'N/A')}")
+            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {session.data.get('autre', 'N/A')}", reply_markup=reply_markup)
 
 
         await update.message.reply_text("Partie N° 2 : le résumé 📜")
@@ -107,6 +111,8 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
         # session.update_info("linkedin", update.message.text)  
         # await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")  
         # session.next_step()  
+
+
   
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     text = update.message.text  
@@ -127,8 +133,15 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif text == "🧽 Clean":  
         user_id = update.message.from_user.id  
         if user_id in sessions:  
-            del sessions[user_id]  
-        await update.message.reply_text("Données utilisateur réinitialisées.")  
+            del sessions[user_id]
+        keyboard = [  
+        [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],  
+        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],  
+        [KeyboardButton("🧽 Clean")]  
+    ]  
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)  
+  
+        await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)  
   
     elif text == "Je n'en ai pas !!!":
         await update.message.reply_text("D'accord pas de problème")
