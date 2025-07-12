@@ -46,29 +46,29 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
   
         if session.step == 0:  
             await update.message.reply_text("Quel est ton nom de famille ?")  
-            session.next_step()  
+            session.next_step()
   
-        if session.step == 1:  
+        elif session.step == 1:  
             session.update_info("nom", update.message.text)  
             await update.message.reply_text("Quel est ton prénom ?")  
             session.next_step()  
   
-        if session.step == 2:  
+        elif session.step == 2:  
             session.update_info("prenom", update.message.text)  
             await update.message.reply_text("Quel est le nom de ta ville ?")  
             session.next_step()  
   
-        if session.step == 3:  
+        elif session.step == 3:  
             session.update_info("ville", update.message.text)  
             await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")  
             session.next_step()  
   
-        if session.step == 4:  
+        elif session.step == 4:  
             session.update_info("tel", update.message.text)  
             await update.message.reply_text("Quel est ton adresse email 📧 ?")  
             session.next_step()  
   
-        if session.step == 5:  
+        elif session.step == 5:  
             session.update_info("email", update.message.text)  
             keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]  
             reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)  
