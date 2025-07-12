@@ -38,45 +38,65 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     global begin_cv  
     begin_cv = True  
+    
     user_id = update.message.from_user.id  
     session = get_session(user_id)  
-  
-    if session.step <= 5:  
-        await update.message.reply_text("Partie N° 1 : l'entête 🪧")  
-  
-        if session.step == 0:  
-            await update.message.reply_text("Quel est ton nom de famille ?")  
+
+    if session.step <= 5:
+        await update.message.reply_text("Partie N° 1 : l'entête 🪧")
+
+        if session.step == 0:
+            await update.message.reply_text("Quel est ton nom de famille ?")
             session.next_step()
-  
-        elif session.step == 1:  
-            session.update_info("nom", update.message.text)  
-            await update.message.reply_text("Quel est ton prénom ?")  
-            session.next_step()  
-  
-        elif session.step == 2:  
-            session.update_info("prenom", update.message.text)  
-            await update.message.reply_text("Quel est le nom de ta ville ?")  
-            session.next_step()  
-  
-        elif session.step == 3:  
-            session.update_info("ville", update.message.text)  
-            await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")  
-            session.next_step()  
-  
-        elif session.step == 4:  
-            session.update_info("tel", update.message.text)  
-            await update.message.reply_text("Quel est ton adresse email 📧 ?")  
-            session.next_step()  
-  
-        elif session.step == 5:  
-            session.update_info("email", update.message.text)  
-            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]  
-            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)  
-            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)  
-            session.next_step()  
-  
-    elif session.step == 6:  
-        pass  
+
+        elif session.step == 1:
+            session.update_info("nom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
+
+        elif session.step == 2:
+            session.update_info("prenom", update.message.text)
+            await update.message.reply_text("Quel est le nom de ta ville ?")
+            session.next_step()
+
+        elif session.step == 3:
+            session.update_info("ville", update.message.text)
+            await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")
+            session.next_step()
+
+        elif session.step == 4:
+            session.update_info("tel", update.message.text)
+            await update.message.reply_text("Quel est ton adresse email 📧 ?")
+            session.next_step()
+
+        elif session.step == 5:
+            session.update_info("email", update.message.text)
+            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+            await update.meessage.reply_text(f"En tête {session.data["nom"]} {session.data["prenom"]}
+            \n {session.data["ville"]} || {session.data["tel"]} || {session.data["email"] || {session.data["autre"]}")
+            session.next_step()
+
+    elif session.step == 6:
+        session.update_info("linkedin", update.message.text)
+
+        await update.message.reply_text("Partie N° 2 : le résumé 📜")
+
+        await update.message.reply_text("""🎯 Petit conseil pour booster ton CV !
+
+Tu n’as pas encore ajouté de résumé professionnel ? C’est dommage, car c’est souvent la première chose que les recruteurs lisent 👀.
+
+💡 En 2-3 phrases (environ 50 à 100 mots), tu peux :
+✅ Mettre en avant tes compétences clés
+✅ Résumer ton expérience
+✅ Montrer tes objectifs ou ambitions pro
+
+Pense à cette section comme une pub express de toi-même 📣 — elle peut vraiment te faire sortir du lot ✨. Alors n’hésite pas à la rédiger pour capter l’attention en quelques secondes !
+""")
+
+        await update.message.reply_text("Vas-y, écris ✍️")
+        session.next_step()
         # session.update_info("linkedin", update.message.text)  
         # await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")  
         # session.next_step()  
@@ -103,6 +123,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             del sessions[user_id]  
         await update.message.reply_text("Données utilisateur réinitialisées.")  
   
+    elif text == "Je n'en ai pas !!!":
+        await update.message.reply_text("D'accord pas de problème")
+      
+    
     else:  
         # Continuer le processus CV si déjà commencé  
         user_id = update.message.from_user.id  
