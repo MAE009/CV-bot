@@ -144,6 +144,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)  
   
     elif text == "Je n'en ai pas !!!":
+        session.step += 1
         await update.message.reply_text("D'accord pas de problème")
       
     
