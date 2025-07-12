@@ -47,7 +47,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
   
 
     if session.step <= 5 :
-        await update.message.reply_text(session)
+        #await update.message.reply_text(session)
         await update.message.reply_text(session.step)
         if session.step == 0:
             session.update_info("nom", update.message.text)
@@ -149,7 +149,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)  
   
     elif text == "Je n'en ai pas !!!":
-        session.step += 1
+        session.step = 6
         await update.message.reply_text("D'accord pas de problème")
       
     
