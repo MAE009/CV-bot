@@ -38,7 +38,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
   
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):  
-    global begin_cv  
+    global begin_cv
+    global session 
     begin_cv = True  
     
     user_id = update.message.from_user.id  
