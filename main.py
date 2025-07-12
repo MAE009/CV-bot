@@ -122,9 +122,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text  
   
     if text == "📝 Créer un CV":
-        begin_cv = True
         await update.message.reply_text("Super ! Commençons la création du CV.")  
-        # await event_CVbuilding(update, context)  
+        await event_CVbuilding(update, context)  
   
     elif text == "📄 Voir un exemple":  
         await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")  
