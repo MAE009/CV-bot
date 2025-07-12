@@ -73,10 +73,12 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.next_step()
 
         elif session.step == 5:
+            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+          
             session.update_info("autre", update.message.text)
             keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
             reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-            await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+            #await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
           
             
             session.next_step()
