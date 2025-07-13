@@ -38,17 +38,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
   
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):  
-    global begin_cv
+    
     global session 
-    begin_cv = True  
+      
     
     user_id = update.message.from_user.id  
     session = get_session(user_id)
   
-
+    await update.message.reply_text(session.step)
     if session.step <= 5 :
         #await update.message.reply_text(session)
-        await update.message.reply_text(session.step)
+        
         if session.step == 0:
             session.update_info("nom", update.message.text)
             await update.message.reply_text("Partie N° 1 : l'entête 🪧")
