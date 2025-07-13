@@ -119,49 +119,54 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
 
 
   
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):  
-    text = update.message.text  
-  
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+    user_id = update.message.from_user.id
+    session = get_session(user_id)
+
     if text == "📝 Créer un CV":
-        await update.message.reply_text("Super ! Commençons la création du CV.")  
-        await event_CVbuilding(update, context)  
-  
-    elif text == "📄 Voir un exemple":  
-        await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")  
-  
-    elif text == "⚙️ Aide":  
-        await update.message.reply_text("Je suis là pour t’aider à créer un CV étape par étape.")  
-  
-    elif text == "❌ Quitter":  
-        await update.message.reply_text("Merci et à bientôt !")  
-  
-    elif text == "🧽 Clean":  
-        user_id = update.message.from_user.id  
-        if user_id in sessions:  
+        session.step = 0  # On recommence à zéro
+        await update.message.reply_text("Super ! Commençons la création du CV.")
+        await event_CVbuilding(update, context)
+
+    elif text == "📄 Voir un exemple":
+        await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")
+
+    elif text == "⚙️ Aide":
+        await update.message.reply_text("Je suis là pour t’aider à créer un CV étape par étape.")
+
+    elif text == "❌ Quitter":
+        await update.message.reply_text("Merci et à bientôt !")
+
+    elif text == "🧽 Clean":
+        if user_id in sessions:
             del sessions[user_id]
-        keyboard = [  
-        [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],  
-        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],  
-        [KeyboardButton("🧽 Clean")]  
-    ]  
-        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)  
-  
-        await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)  
-  
+        keyboard = [
+            [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
+            [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+            [KeyboardButton("🧽 Clean")]
+        ]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
+
     elif text == "Je n'en ai pas !!!":
-        session.step = 6
-        await update.message.reply_text("D'accord pas de problème")
-      
-    
-    else:  
-        # Continuer le processus CV si déjà commencé  
-        user_id = update.message.from_user.id  
-        session = get_session(user_id)  
-        if begin_cv:  
-            await event_CVbuilding(update, context)  
-        else:  
-            await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")  
-  
+        if session.step == 5:
+            session.update_info("linkedin", "Non fourni")
+            session.next_step()
+            await update.message.reply_text("Pas de souci ! Continuons 😊")
+            await event_CVbuilding(update, context)
+        else:
+            await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
+
+    else:
+        # Si on est en pleine création de CV, continuer
+        if session.step >= 1:
+            await event_CVbuilding(update, context)
+        else:
+            await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
+
+
+
 async def run():  
     token = os.getenv("TELEGRAM_BOT_TOKEN")  
     app = ApplicationBuilder().token(token).build()  
