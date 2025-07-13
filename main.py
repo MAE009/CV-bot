@@ -150,7 +150,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
 
     elif text == "Je n'en ai pas !!!":
-        if session.step == 5:
+        if session.step == 6:
             session.update_info("linkedin", "Non fourni")
             session.next_step()
             await update.message.reply_text("Pas de souci ! Continuons 😊")
