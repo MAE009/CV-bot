@@ -154,9 +154,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif text == "Non fourni":
         if session.step == 6:
             session.update_info("autre", "Non fourni")
-            session.next_step()
+            #session.next_step()
             await update.message.reply_text("Pas de souci ! Continuons 😊")
-            await event_CVbuilding(update, context)
+            #await event_CVbuilding(update, context)
         else:
             await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
 
