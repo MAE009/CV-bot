@@ -90,19 +90,25 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = update.message.text
         keyboard = [[KeyboardButton("🧽 Clean")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-        # Résumé de l’en-tête déjà rempli
 
-        if text == "Non fourni":
-            antre = ""
+        if text == "Non fourni" or text == "Je n'en ai pas !!!":
+            autre = "❌ Non fourni"
+            session.update_info("autre", autre)
         else:
             session.update_info("autre", text)
             autre = session.data["autre"]
-          
-        await update.message.reply_text(
-            f"🧾 En-tête :\n"
-            f"{session.data['nom']} {session.data['prenom']}\n"
-            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {autre}", reply_markup=reply_markup)
 
+        await update.message.reply_text(
+        f"🧾 En-tête :\n"
+        f"👤 {session.data['nom']} {session.data['prenom']}\n"
+        f"📍 {session.data['ville']}\n"
+        f"📞 {session.data['tel']} | 📧 {session.data['email']}\n"
+        f"🔗 {autre}",
+        reply_markup=reply_markup
+    )
+
+        #session.next_step()
+        await update.message.reply_text("👉 On passe maintenant à la partie 2 : Objectif professionnel.")
 
         await update.message.reply_text("Partie N° 2 : le résumé 📜")
 
