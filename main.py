@@ -114,7 +114,7 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
         # await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")  
         # session.next_step()
     elif session.step == 7:
-        session.update_info("autre", update.message.text)
+        session.update_info("resume", update.message.text)
         session.next_step()
      
 
@@ -149,13 +149,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
 
-    #elif text == "Je n'en ai pas !!!":
-        #if session.step == 6:
-           # session.update_info("linkedin", "Non fourni")
-            #session.next_step()
-            #await update.message.reply_text("Pas de souci ! Continuons 😊")
-            #await event_CVbuilding(update, context)
-       # else:
+    elif text == "Non fourni":
+        if session.step == 6:
+            session.update_info("autre", "Non fourni")
+            session.next_step()
+            await update.message.reply_text("Pas de souci ! Continuons 😊")
+            await event_CVbuilding(update, context)
+        else:
             #await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
 
     else:
