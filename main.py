@@ -78,7 +78,9 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         elif session.step == 5:
            # session.update_info("autre", update.message.text)
-            await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?")
+            keyboard = [[KeyboardButton("Non fourni")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+            await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
             session.next_step()
 
     
@@ -156,7 +158,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Pas de souci ! Continuons 😊")
             await event_CVbuilding(update, context)
         else:
-            #await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
+            await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
 
     else:
         # Si on est en pleine création de CV, continuer
