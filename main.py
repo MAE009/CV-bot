@@ -91,10 +91,15 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = [[KeyboardButton("🧽 Clean")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         # Résumé de l’en-tête déjà rempli
+
+        if session.data["autre"] == "Nonfourni":
+            antre = ""
+        else:
+            autre = session.data["autre"]
         await update.message.reply_text(
             f"🧾 En-tête :\n"
             f"{session.data['nom']} {session.data['prenom']}\n"
-            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {session.data.get('autre', 'N/A')}", reply_markup=reply_markup)
+            f"{session.data['ville']} || {session.data['tel']} || {session.data['email']} || {autre}", reply_markup=reply_markup)
 
 
         await update.message.reply_text("Partie N° 2 : le résumé 📜")
