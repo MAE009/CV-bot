@@ -157,14 +157,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
 
-    elif text == "Non fourni":
-        if session.step == 6:
-            session.update_info("autre", "Non fourni")
+    #elif text == "Non fourni":
+        #if session.step == 6:
+            #session.update_info("autre", "Non fourni")
             #session.next_step()
-            await update.message.reply_text("Pas de souci ! Continuons 😊")
+            #await update.message.reply_text("Pas de souci ! Continuons 😊")
             #await event_CVbuilding(update, context)
-        else:
-            await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
+        #else:
+            #await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
 
     else:
         # Si on est en pleine création de CV, continuer
