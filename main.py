@@ -77,13 +77,14 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.next_step()
 
         elif session.step == 5:
-            session.update_info("autre", update.message.text)
-            await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
+           # session.update_info("autre", update.message.text)
+            await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?")
             session.next_step()
 
     
 
     elif session.step == 6:
+        session.update_info("autre", update.message.text)
         keyboard = [[KeyboardButton("🧽 Clean")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         # Résumé de l’en-tête déjà rempli
@@ -111,8 +112,11 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
         session.next_step()
         # session.update_info("linkedin", update.message.text)  
         # await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")  
-        # session.next_step()  
-
+        # session.next_step()
+    elif session.step == 7:
+        session.update_info("autre", update.message.text)
+        session.next_step()
+     
 
   
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
