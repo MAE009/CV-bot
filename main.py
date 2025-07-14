@@ -92,7 +92,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         # Résumé de l’en-tête déjà rempli
 
-        if session.data["autre"] == "Nonfourni":
+        if session.data["autre"] == "Non fourni":
             antre = ""
         else:
             autre = session.data["autre"]
