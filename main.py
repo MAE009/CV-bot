@@ -1,7 +1,8 @@
 import os  
 import asyncio  
 import nest_asyncio  
-from cvbuilder import CVBuilder  
+from cvbuilder import CVBuilder
+from user import *
 from flask import Flask  
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
@@ -17,8 +18,23 @@ def get_session(user_id):
     return sessions[user_id]  
   
 nest_asyncio.apply()  
-flask_app = Flask(__name__)  
+flask_app = Flask(__name__)
+
+
+YOUR_USER_ID = 123456789  # mon ID
+CHANNEL_ID = "@nom_du_canal"  # mon canal
+
+async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    if user_id == YOUR_USER_ID:  # sécurité
+        text = get_users_list_text()
+        await context.bot.send_message(chat_id=CHANNEL_ID, text=text)
+        await update.message.reply_text("✅ Liste envoyée au canal !")
+    else:
+        await update.message.reply_text("🚫 Accès refusé.")
   
+
+
 @flask_app.route('/')  
 def home():  
     return "✅ Bot Telegram CV en ligne !"  
@@ -42,8 +58,10 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global session 
       
     
-    user_id = update.message.from_user.id  
+    user = update.message.from_user
+    user_id = user.id
     session = get_session(user_id)
+    save_user(user)
   
     await update.message.reply_text(session.step)
     if session.step <= 5 :
@@ -193,7 +211,8 @@ async def run():
     token = os.getenv("TELEGRAM_BOT_TOKEN")  
     app = ApplicationBuilder().token(token).build()  
     app.add_handler(CommandHandler("start", start))  
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))  
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(CommandHandler("sendusers", send_users_command))
   
     await app.initialize()  
     await app.start()  
