@@ -101,8 +101,8 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
         f"🧾 En-tête :\n"
         f"👤 {session.data['nom']} {session.data['prenom']}\n"
-        f"📍 {session.data['ville']}\n"
-        f"📞 {session.data['tel']} | 📧 {session.data['email']}\n"
+        f"📍 {session.data['ville']} || "
+        f"📞 {session.data['tel']} || 📧 {session.data['email']}\n"
         f"🔗 {autre}",
         reply_markup=reply_markup
     )
@@ -126,11 +126,17 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
 
         await update.message.reply_text("Vas-y, écris ✍️")
         session.next_step()
-        # session.update_info("linkedin", update.message.text)  
-        # await update.message.reply_text("Quel nombre d’années d’expérience as-tu ?")  
-        # session.next_step()
+
+  
     elif session.step == 7:
         session.update_info("resume", update.message.text)
+        await update.message.reply_text(
+    "Votre résumé professionnel\n{}\n{}\n{}".format(
+        "="*50,
+        session.data["resume"],
+        "="*50
+    )
+)
         session.next_step()
      
 
