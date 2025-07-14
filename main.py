@@ -78,10 +78,6 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         elif session.step == 5:
             session.update_info("autre", update.message.text)
-            keyboard = [[KeyboardButton("Je n'en ai pas !!!")]]
-            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-            #await update.message.reply_text("Quel est ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
-          
             await update.message.reply_text("Quel est le lien ton compte LinkedIn ou ton site web ?", reply_markup=reply_markup)
             session.next_step()
 
@@ -149,14 +145,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
 
-    elif text == "Je n'en ai pas !!!":
-        if session.step == 6:
-            session.update_info("linkedin", "Non fourni")
-            session.next_step()
-            await update.message.reply_text("Pas de souci ! Continuons 😊")
-            await event_CVbuilding(update, context)
-        else:
-            await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
+    #elif text == "Je n'en ai pas !!!":
+        #if session.step == 6:
+           # session.update_info("linkedin", "Non fourni")
+            #session.next_step()
+            #await update.message.reply_text("Pas de souci ! Continuons 😊")
+            #await event_CVbuilding(update, context)
+       # else:
+            #await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
 
     else:
         # Si on est en pleine création de CV, continuer
