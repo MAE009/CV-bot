@@ -50,29 +50,29 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         #await update.message.reply_text(session)
         
         if session.step == 0:
-            session.update_info("nom", update.message.text)
+            #session.update_info("nom", update.message.text)
             await update.message.reply_text("Partie N° 1 : l'entête 🪧")
             await update.message.reply_text("Quel est ton nom de famille ?")
             
             session.next_step()
 
         elif session.step == 1:
-            session.update_info("prenom", update.message.text)
+            session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton prénom ?")
             session.next_step()
 
         elif session.step == 2:
-            session.update_info("ville", update.message.text)
+            session.update_info("prenom", update.message.text)
             await update.message.reply_text("Quel est le nom de ta ville ?")
             session.next_step()
 
         elif session.step == 3:
-            session.update_info("tel", update.message.text)
+            session.update_info("ville", update.message.text)
             await update.message.reply_text("Quel est ton numéro de téléphone 📲 ?")
             session.next_step()
 
         elif session.step == 4:
-            #session.update_info("email", update.message.text)
+            session.update_info("tel", update.message.text)
             await update.message.reply_text("Quel est ton adresse email 📧 ?")
             session.next_step()
 
