@@ -72,11 +72,12 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.next_step()
 
         elif session.step == 4:
-            session.update_info("email", update.message.text)
+            #session.update_info("email", update.message.text)
             await update.message.reply_text("Quel est ton adresse email 📧 ?")
             session.next_step()
 
         elif session.step == 5:
+            session.update_info("email", update.message.text)
            # session.update_info("autre", update.message.text)
             keyboard = [[KeyboardButton("Non fourni")]]
             reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
