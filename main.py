@@ -87,15 +87,17 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
 
     elif session.step == 6:
-        session.update_info("autre", update.message.text)
+        text = update.message.text
         keyboard = [[KeyboardButton("🧽 Clean")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         # Résumé de l’en-tête déjà rempli
 
-        if session.data["autre"] == "Non fourni":
+        if text == "Non fourni":
             antre = ""
         else:
+            session.update_info("autre", text)
             autre = session.data["autre"]
+          
         await update.message.reply_text(
             f"🧾 En-tête :\n"
             f"{session.data['nom']} {session.data['prenom']}\n"
