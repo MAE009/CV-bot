@@ -21,8 +21,8 @@ nest_asyncio.apply()
 flask_app = Flask(__name__)
 
 
-YOUR_USER_ID = 123456789  # mon ID
-CHANNEL_ID = "@nom_du_canal"  # mon canal
+YOUR_USER_ID = 5227032520  # mon ID
+CHANNEL_ID = "@Temoignage_Service_M_A_E005"  # mon canal
 
 async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
