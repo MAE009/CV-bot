@@ -207,12 +207,33 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
+#from telegram.ext import CommandHandler
+
+async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    chat = update.effective_chat
+
+    await update.message.reply_text(
+        f"🧑‍💻 Ton ID utilisateur : `{user.id}`\n"
+        f"💬 Type de chat : `{chat.type}`\n"
+        f"🆔 Chat ID (si tu envoies cette commande depuis un canal ou groupe) : `{chat.id}`",
+        parse_mode="Markdown"
+    )
+
+
+
+
+
+
 async def run():  
     token = os.getenv("TELEGRAM_BOT_TOKEN")  
     app = ApplicationBuilder().token(token).build()  
     app.add_handler(CommandHandler("start", start))  
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.add_handler(CommandHandler("sendusers", send_users_command))
+    # Ajoute le handler :
+    app.add_handler(CommandHandler("id", get_id_command))
+
   
     await app.initialize()  
     await app.start()  
