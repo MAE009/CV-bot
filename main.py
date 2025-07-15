@@ -149,7 +149,7 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
     elif session.step == 7:
         session.update_info("resume", update.message.text)
         await update.message.reply_text(
-    "Votre résumé professionnel\n{}\n{}\n{}".format(
+    "🎯 Résumé Professionnel\n{}\n{}\n{}".format(
         "="*30,
         session.data["resume"],
         "="*30
