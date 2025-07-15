@@ -3,6 +3,7 @@ import asyncio
 import nest_asyncio  
 from cvbuilder import CVBuilder
 from user import*
+from Descrip import*
 from flask import Flask  
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
@@ -126,7 +127,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
         #session.next_step()
-        await update.message.reply_text("👉 On passe maintenant à la partie 2 : Objectif professionnel.")
+        #await update.message.reply_text("👉 On passe maintenant à la partie 2 : Objectif professionnel.")
 
         await update.message.reply_text("Partie N° 2 : le résumé 📜")
 
@@ -173,7 +174,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")
 
     elif text == "⚙️ Aide":
-        await update.message.reply_text("Je suis là pour t’aider à créer un CV étape par étape.")
+        await update.message.reply_text(texte_aide, parse_mode="Markdown")
 
     elif text == "❌ Quitter":
         await update.message.reply_text("Merci et à bientôt !")
@@ -189,15 +190,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=reply_markup)
 
-    #elif text == "Non fourni":
-        #if session.step == 6:
-            #session.update_info("autre", "Non fourni")
-            #session.next_step()
-            #await update.message.reply_text("Pas de souci ! Continuons 😊")
-            #await event_CVbuilding(update, context)
-        #else:
-            #await update.message.reply_text("Tu n'es pas à cette étape pour le moment.")
-
     else:
         # Si on est en pleine création de CV, continuer
         if session.step >= 1:
@@ -207,7 +199,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-#from telegram.ext import CommandHandler
 
 async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
