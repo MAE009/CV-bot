@@ -2,7 +2,7 @@ import os
 import asyncio  
 import nest_asyncio  
 from cvbuilder import CVBuilder
-from user import *
+from user import*
 from flask import Flask  
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
