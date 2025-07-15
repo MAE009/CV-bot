@@ -150,9 +150,9 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
         session.update_info("resume", update.message.text)
         await update.message.reply_text(
     "Votre résumé professionnel\n{}\n{}\n{}".format(
-        "="*50,
+        "="*30,
         session.data["resume"],
-        "="*50
+        "="*30
     )
 )
         session.next_step()
