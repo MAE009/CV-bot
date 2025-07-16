@@ -25,6 +25,18 @@ flask_app = Flask(__name__)
 YOUR_USER_ID = 5227032520  # mon ID
 CHANNEL_ID = "@Temoignage_Service_M_A_E005"  # mon canal
 
+async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    chat = update.effective_chat
+
+    await update.message.reply_text(
+        f"🧑‍💻 Ton ID utilisateur : `{user.id}`\n"
+        f"💬 Type de chat : `{chat.type}`\n"
+        f"🆔 Chat ID (si tu envoies cette commande depuis un canal ou groupe) : `{chat.id}`",
+        parse_mode="Markdown"
+    )
+
+
 async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id == YOUR_USER_ID:  # sécurité
@@ -58,7 +70,6 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     global session 
       
-    
     user = update.message.from_user
     user_id = user.id
     session = get_session(user_id)
@@ -150,14 +161,60 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
     elif session.step == 7:
         session.update_info("resume", update.message.text)
         await update.message.reply_text(
-    "🎯 Résumé Professionnel\n{}\n{}\n{}".format(
-        "="*30,
-        session.data["resume"],
-        "="*30
+        "🎯 Résumé Professionnel\n{}\n{}\n{}".format(
+            "="*30,
+            session.data["resume"],
+            "="*30
+        )
     )
-)
+        await update.message.reply_text("Partie N° 3 : Expérience professionnelle 🧑‍💼")
+        await update.message.reply_text("Combien d'expériences veux-tu ajouter ? (Ex: 1, 2, 3...)")
         session.next_step()
-     
+
+    elif session.step == 8:
+        try:
+            session.nb_experiences = int(update.message.text)
+            session.exp_index = 0
+            session.current_exp = {}
+            await update.message.reply_text(f"👉 Expérience {session.exp_index + 1} : Quel est l’intitulé du poste ?")
+            session.step = 9
+        except ValueError:
+            await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
+
+    elif session.step == 9:
+        session.current_exp["poste"] = update.message.text
+        await update.message.reply_text("Quel est le nom de l’entreprise ?")
+        session.step = 10
+
+    elif session.step == 10:
+        session.current_exp["entreprise"] = update.message.text
+        await update.message.reply_text("Quelle est la période d’emploi ? (Ex: 2020 - 2023)")
+        session.step = 11
+
+    elif session.step == 11:
+        session.current_exp["date"] = update.message.text
+        await update.message.reply_text("Décris brièvement tes fonctions principales 📝")
+        session.step = 12
+
+    elif session.step == 12:
+        session.current_exp["description"] = update.message.text
+        await update.message.reply_text("Indique une ou deux réalisations clés 🎯")
+        session.step = 13
+
+    elif session.step == 13:
+        session.current_exp["realisations"] = update.message.text
+        session.experiences.append(session.current_exp.copy())  # Enregistrer l’expérience
+
+        session.exp_index += 1
+        if session.exp_index < session.nb_experiences:
+            session.current_exp = {}
+            await update.message.reply_text(f"👉 Expérience {session.exp_index + 1} : Quel est l’intitulé du poste ?")
+            session.step = 9  # Recommencer à partir du titre du poste
+        else:
+            await update.message.reply_text("✅ Super, tu as terminé la section Expériences professionnelles !")
+            session.next_step()  # Passer à la suite (par exemple : Formation)
+
+
 
   
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -198,18 +255,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
 
-
-
-async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
-    chat = update.effective_chat
-
-    await update.message.reply_text(
-        f"🧑‍💻 Ton ID utilisateur : `{user.id}`\n"
-        f"💬 Type de chat : `{chat.type}`\n"
-        f"🆔 Chat ID (si tu envoies cette commande depuis un canal ou groupe) : `{chat.id}`",
-        parse_mode="Markdown"
-    )
+     
 
 
 
