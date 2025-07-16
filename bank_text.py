@@ -12,7 +12,7 @@ def header_summary(data, autre):
 
 def resume_summary(data):
     return (
-        "🎯 Résumé Professionnel\n
+        "🎯 Résumé Professionnel\n"
         f"{"="*30}\n"
         f"{data["resume"]}\n"
         f"{"="*30}\n\n"   
