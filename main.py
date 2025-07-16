@@ -188,8 +188,8 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 9  # Recommencer à partir du titre du poste
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Expériences professionnelles !")
-            session.next_step()  # Passer à la suite (par exemple : Formation)
-            await update.message.reply_text(str(len(session.experiences)))
+            session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
           
     elif session.step == 14:
         await update.message.reply_text(str(len(session.experiences)))
