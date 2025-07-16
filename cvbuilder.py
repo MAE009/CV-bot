@@ -7,11 +7,16 @@ class CVBuilder:
             "email": "",
             "tel": "",
             "autre": "",
-            "resume": "",
-            "competences": [],
-            "experiences": [],
-            "formations": []
+            "resume": ""
         }
+        self.competences = []
+        
+        self.experiences = []  # Liste pour stocker plusieurs expériences
+        self.current_exp = {}  # Temporaire
+        self.exp_index = 0     # Quelle expérience on est en train de saisir
+        self.nb_experiences = 0
+        self.formations = []
+        
 
     def next_step(self):
         self.step += 1
