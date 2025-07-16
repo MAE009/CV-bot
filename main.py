@@ -135,17 +135,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text("Partie N° 2 : le résumé 📜")
 
-        await update.message.reply_text("""🎯 Petit conseil pour booster ton CV !
-
-Tu n’as pas encore ajouté de résumé professionnel ? C’est dommage, car c’est souvent la première chose que les recruteurs lisent 👀.
-
-💡 En 2-3 phrases (environ 50 à 100 mots), tu peux :
-✅ Mettre en avant tes compétences clés
-✅ Résumer ton expérience
-✅ Montrer tes objectifs ou ambitions pro
-
-Pense à cette section comme une pub express de toi-même 📣 — elle peut vraiment te faire sortir du lot ✨. Alors n’hésite pas à la rédiger pour capter l’attention en quelques secondes !
-""")
+        await update.message.reply_text(text_conseil_resume, parse_mode = "Markdown")
 
         await update.message.reply_text("Vas-y, écris ✍️")
         session.next_step()
@@ -153,13 +143,7 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
   
     elif session.step == 7:
         session.update_info("resume", update.message.text)
-        await update.message.reply_text(
-        "🎯 Résumé Professionnel\n{}\n{}\n{}".format(
-            "="*30,
-            session.data["resume"],
-            "="*30
-        )
-    )
+        await update.message.reply_text(resume_summary(session.data), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 3 : Expérience professionnelle 🧑‍💼")
         await update.message.reply_text("Combien d'expériences veux-tu ajouter ? (Ex: 1, 2, 3...)")
         session.next_step()
@@ -207,7 +191,8 @@ Pense à cette section comme une pub express de toi-même 📣 — elle peut vra
             await update.message.reply_text("✅ Super, tu as terminé la section Expériences professionnelles !")
             session.next_step()  # Passer à la suite (par exemple : Formation)
 
-
+    elif session.step == 14:
+        await update.message.reply_text(experience_summary(session.experiences), parse_mode="Markdown")
 
   
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
