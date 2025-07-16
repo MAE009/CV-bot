@@ -3,7 +3,7 @@ import asyncio
 import nest_asyncio  
 from cvbuilder import CVBuilder
 from user import*
-from descript import*
+from bank_text import*
 from flask import Flask  
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
@@ -60,7 +60,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]  
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)  
   
-    with open('CV_bot.jpeg', 'rb') as photo:  
+    with open('Assets/CV_bot.jpeg', 'rb') as photo:  
         await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot !")  
         await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)  
 
