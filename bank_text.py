@@ -12,10 +12,10 @@ def header_summary(data, autre):
 
 def resume_summary(data):
     return (
-        "📌 *Récapitulatif - Résumé professionnel* \n"
-        f"{'='*50}\n"
-        f"{data.get('resume', 'Pas encore fourni.')}\n"
-        f"{'='*50}\n\n"
+        "🎯 Résumé Professionnel\n
+        f"{"="*30}\n"
+        f"{data["resume"]}\n"
+        f"{"="*30}\n\n"   
         "✅ *Conseil* : Ce résumé est souvent la première chose lue par un recruteur. Sois clair, concis, et montre ce que tu veux faire !"
     )
 
@@ -42,7 +42,17 @@ def experience_summary(experiences):
 
 
 
+text_conseil_resume = """🎯 *Petit conseil pour booster ton CV !*
 
+Tu n’as pas encore ajouté de résumé professionnel ? C’est dommage, car c’est souvent la première chose que les recruteurs lisent 👀.
+
+💡 En 2-3 phrases (environ 50 à 100 mots), tu peux :
+✅ Mettre en avant tes compétences clés
+✅ Résumer ton expérience
+✅ Montrer tes objectifs ou ambitions pro
+
+Pense à cette section comme une pub express de toi-même 📣 — elle peut vraiment te faire sortir du lot ✨. Alors n’hésite pas à la rédiger pour capter l’attention en quelques secondes !
+"""
 
 texte_aide = """
 🛠️ *Aide - Que fait chaque bouton ?*
