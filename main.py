@@ -8,8 +8,7 @@ from flask import Flask
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
   
-# Variables globales  
-begin_cv = False  
+# Variables globales
 sessions = {}  
   
 # Gestion des sessions utilisateur  
@@ -190,7 +189,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Expériences professionnelles !")
             session.next_step()  # Passer à la suite (par exemple : Formation)
-            await update.message.reply_text(len(session.experiences)
+            await update.message.reply_text(str(len(session.experiences)))
     
     elif session.step == 14:
         await update.message.reply_text(str(len(session.experiences)))
