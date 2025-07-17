@@ -198,6 +198,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(str(len(session.experiences)))
         await update.message.reply_text(experience_summary(session.experiences), parse_mode="Markdown")
         session.next_step()
+        await event_CVbuilding(update, context)
 
   
     elif session.step == 15:
