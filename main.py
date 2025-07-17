@@ -318,7 +318,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if session.lag_index < session.nb_lag:
             session.current_lag = {}
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
-            session.step = 27
+            # en reste à 28
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langues !")
             session.step = 29  # passe à 30
