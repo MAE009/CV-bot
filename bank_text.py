@@ -36,7 +36,30 @@ def experience_summary(experiences):
 
 
 
+text_conseil_formation = """
+🎓 *Conseil – Formation*
 
+La section *Formation*, c’est un peu la carte d’identité scolaire de ton CV 🎒. Elle montre que tu n’es pas tombé dans la marmite de la compétence par hasard, mais que tu as bossé dur pour en arriver là 📚💪.
+
+✅ Elle doit inclure :
+- 🎓 Le(s) diplôme(s) obtenu(s)
+- 🏫 L’établissement fréquenté
+- 📅 Les années de début et de fin (oui, les deux, pas juste "2020"... c’est louche sinon 👀)
+
+🧠 Et surtout : classe-les dans l’ordre **chronologique décroissant** ! Commence toujours par ta dernière formation (la plus récente = la plus pertinente 🧲).  
+Faire l’inverse, c’est comme lire la fin d’un manga avant le début : c’est bizarre et personne ne fait ça (sauf peut-être les méchants 😈).
+
+📌 Pourquoi c’est important ?  
+Parce que les recruteurs veulent voir immédiatement ta dernière étape de formation. C’est ce qui leur donne une idée de *ce que tu sais aujourd’hui*, pas de ce que tu as appris au collège ✏️.
+
+⚠️ Petit rappel (parce que c’est courant) : n’oublie pas les dates ! Une formation sans date, c’est comme un diplôme dans une chaussette… On ne sait pas trop d’où ça sort 🧦🎭. Et crois-moi, les recruteurs ont un détecteur de flou artistique activé en permanence !
+
+🎯 Alors fais en sorte que ta section Formation soit claire, complète et bien classée. C’est l’occasion de montrer que tu as de la matière grise, et que tu sais aussi la présenter avec style 😎.
+"""
+
+
+
+    
 text_conseil_Exp = """
 🎯 *Conseil – Expérience Professionnelle*
 
@@ -51,7 +74,7 @@ Ta section "Expérience professionnelle" ? C’est le cœur de ton CV ❤️‍�
 
 💡 Pro-tip : Liste toujours tes expériences en ordre chronologique *décroissant* (la plus récente en premier). Pourquoi ? Parce que les recruteurs veulent savoir ce que tu fais *en ce moment* ou ce que tu as fait dernièrement – pas ce que tu faisais au lycée 😅
 
-⚠️ Attention ! N'oubliez pas les dates de début ou de fin. C’est un peu comme regarder un film sans savoir quand il commence ni quand il finit 🎬... Frustrant !
+⚠️ Attention ! N'oublie pas les dates de début ou de fin. C’est un peu comme regarder un film sans savoir quand il commence ni quand il finit 🎬... Frustrant !
 
 📈 Bref : montre ta progression, sois clair, précis, et évite d’en faire trop. On veut du concret, pas une biographie de super-héros (à moins que tu sois Batman, là c’est différent 🦇).
 """
