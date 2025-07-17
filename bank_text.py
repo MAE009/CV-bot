@@ -40,9 +40,9 @@ def education_summary(educations):
     for i, edu in enumerate(educations):
         texte_edu += (
             f"\n🎓 Formation {i+1} :\n"
-            f"🏫 Établissement : {edu.get('etablissement', '')}\n"
-            f"📘 Diplôme : {edu.get('diplome', '')}\n"
-            f"📅 Années : {edu.get('annee', '')}\n"
+            f"🏫 Établissement : {edu.get('établissement', '')}\n"
+            f"📘 Diplôme : {edu.get('diplôme', '')}\n"
+            f"📅 Années : {edu.get('date_debut', '')} - {edu.get('date_fin', '')}\n"
             f"📍 Lieu : {edu.get('lieu', '')}\n"
         )
     texte_edu += "\n✅ *Conseil* : Mets en avant les diplômes les plus pertinents pour le poste visé. Mentionne l’année d’obtention clairement."
