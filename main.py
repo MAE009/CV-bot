@@ -233,6 +233,12 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
       
     elif session.step == 20:
         session.current_format["date_fin"]=update.message.text
+        await update.message.reply_text("Enfin le lieu ?")
+        session.step = 21
+      
+    elif session.step == 21:
+        session.current_format["lieu"]=update.message.text
+        
         session.formations.append(session.current_format.copy())  # Enregistrer l’expérience
 
         session.format_index += 1
@@ -247,46 +253,46 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             #await event_CVbuilding(update, context)
      
     
-    elif session.step == 21:
+    elif session.step == 22:
         await update.message.reply_text(education_summary(session.formations), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 5: *Compétences 🧰*", parse_mode="Markdown")
         await update.message.reply_text(competence_conseil, parse_mode="Markdown")
         await update.message.reply_text("Quelles sont tes compétences ?")
         session.next_step()
       
-    elif session.step == 22:
+    elif session.step == 23:
         session.competences.append(update.message.text)
         await update.message.reply_text(skills_summary(session.competences), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 6: *Langues 🗣️*", parse_mode="Markdown")
         await update.message.reply_text("Combien de langue maîtrise tu ?")
         session.next_step()
       
-    elif session.step == 23:
+    elif session.step == 24:
         try:
             session.nb_lag = int(update.message.text)
             session.lag_index = 0
             session.current_lag = {}
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
-            session.step = 24
+            session.step = 25
         except ValueError:
             await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
           
-    elif session.step == 24:
+    elif session.step == 25:
         session.current_lag["nom"]=update.message.text
         session.langues.append(session.current_lag.copy())  # Enregistrer l’expérience
 
         session.lag_index += 1
         if session.lag_index < session.nb_langues:
-            session.lag_format = {}
-            await update.message.reply_text(f"👉 Langue {session.format_index + 1} : Quel est le nom de la langue ?")
-            session.step = 24  # Recommencer à partir du titre du poste
+            session.current_lag = {}
+            await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
+            session.step = 25  # Recommencer à partir du titre du poste
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langue !")
             await event_CVbuilding(update, context)
             session.next_step()  # maintenant step = 14
             #await event_CVbuilding(update, context)
     
-    elif session.step == 25:
+    elif session.step == 26:
         await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
 
 
