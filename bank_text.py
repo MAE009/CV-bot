@@ -37,8 +37,24 @@ def experience_summary(experiences):
 
 
 
+text_conseil_Exp = """
+🎯 *Conseil – Expérience Professionnelle*
 
+Ta section "Expérience professionnelle" ? C’est le cœur de ton CV ❤️‍🔥 ! Elle montre clairement ce que tu sais faire, où tu l’as fait, et ce que tu as accompli. C’est là que les recruteurs vont chercher *la preuve* que tu es la bonne personne pour le poste. Alors… ne la bâcle pas 😏.
 
+✅ *Assure-toi d’indiquer :*
+- 🧑‍💼 Le poste occupé
+- 🏢 Le nom de l’entreprise
+- 🗓️ Les dates (mois + année, hein ! Pas juste “2021–2023” 🙃)
+- 🛠️ Une brève description de tes missions
+- 🌟 Tes réalisations concrètes
+
+💡 Pro-tip : Liste toujours tes expériences en ordre chronologique *décroissant* (la plus récente en premier). Pourquoi ? Parce que les recruteurs veulent savoir ce que tu fais *en ce moment* ou ce que tu as fait dernièrement – pas ce que tu faisais au lycée 😅
+
+⚠️ Attention ! N'oubliez pas les dates de début ou de fin. C’est un peu comme regarder un film sans savoir quand il commence ni quand il finit 🎬... Frustrant !
+
+📈 Bref : montre ta progression, sois clair, précis, et évite d’en faire trop. On veut du concret, pas une biographie de super-héros (à moins que tu sois Batman, là c’est différent 🦇).
+"""
 
 
 
