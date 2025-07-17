@@ -15,7 +15,11 @@ class CVBuilder:
         self.current_exp = {}  # Temporaire
         self.exp_index = 0     # Quelle expérience on est en train de saisir
         self.nb_experiences = 0
+        
         self.formations = []
+        self.current_format = {}  # Temporaire
+        self.format_index = 0     # Quelle formation on est en train de saisir
+        self.nb_formations = 0
         
 
     def next_step(self):
