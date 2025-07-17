@@ -10,6 +10,9 @@ class CVBuilder:
             "resume": ""
         }
         self.competences = []
+        self.current_comp = {}  # Temporaire
+        self.comp_index = 0     # Quelle expérience on est en train de saisir
+        self.nb_comp = 0
         
         self.experiences = []  # Liste pour stocker plusieurs expériences
         self.current_exp = {}  # Temporaire
