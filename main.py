@@ -80,7 +80,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         if session.step == 0:
             #session.update_info("nom", update.message.text)
-            await update.message.reply_text("Partie N° 1 : l'entête 🪧")
+            await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
             await update.message.reply_text("Quel est ton nom de famille ?")
             
             session.next_step()
@@ -132,7 +132,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         #session.next_step()
         #await update.message.reply_text("👉 On passe maintenant à la partie 2 : Objectif professionnel.")
 
-        await update.message.reply_text("Partie N° 2 : le résumé 📜")
+        await update.message.reply_text("Partie N° 2 : *le résumé 📜*", parse_mode="Markdown")
 
         await update.message.reply_text(text_conseil_resume, parse_mode = "Markdown")
 
@@ -143,7 +143,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif session.step == 7:
         session.update_info("resume", update.message.text)
         await update.message.reply_text(resume_summary(session.data), parse_mode="Markdown")
-        await update.message.reply_text("Partie N° 3 : Expérience professionnelle 🧑‍💼")
+        await update.message.reply_text("Partie N° 3 : *Expérience professionnelle 🧑‍💼*", parse_mode="Markdown")
         await update.message.reply_text(text_conseil_Exp, parse_mode="Markdown")
         await update.message.reply_text("Combien d'expériences veux-tu ajouter ? (Ex: 1, 2, 3...)")
         session.next_step()
@@ -199,7 +199,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
   
     elif session.step == 15:
-        await update.message.reply_text("Partie N° 4 : Formation 🎓")
+        await update.message.reply_text("Partie N° 4 : *Formation 🎓*", parse_mode="Markdown")
         await update.message.reply_text(text_conseil_formation, parse_mode="Markdown")
         await update.message.reply_text("Combien de formations (diplômes ou certificats) veux-tu ajouter ? (ex : 2)")
         session.next_step()
@@ -247,11 +247,43 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     elif session.step == 21:
         await update.message.reply_text(education_summary(session.formations), parse_mode="Markdown")
+        await update.message.reply_text("Partie N° 5: *Compétences 🧰*", parse_mode="Markdown")
+        await update.message.reply_text(competence_conseil, parse_mode="Markdown")
+        session.next_step()
+      
+    elif session.step == 22:
+        session.competences.append(update.message.text)
+        await update.message.reply_text(skills_summary(session.competences), parse_mode="Markdown")
+        await update.message.reply_text("Partie N° 6: *Langues 🗣️*", parse_mode="Markdown")
+        await update.message.reply_text("Combien de langue maîtrise tu ?")
+        session.next_step()
+      
+    elif session.step == 23:
+        try:
+            session.nb_lag = int(update.message.text)
+            session.lag_index = 0
+            session.current_lag = {}
+            await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
+            session.step = 24
+        except ValueError:
+            await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
+          
+    elif session.step == 24:
+        session.current_lag["nom"]=update.message.text
+        session.langues.append(session.current_format.copy())  # Enregistrer l’expérience
 
-
-
-
-
+        session.lag_index += 1
+        if session.lag_index < session.nb_langues:
+            session.lag_format = {}
+            await update.message.reply_text(f"👉 Langue {session.format_index + 1} : Quel est le nom de la langue ?")
+            session.step = 24  # Recommencer à partir du titre du poste
+        else:
+            await update.message.reply_text("✅ Super, tu as terminé la section Langue !")
+            session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
+    
+    elif session.step == 25:
+        await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
 
 
 
