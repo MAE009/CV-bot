@@ -55,7 +55,7 @@ def skills_summary(skills_list):
         texte += "Aucune compétence enregistrée."
     else:
         for i, skill in enumerate(skills_list):
-            texte += f"🔹 {i+1}. {skill}\n"
+            texte += f"🔹 {i+1}. {skill.get("comp", '')}\n"
     texte += "\n✅ *Conseil* : Ne liste que les compétences que tu maîtrises vraiment. Mieux vaut peu mais solide 💪"
     return texte
     
@@ -64,7 +64,7 @@ def langues_summary(langues):
     texte_lag = "📌 *Récapitulatif - Langues* \n"
     for i, lag in enumerate(langues):
         texte_lag += (
-            f"{i} : 🗣️ {lag.get('nom', '')}\n"
+            f"{i+1} : 🗣️ {lag.get('nom', '')}\n"
         )
     return texte_lag
 
