@@ -20,6 +20,11 @@ class CVBuilder:
         self.current_format = {}  # Temporaire
         self.format_index = 0     # Quelle formation on est en train de saisir
         self.nb_formations = 0
+
+        self.langues = []
+        self.current_lag = {}  # Temporaire
+        self.lag_index = 0     # Quelle formation on est en train de saisir
+        self.nb_langues = 0
         
 
     def next_step(self):
