@@ -254,56 +254,52 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await event_CVbuilding(update, context)
      
     
+    # 👣 Étape 22 : Affichage des formations, passage aux compétences
     elif session.step == 22:
         await update.message.reply_text(education_summary(session.formations), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 5: *Compétences 🧰*", parse_mode="Markdown")
         await update.message.reply_text(competence_conseil, parse_mode="Markdown")
-        await update.message.reply_text("Combien de compétences maîtrise tu ?")
-        session.next_step()
-      
-    
+        await update.message.reply_text("Combien de compétences maîtrises-tu ?")
+        session.next_step()  # passe à 23
 
-
+    # 🧮 Étape 23 : Récupération du nombre de compétences
     elif session.step == 23:
         try:
             session.nb_comp = int(update.message.text)
             session.comp_index = 0
             session.current_comp = {}
-            await update.message.reply_text(f"👉 Compétences {session.comp_index + 1} : Quel est cette compétence ?")
+            await update.message.reply_text(f"👉 Compétence {session.comp_index + 1} : Quel est cette compétence ?")
             session.step = 24
         except ValueError:
             await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
-          
 
-
+    # 🧠 Étape 24 : Saisie du nom de la compétence
     elif session.step == 24:
-       session.current_comp["comp"] = update.message.text
-       session.step = 25
-    
-    elif session.step == 25:
-        session.competences.append(session.current_comp.copy())  # Enregistrer l’expérience
+        session.current_comp["comp"] = update.message.text
+        session.step = 25
 
+    # 💾 Étape 25 : Enregistrement + itération
+    elif session.step == 25:
+        session.competences.append(session.current_comp.copy())
         session.comp_index += 1
+
         if session.comp_index < session.nb_comp:
             session.current_comp = {}
             await update.message.reply_text(f"👉 Compétence {session.comp_index + 1} : Quel est cette compétence ?")
-            session.step = 24  # Recommencer à partir du titre du poste
+            session.step = 24
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section compétences !")
-            #await event_CVbuilding(update, context)
-            session.next_step()  # maintenant step = 14
+            session.next_step()  # passe à 26
             await event_CVbuilding(update, context)
-  
-      
-    
+
+    # 📌 Étape 26 : Résumé des compétences + passage à la section langues
     elif session.step == 26:
-        #session.competences.append(update.message.text)
         await update.message.reply_text(skills_summary(session.competences), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 6: *Langues 🗣️*", parse_mode="Markdown")
-        await update.message.reply_text("Combien de langue maîtrise tu ?")
-        session.next_step()
-    
-    
+        await update.message.reply_text("Combien de langues maîtrises-tu ?")
+        session.next_step()  # passe à 27
+
+    # 🧮 Étape 27 : Nombre de langues
     elif session.step == 27:
         try:
             session.nb_lag = int(update.message.text)
@@ -313,31 +309,29 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 28
         except ValueError:
             await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
-          
+
+    # 🗣️ Étape 28 : Saisie du nom de la langue
     elif session.step == 28:
-        session.current_lag["nom"]=update.message.text
+        session.current_lag["nom"] = update.message.text
         session.step = 29
-    
-    
 
+    # 💾 Étape 29 : Enregistrement des langues + itération
     elif session.step == 29:
-        
-        session.langues.append(session.current_lag.copy())  # Enregistrer l’expérience
-
+        session.langues.append(session.current_lag.copy())
         session.lag_index += 1
+
         if session.lag_index < session.nb_lag:
             session.current_lag = {}
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
-            session.step = 28  # Recommencer à partir du titre du poste
+            session.step = 28
         else:
-            await update.message.reply_text("✅ Super, tu as terminé la section Langue !")
-            #await event_CVbuilding(update, context)
-            session.next_step()  # maintenant step = 14
+            await update.message.reply_text("✅ Super, tu as terminé la section Langues !")
+            session.next_step()  # passe à 30
             await event_CVbuilding(update, context)
-    
+
+    # 📋 Étape 30 : Affichage du résumé des langues
     elif session.step == 30:
         await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
-
 
 
 
