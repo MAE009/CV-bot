@@ -297,7 +297,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
       
     
     elif session.step == 26:
-        session.competences.append(update.message.text)
+        #session.competences.append(update.message.text)
         await update.message.reply_text(skills_summary(session.competences), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 6: *Langues 🗣️*", parse_mode="Markdown")
         await update.message.reply_text("Combien de langue maîtrise tu ?")
@@ -325,7 +325,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         session.langues.append(session.current_lag.copy())  # Enregistrer l’expérience
 
         session.lag_index += 1
-        if session.lag_index < session.nb_langues:
+        if session.lag_index < session.nb_lag:
             session.current_lag = {}
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
             session.step = 28  # Recommencer à partir du titre du poste
