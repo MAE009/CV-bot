@@ -201,6 +201,74 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif session.step == 15:
         await update.message.reply_text("Partie N° 3 : Formation 🎓")
         await update.message.reply_text(text_conseil_formation, parse_mode="Markdown")
+        await update.message.reply_text("Combien de formations (diplômes ou certificats) veux-tu ajouter ? (ex : 2)")
+        session.next_step()
+
+    elif session.step == 16:
+        try:
+            session.nb_formations = int(update.message.text)
+            session.format_index = 0
+            session.current_format = {}
+            await update.message.reply_text(f"👉 Formation {session.format_index + 1} : 1️⃣ Quel est l'intitulé du diplôme ou certificat ? (ex : BTS en Informatique)")
+            session.step = 17
+        except ValueError:
+            await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
+          
+
+    elif session.step == 17:
+        session.current_format["diplôme"]=update.message.text
+        await update.message.reply_text("2️⃣ Dans quel établissement l’as-tu obtenu ? (ex : Institut Technique de Pointe-Noire)")
+        session.step = 18
+      
+    elif session.step == 18:
+         session.current_format["établissement"]=update.message.text
+         await update.message.reply_text("3️⃣ Quelle est l’année de début ? (ex : 2021)")
+         session.step = 19
+      
+    elif session.step == 19:
+        session.current_format["date_debut"]=update.message.text
+        await update.message.reply_text("4️⃣ Et l’année de fin ? (ex : 2023)")
+        session.step = 20
+      
+    elif session.step == 20:
+        session.current_format["date_fin"]=update.message.text
+        session.experiences.append(session.current_exp.copy())  # Enregistrer l’expérience
+
+        session.format_index += 1
+        if session.format_index < session.nb_formations:
+            session.current_format = {}
+            await update.message.reply_text(f"👉 Formation {session.format_index + 1} : 1️⃣ Quel est l'intitulé du diplôme ou certificat ? (ex : BTS en Informatique)")
+            session.step = 17  # Recommencer à partir du titre du poste
+        else:
+            await update.message.reply_text("✅ Super, tu as terminé la section Formation !")
+            session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    elif session.step ==
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
