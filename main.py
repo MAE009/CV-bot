@@ -273,24 +273,21 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except ValueError:
             await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
 
-    # 🧠 Étape 24 : Saisie du nom de la compétence
+    # 🧠 Étape 24 : Saisie du nom de la compétence ET traitement
     elif session.step == 24:
         session.current_comp["comp"] = update.message.text
-        session.step = 25
-
-    # 💾 Étape 25 : Enregistrement + itération
-    elif session.step == 25:
         session.competences.append(session.current_comp.copy())
         session.comp_index += 1
 
         if session.comp_index < session.nb_comp:
             session.current_comp = {}
             await update.message.reply_text(f"👉 Compétence {session.comp_index + 1} : Quel est cette compétence ?")
-            session.step = 24
+            # reste à 24
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section compétences !")
-            session.step = 26  # passe à 26
+            session.step = 26  # on saute à la suite
             await event_CVbuilding(update, context)
+          
 
     # 📌 Étape 26 : Résumé des compétences + passage à la section langues
     elif session.step == 26:
@@ -310,27 +307,25 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except ValueError:
             await update.message.reply_text("❌ Entre un nombre valide (1, 2, 3...)")
 
-    # 🗣️ Étape 28 : Saisie du nom de la langue
-    elif session.step == 28:
-        session.current_lag["nom"] = update.message.text
-        session.step = 29
+  
 
     # 💾 Étape 29 : Enregistrement des langues + itération
-    elif session.step == 29:
+    elif session.step == 28:
+        session.current_lag["nom"] = update.message.text
         session.langues.append(session.current_lag.copy())
         session.lag_index += 1
 
         if session.lag_index < session.nb_lag:
             session.current_lag = {}
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
-            session.step = 28
+            session.step = 27
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langues !")
-            session.step = 30  # passe à 30
+            session.step = 29  # passe à 30
             await event_CVbuilding(update, context)
 
     # 📋 Étape 30 : Affichage du résumé des langues
-    elif session.step == 30:
+    elif session.step == 29:
         await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
 
 
