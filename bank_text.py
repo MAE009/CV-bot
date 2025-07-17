@@ -35,6 +35,40 @@ def experience_summary(experiences):
 
 
 
+def education_summary(educations):
+    texte_edu = "📌 *Récapitulatif - Formations* \n"
+    for i, edu in enumerate(educations):
+        texte_edu += (
+            f"\n🎓 Formation {i+1} :\n"
+            f"🏫 Établissement : {edu.get('etablissement', '')}\n"
+            f"📘 Diplôme : {edu.get('diplome', '')}\n"
+            f"📅 Années : {edu.get('annee', '')}\n"
+            f"📍 Lieu : {edu.get('lieu', '')}\n"
+        )
+    texte_edu += "\n✅ *Conseil* : Mets en avant les diplômes les plus pertinents pour le poste visé. Mentionne l’année d’obtention clairement."
+    return texte_edu
+
+
+def skills_summary(skills_list):
+    texte = "📌 *Récapitulatif - Compétences* \n\n"
+    if not skills_list:
+        texte += "Aucune compétence enregistrée."
+    else:
+        for i, skill in enumerate(skills_list):
+            texte += f"🔹 {i+1}. {skill}\n"
+    texte += "\n✅ *Conseil* : Ne liste que les compétences que tu maîtrises vraiment. Mieux vaut peu mais solide 💪"
+    return texte
+    
+
+competence_conseil = (
+    "✅ *Conseil - Compétences*\n\n"
+    "🧠 La rubrique *Compétences*, c’est un peu ta carte Pokémon : montre ce que tu sais faire, ce que tu maîtrises, et ce qui te rend unique 💥\n\n"
+    "📌 C’est grâce à elle que ton CV passe les robots ATS (oui, ces recruteurs robots qui scannent les CV 👾). Mets-y les bons mots-clés sinon... *GAME OVER* 🎮\n\n"
+    "🔑 Astuce : sélectionne entre *8 à 15 compétences* pertinentes. Pas besoin de tout mettre, on veut le meilleur, pas l’inventaire de ton cerveau 🧰🧠.\n\n"
+    "💡 Et surtout, *adapte tes compétences à chaque offre* d’emploi ! Un bon CV, c’est comme un bon plat : ça se prépare sur-mesure 🍽️😉"
+)
+
+
 
 text_conseil_formation = """
 🎓 *Conseil – Formation*
