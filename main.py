@@ -289,7 +289,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 24
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section compétences !")
-            session.next_step()  # passe à 26
+            session.step = 26  # passe à 26
             await event_CVbuilding(update, context)
 
     # 📌 Étape 26 : Résumé des compétences + passage à la section langues
@@ -326,7 +326,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 28
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langues !")
-            session.next_step()  # passe à 30
+            session.step = 30  # passe à 30
             await event_CVbuilding(update, context)
 
     # 📋 Étape 30 : Affichage du résumé des langues
