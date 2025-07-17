@@ -189,8 +189,9 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 9  # Recommencer à partir du titre du poste
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Expériences professionnelles !")
-            await event_CVbuilding(update, context)
+            
             session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
             
           
     elif session.step == 14:
@@ -248,9 +249,9 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 17  # Recommencer à partir du titre du poste
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Formation !")
-            await event_CVbuilding(update, context)
-            session.next_step()  # maintenant step = 14
             #await event_CVbuilding(update, context)
+            session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
      
     
     elif session.step == 22:
@@ -288,9 +289,9 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.step = 25  # Recommencer à partir du titre du poste
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langue !")
-            await event_CVbuilding(update, context)
-            session.next_step()  # maintenant step = 14
             #await event_CVbuilding(update, context)
+            session.next_step()  # maintenant step = 14
+            await event_CVbuilding(update, context)
     
     elif session.step == 26:
         await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
