@@ -144,6 +144,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         session.update_info("resume", update.message.text)
         await update.message.reply_text(resume_summary(session.data), parse_mode="Markdown")
         await update.message.reply_text("Partie N° 3 : Expérience professionnelle 🧑‍💼")
+        await update.message.reply_text(text_conseil_Exp, parse_mode="Markdown")
         await update.message.reply_text("Combien d'expériences veux-tu ajouter ? (Ex: 1, 2, 3...)")
         session.next_step()
 
@@ -194,8 +195,16 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif session.step == 14:
         await update.message.reply_text(str(len(session.experiences)))
         await update.message.reply_text(experience_summary(session.experiences), parse_mode="Markdown")
+        session.next_step()
 
   
+    elif session.step == 15:
+        await update.message.reply_text("Partie N° 3 : Formation 🎓")
+        await update.message.reply_text(text_conseil_formation, parse_mode="Markdown")
+
+
+
+
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     user_id = update.message.from_user.id
