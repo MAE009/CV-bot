@@ -199,7 +199,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
   
     elif session.step == 15:
-        await update.message.reply_text("Partie N° 3 : Formation 🎓")
+        await update.message.reply_text("Partie N° 4 : Formation 🎓")
         await update.message.reply_text(text_conseil_formation, parse_mode="Markdown")
         await update.message.reply_text("Combien de formations (diplômes ou certificats) veux-tu ajouter ? (ex : 2)")
         session.next_step()
@@ -232,7 +232,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
       
     elif session.step == 20:
         session.current_format["date_fin"]=update.message.text
-        session.experiences.append(session.current_exp.copy())  # Enregistrer l’expérience
+        session.formations.append(session.current_format.copy())  # Enregistrer l’expérience
 
         session.format_index += 1
         if session.format_index < session.nb_formations:
@@ -243,16 +243,10 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("✅ Super, tu as terminé la section Formation !")
             session.next_step()  # maintenant step = 14
             await event_CVbuilding(update, context)
+     
     
-  
-    
-    
-    
-    
-    
-    
-    
-    elif session.step ==
+    elif session.step == 21:
+        await update.message.reply_text(education_summary(session.formations), parse_mode="Markdown")
 
 
 
