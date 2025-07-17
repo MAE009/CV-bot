@@ -60,11 +60,11 @@ def skills_summary(skills_list):
     return texte
     
 
-def langue_summary(langues):
+def langues_summary(langues):
     texte_lag = "📌 *Récapitulatif - Langues* \n"
-    for lag in (langues):
+    for i, lag in enumerate(langues):
         texte_lag += (
-            f"🗣️ : {lag.get('nom', '')}\n"
+            f"{i} : 🗣️ {lag.get('nom', '')}\n"
         )
     return texte_lag
 
