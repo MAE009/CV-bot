@@ -60,6 +60,17 @@ def skills_summary(skills_list):
     return texte
     
 
+def langue_summary(langues):
+    texte_lag = "📌 *Récapitulatif - Langues* \n"
+    for lag in (langues):
+        texte_lag += (
+            f"🗣️ : {lag.get('nom', '')}\n"
+        )
+    return texte_lag
+
+
+
+
 competence_conseil = (
     "✅ *Conseil - Compétences*\n\n"
     "🧠 La rubrique *Compétences*, c’est un peu ta carte Pokémon : montre ce que tu sais faire, ce que tu maîtrises, et ce qui te rend unique 💥\n\n"
