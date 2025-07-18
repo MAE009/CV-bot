@@ -5,12 +5,24 @@ from cvbuilder import CVBuilder
 from user import*
 from bank_text import*
 from flask import Flask  
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile  
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
   
 # Variables globales
 sessions = {}  
-  
+
+
+
+def infos(update, context):
+    web_app_url = "https://cv-bot-infos.onrender.com"
+    web_app = WebAppInfo(url=web_app_url)
+    keyboard = [[InlineKeyboardButton("Ouvrir Web App", web_app=web_app)]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text("Clique sur le bouton pour ouvrir la Web App pour plus d'aide", reply_markup=reply_markup)from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+
+
+
+
 # Gestion des sessions utilisateur  
 def get_session(user_id):  
     if user_id not in sessions:  
@@ -72,7 +84,7 @@ def home():
   
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     keyboard = [  
-        [KeyboardButton("📁 Collecter les données"), KeyboardButton("📄 Voir un exemple")],  
+        [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],  
         [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],  
         [KeyboardButton("🧽 Clean")]  
     ]  
@@ -364,7 +376,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     session = get_session(user_id)
 
-    if text == "📁 Collecter les données":
+    if text == "📝 Créer un CV":
         session.step = 0  # On recommence à zéro
         await update.message.reply_text("Super ! Commençons la création du CV.")
         await event_CVbuilding(update, context)
@@ -374,6 +386,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
+        await infos(update, context)
 
     elif text == "❌ Quitter":
         await update.message.reply_text("Merci et à bientôt !")
@@ -382,7 +395,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if user_id in sessions:
             del sessions[user_id]
         keyboard = [
-            [KeyboardButton("📁 Collecter les données"), KeyboardButton("📄 Voir un exemple")],
+            [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
             [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
             [KeyboardButton("🧽 Clean")]
         ]
