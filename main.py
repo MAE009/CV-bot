@@ -326,13 +326,18 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 📋 Étape 30 : Affichage du résumé des langues
     elif session.step == 29:
-        await update.message.reply_text(langues_summary(session.langues), parse_mode="Markdown")
-        file_path = session.simple_cv()
+        try:
+            await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
 
-        with open(file_path, "rb") as file:
-            await update.message.reply_text("✅ Voici ton CV généré automatiquement !")
-            await update.message.reply_document(document=InputFile(file), filename=file_path)
+            file_path = session.simple_cv()  # Génère le PDF
+    
+            with open(file_path, "rb") as file:
+                await update.message.reply_text("✅ CV généré avec succès !")
+                await update.message.reply_document(document=InputFile(file), filename=file_path)
 
+        except Exception as e:
+            await update.message.reply_text("❌ Une erreur est survenue lors de la création du CV 😞")
+            print("Erreur :", e)
 
 
 
