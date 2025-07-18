@@ -53,7 +53,7 @@ def home():
   
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):  
     keyboard = [  
-        [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],  
+        [KeyboardButton("📁 Collecter les données"), KeyboardButton("📄 Voir un exemple")],  
         [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],  
         [KeyboardButton("🧽 Clean")]  
     ]  
@@ -346,7 +346,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     session = get_session(user_id)
 
-    if text == "📝 Créer un CV":
+    if text == "📁 Collecter les données":
         session.step = 0  # On recommence à zéro
         await update.message.reply_text("Super ! Commençons la création du CV.")
         await event_CVbuilding(update, context)
@@ -364,7 +364,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if user_id in sessions:
             del sessions[user_id]
         keyboard = [
-            [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
+            [KeyboardButton("📁 Collecter les données"), KeyboardButton("📄 Voir un exemple")],
             [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
             [KeyboardButton("🧽 Clean")]
         ]
