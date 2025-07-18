@@ -5,7 +5,7 @@ from cvbuilder import CVBuilder
 from user import*
 from bank_text import*
 from flask import Flask  
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton  
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile  
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
   
 # Variables globales
@@ -330,13 +330,16 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
 
             file_path = session.simple_cv()  # Génère le PDF
-    
+
             with open(file_path, "rb") as file:
-                await update.message.reply_text("✅ CV généré avec succès !")
-                await update.message.reply_document(document=InputFile(file), filename=file_path)
+                await update.message.reply_document(
+                    document=InputFile(file),
+                    filename=file_path.split("/")[-1],
+                    caption="✅ Voici ton CV tout beau, tout propre ! 💼\nTu peux le télécharger et l’utiliser directement."
+                )
 
         except Exception as e:
-            await update.message.reply_text("❌ Une erreur est survenue lors de la création du CV 😞")
+            await update.message.reply_text("❌ Une erreur est survenue lors de la création du CV 😞\nEssaye de recommencer ou contacte le support.")
             print("Erreur :", e)
 
 
