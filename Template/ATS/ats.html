@@ -9,7 +9,7 @@
   <header>
     <h1>{{ infos.nom }} {{ infos.prenom }}</h1>
     <p>{{ infos.poste }}</p>
-    <p>{{ infos.ville }} || {{ infos.tel }} || {{ infos.email }} || {{ infos.autre }}</p>
+    <p>{{ infos.ville }} || {{ infos.tel }} || <a href="mailto :{{ infos.email }}">{{ infos.email }}</a> || <a href ="{{ infos.autre }}">{{ infos.autre }}</a></p>
   </header>
 
   <section>
