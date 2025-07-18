@@ -339,7 +339,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 )
 
         except Exception as e:
-            await update.message.reply_text("❌ Une erreur est survenue lors de la création du CV 😞\nEssaye de recommencer ou contacte le support.")
+            await update.message.reply_text(f"❌ Une erreur est survenue lors de la création du CV 😞\nEssaye de recommencer ou contacte le support.\n{e}")
             print("Erreur :", e)
 
 
