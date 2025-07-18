@@ -3,3 +3,5 @@ python-telegram-bot==20.3
 nest_asyncio
 python-docx
 docx2pdf  # si tu veux convertir en PDF sous Windows
+Jinja2
+WeasyPrint
