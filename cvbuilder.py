@@ -40,23 +40,34 @@ class CVBuilder:
         from telegram import InputFile
         from jinja2 import Environment, FileSystemLoader
         from weasyprint import HTML
+        import os
 
+        # Charger le template depuis le dossier Template/ATS
         env = Environment(loader=FileSystemLoader('Template/ATS'))
         template = env.get_template('ats_template.html')
 
-        # Organisation des données à injecter dans le template
+        # Organisation des données pour le template
         context = {
-            "infos": self.data,
-            "experiences": self.experiences,
-            "competences": self.competences,
-            "formations": self.formations,
-            "langues": self.langues
+        "infos": self.data,
+        "experiences": self.experiences,
+        "competences": self.competences,
+        "formations": self.formations,
+        "langues": self.langues
         }
 
+        # Rendu HTML du template
         html = template.render(context)
-    
+
         # Nom de fichier sécurisé
-        nom_fichier = f"{self.data.get('nom', 'cv')}_ats.pdf"
-       # path = f""
-        HTML(string=html, base_url='.').write_pdf(nom_fichier)
-        return nom_fichier
+        nom = self.data.get('nom', 'cv').replace(" ", "_").lower()
+        nom_fichier = f"{nom}_ats.pdf"
+
+        # Chemin de sauvegarde (optionnel : créer un dossier "generated_cv")
+        dossier = "generated_cv"
+        os.makedirs(dossier, exist_ok=True)
+        chemin_complet = os.path.join(dossier, nom_fichier)
+
+        # Génération du PDF
+        HTML(string=html, base_url='Template/ATS').write_pdf(chemin_complet)
+
+        return chemin_complet
