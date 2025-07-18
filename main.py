@@ -219,12 +219,12 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
           
 
     elif session.step == 17:
-        session.current_format["diplôme"]=update.message.text
+        session.current_format["diplome"]=update.message.text
         await update.message.reply_text("2️⃣ Dans quel établissement l’as-tu obtenu ? (ex : Institut Technique de Pointe-Noire)")
         session.step = 18
       
     elif session.step == 18:
-         session.current_format["établissement"]=update.message.text
+         session.current_format["etablissement"]=update.message.text
          await update.message.reply_text("3️⃣ Quelle est l’année de début ? (ex : 2021)")
          session.step = 19
       
