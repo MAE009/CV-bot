@@ -46,6 +46,25 @@ async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
         await update.message.reply_text("🚫 Accès refusé.")
   
 
+async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
+
+        file_path = session.simple_cv()  # Génère le PDF
+
+        with open(file_path, "rb") as file:
+            await update.message.reply_document(
+                    document=InputFile(file),
+                    filename=file_path.split("/")[-1],
+                    caption="✅ Voici ton CV tout beau, tout propre ! 💼\nTu peux le télécharger et l’utiliser directement."
+                )
+
+    except Exception as e:
+        await update.message.reply_text(f"❌ Une erreur est survenue lors de la création du CV 😞\nEssaye de recommencer ou contacte le support.\n{e}")
+        print("Erreur :", e)
+
+
+
 
 @flask_app.route('/')  
 def home():  
@@ -326,21 +345,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 📋 Étape 30 : Affichage du résumé des langues
     elif session.step == 29:
-        try:
-            await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
-
-            file_path = session.simple_cv()  # Génère le PDF
-
-            with open(file_path, "rb") as file:
-                await update.message.reply_document(
-                    document=InputFile(file),
-                    filename=file_path.split("/")[-1],
-                    caption="✅ Voici ton CV tout beau, tout propre ! 💼\nTu peux le télécharger et l’utiliser directement."
-                )
-
-        except Exception as e:
-            await update.message.reply_text(f"❌ Une erreur est survenue lors de la création du CV 😞\nEssaye de recommencer ou contacte le support.\n{e}")
-            print("Erreur :", e)
+        await generator(update, context)
 
 
 
@@ -407,6 +412,7 @@ async def run():
     app.add_handler(CommandHandler("sendusers", send_users_command))
     # Ajoute le handler :
     app.add_handler(CommandHandler("id", get_id_command))
+    app.add_handler(CommandHandler("gr", generator))
 
   
     await app.initialize()  
