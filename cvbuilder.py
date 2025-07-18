@@ -37,6 +37,7 @@ class CVBuilder:
         self.data[key] = value
 
     def simple_cv(self):
+        from telegram import InputFile
         from jinja2 import Environment, FileSystemLoader
         from weasyprint import HTML
 
