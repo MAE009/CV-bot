@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  color: #000;
+  background: #fff;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: #2e2e2e;
+  font-size: 18px;
+  margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.job {
+  margin-bottom: 10px;
+  }
