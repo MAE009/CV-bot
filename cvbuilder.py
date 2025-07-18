@@ -35,3 +35,25 @@ class CVBuilder:
 
     def update_info(self, key, value):
         self.data[key] = value
+
+    def simple_cv(self):
+        from jinja2 import Environment, FileSystemLoader
+        from weasyprint import HTML
+
+        env = Environment(loader=FileSystemLoader('Template/ATS'))
+        template = env.get_template('ats_template.html')
+
+        # Organisation des données à injecter dans le template
+        context = {
+            "infos": self.data,
+            "experiences": self.experiences,
+            "competences": self.competences,
+            "formations": self.formations,
+            "langues": self.langues
+        }
+
+        html = template.render(context)
+    
+        # Nom de fichier sécurisé
+        nom_fichier = f"{self.data.get('nom', 'cv')}_ats.pdf"
+        HTML(string=html, base_url='.').write_pdf(nom_fichier)
