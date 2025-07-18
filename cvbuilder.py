@@ -44,7 +44,7 @@ class CVBuilder:
 
         # Charger le template depuis le dossier Template/ATS
         env = Environment(loader=FileSystemLoader('Template/ATS'))
-        template = env.get_template('ats_template.html')
+        template = env.get_template('ats.html')
 
         # Organisation des données pour le template
         context = {
