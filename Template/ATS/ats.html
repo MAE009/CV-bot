@@ -3,18 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>CV ATS - {{ nom }}</title>
-  <link rel="stylesheet" href="../static/ats_style.css">
+  <link rel="stylesheet" href="ats.css">
 </head>
 <body>
   <header>
-    <h1>{{ nom }}</h1>
-    <p>{{ poste }}</p>
-    <p>{{ email }} | {{ telephone }} | {{ adresse }}</p>
+    <h1>{{ infos.nom }} {{ infos.prenom }}</h1>
+    <p>{{ infos.poste }}</p>
+    <p>{{ infos.ville }} || {{ infos.tel }} || {{ infos.email }} || {{ infos.autre }}</p>
   </header>
 
   <section>
     <h2>Résumé Professionnel</h2>
-    <p>{{ resume }}</p>
+    <p>{{ infos.resume }}</p>
+  </section>
+
+  <section>
+    <h2>Expérience Professionnelle</h2>
+    {% for exp in experiences %}
+    <div class="job">
+      <strong>{{ exp.poste }}</strong> – {{ exp.entreprise }} ({{ exp.date }})<br>
+      <em>{{ exp.description }}</em> {{ exp.realisations }}
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Formation</h2>
+    {% for edu in formations %}
+    <p><strong>{{ edu.diplome }}</strong> – {{ edu.etablissement }} ({{ edu.date_debut }} - {{ edu.date_fin }}) {{edu.lieu}}</p>
+    {% endfor %}
   </section>
 
   <section>
@@ -25,24 +42,7 @@
       {% endfor %}
     </ul>
   </section>
-
-  <section>
-    <h2>Expérience Professionnelle</h2>
-    {% for exp in experiences %}
-    <div class="job">
-      <strong>{{ exp.poste }}</strong> – {{ exp.entreprise }} ({{ exp.date }})<br>
-      <em>{{ exp.description }}</em>
-    </div>
-    {% endfor %}
-  </section>
-
-  <section>
-    <h2>Formation</h2>
-    {% for edu in formations %}
-    <p><strong>{{ edu.diplome }}</strong> – {{ edu.ecole }} ({{ edu.date }})</p>
-    {% endfor %}
-  </section>
-
+  
   <section>
     <h2>Langues</h2>
     <ul>
