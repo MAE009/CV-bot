@@ -57,4 +57,6 @@ class CVBuilder:
     
         # Nom de fichier sécurisé
         nom_fichier = f"{self.data.get('nom', 'cv')}_ats.pdf"
+       # path = f""
         HTML(string=html, base_url='.').write_pdf(nom_fichier)
+        return nom_fichier
