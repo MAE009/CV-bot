@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CV ATS - {{ nom }}</title>
+  <link rel="stylesheet" href="../static/ats_style.css">
+</head>
+<body>
+  <header>
+    <h1>{{ nom }}</h1>
+    <p>{{ poste }}</p>
+    <p>{{ email }} | {{ telephone }} | {{ adresse }}</p>
+  </header>
+
+  <section>
+    <h2>Résumé Professionnel</h2>
+    <p>{{ resume }}</p>
+  </section>
+
+  <section>
+    <h2>Compétences</h2>
+    <ul>
+      {% for skill in competences %}
+        <li>{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Expérience Professionnelle</h2>
+    {% for exp in experiences %}
+    <div class="job">
+      <strong>{{ exp.poste }}</strong> – {{ exp.entreprise }} ({{ exp.date }})<br>
+      <em>{{ exp.description }}</em>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Formation</h2>
+    {% for edu in formations %}
+    <p><strong>{{ edu.diplome }}</strong> – {{ edu.ecole }} ({{ edu.date }})</p>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Langues</h2>
+    <ul>
+      {% for lang in langues %}
+        <li>{{ lang.nom }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+</body>
+  </html>
