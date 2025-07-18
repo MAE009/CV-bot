@@ -13,13 +13,18 @@ sessions = {}
 
 
 
-async def infos(update, context):
-    web_app_url = "http://t.me/Temoin005Bot/Cv_bot_infos"
-    #web_app = WebAppInfo(url=web_app_url)
-    keyboard = [[InlineKeyboardButton("Ouvrir Web App", url=web_app)]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text("Clique sur le bouton pour ouvrir la Web App pour plus d'aide", reply_markup=reply_markup)
 
+async def infos(update, context):
+    web_app_url = "https://cv-bot-infos.onrender.com"
+    keyboard = [[
+        InlineKeyboardButton("🌐 Ouvrir la Web App", web_app=WebAppInfo(url=web_app_url))
+    ]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        "🛠️ Clique sur le bouton ci-dessous pour ouvrir l’aide dans la Web App :",
+        reply_markup=reply_markup
+)
 
 
 
