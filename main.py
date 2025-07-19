@@ -4,9 +4,9 @@ import nest_asyncio
 from cvbuilder import CVBuilder
 from user import*
 from bank_text import*
-from flask import Flask  
+from flask import Flask
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo  
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters  
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, Application  
   
 # Variables globales
 sessions = {}  
@@ -81,6 +81,20 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("Erreur :", e)
 
 
+
+
+
+@flask_app.post("/webhook")
+def webhook() -> str:
+    """Point d'entrée pour Telegram (webhook)"""
+    if flask_app.config.get("telegram_app"):
+        telegram_app = flask_app.config["telegram_app"]
+    else:
+        return "App not configured", 500
+
+    update = Update.de_json(flask_app.request.get_json(force=True), telegram_app.bot)
+    telegram_app.update_queue.put_nowait(update)
+    return "OK", 200
 
 
 @flask_app.route('/')  
@@ -424,7 +438,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def run():  
     token = os.getenv("TELEGRAM_BOT_TOKEN")  
-    app = ApplicationBuilder().token(token).build()  
+    app = ApplicationBuilder().token(token).build()
+    flask_app.config["telegram_app"] = app
     app.add_handler(CommandHandler("start", start))  
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.add_handler(CommandHandler("sendusers", send_users_command))
@@ -435,7 +450,7 @@ async def run():
   
     await app.initialize()  
     await app.start()  
-    await app.updater.start_polling()  
+    await app.bot.set_webhook("https://cv-bot-46h5.onrender.com/webhook")
   
     loop = asyncio.get_event_loop()  
     await loop.run_in_executor(None, lambda: flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000))))  
