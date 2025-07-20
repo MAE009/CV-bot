@@ -1,10 +1,18 @@
-import os import asyncio import nest_asyncio from cvbuilder import CVBuilder from user import * from bank_text import * from flask import Flask, request from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, Application
+import os
+import asyncio
+import nest_asyncio
 
-Variables globales
+from cvbuilder import CVBuilder
+from user import *
+from bank_text import *
+
+from flask import Flask, request
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, ApplicationVariables globales
 
 sessions = {}
 
-Gestion des sessions utilisateur
+#Gestion des sessions utilisateur
 
 def get_session(user_id): if user_id not in sessions: sessions[user_id] = CVBuilder() return sessions[user_id]
 
