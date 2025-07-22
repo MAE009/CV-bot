@@ -13,8 +13,11 @@ sessions = {}
 
 #Gestion des sessions utilisateur
 
-def get_session(user_id): if user_id not in sessions: sessions[user_id] = CVBuilder() return sessions[user_id]
-
+def get_session(user_id):
+    if user_id not in sessions:
+        sessions[user_id] = CVBuilder()
+    return sessions[user_id]
+    
 nest_asyncio.apply() flask_app = Flask(name)
 
 YOUR_USER_ID = 5227032520 CHANNEL_ID = "@Temoignage_Service_M_A_E005"
