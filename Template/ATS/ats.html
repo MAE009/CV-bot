@@ -2,14 +2,71 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>CV ATS - {{ nom }}</title>
-  <link rel="stylesheet" href="ats.css">
+  <title>CV {{ infos.prenom }} {{ infos.nom }} | {{ infos.poste }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 20px;
+      color: #000;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 22px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    
+    h2 {
+      font-size: 18px;
+      color: #2c3e50;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 3px;
+      margin-top: 25px;
+    }
+    
+    .contact-info {
+      margin: 10px 0;
+    }
+    
+    .job {
+      margin-bottom: 15px;
+    }
+    
+    .job-title {
+      font-weight: bold;
+    }
+    
+    ul {
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+    
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>{{ infos.nom }} {{ infos.prenom }}</h1>
-    <p>{{ infos.poste }}</p>
-    <p>{{ infos.ville }} || {{ infos.tel }} || <a href="mailto:{{ infos.email }}">{{ infos.email }}</a> || <a href="{{ infos.autre }}">{{ infos.autre }}</a></p>
+    <h1>{{ infos.prenom }} {{ infos.nom }}</h1>
+    <p class="job-title">{{ infos.poste }}</p>
+    <div class="contact-info">
+      {{ infos.ville }} | 
+      {{ infos.tel }} | 
+      <a href="mailto:{{ infos.email }}">{{ infos.email }}</a> | 
+      {% if infos.autre != "❌ Non fourni" %}
+        <a href="{{ infos.autre }}">Profil en ligne</a>
+      {% endif %}
+    </div>
   </header>
 
   <section>
@@ -21,8 +78,14 @@
     <h2>Expérience Professionnelle</h2>
     {% for exp in experiences %}
     <div class="job">
-      <strong>{{ exp.poste }}</strong> – {{ exp.entreprise }} ({{ exp.date }})<br>
-      <em>{{ exp.description }}</em> {{ exp.realisations }}
+      <div class="job-title">{{ exp.poste }} - {{ exp.entreprise }}</div>
+      <div>{{ exp.date }}</div>
+      <ul>
+        <li>{{ exp.description }}</li>
+        {% if exp.realisations %}
+        <li>Réalisations clés : {{ exp.realisations }}</li>
+        {% endif %}
+      </ul>
     </div>
     {% endfor %}
   </section>
@@ -30,15 +93,20 @@
   <section>
     <h2>Formation</h2>
     {% for edu in formations %}
-    <p><strong>{{ edu.diplome }}</strong> – {{ edu.etablissement }} ({{ edu.date_debut }} - {{ edu.date_fin }}) {{edu.lieu}}</p>
+    <div>
+      <strong>{{ edu.diplome }}</strong><br>
+      {{ edu.etablissement }}<br>
+      {{ edu.date_debut }} - {{ edu.date_fin }} | {{ edu.lieu }}
+    </div>
+    {% if not loop.last %}<br>{% endif %}
     {% endfor %}
   </section>
 
   <section>
-    <h2>Compétences</h2>
+    <h2>Compétences Techniques</h2>
     <ul>
       {% for skill in competences %}
-        <li>{{ skill }}</li>
+        <li>{{ skill.comp }}</li>
       {% endfor %}
     </ul>
   </section>
@@ -52,4 +120,4 @@
     </ul>
   </section>
 </body>
-  </html>
+</html>
