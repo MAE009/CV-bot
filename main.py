@@ -430,26 +430,46 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ====================
 # 🚀 Initialisation
-# ====================
-async def setup_webhook():
-    WEBHOOK_URL = f"https://{os.getenv('RENDER_SERVICE_NAME')}.onrender.com/webhook"
-    await application.bot.set_webhook(WEBHOOK_URL)
+# ================----
 
+# ... (COLLER TOUTES TES AUTRES FONCTIONS SANS MODIFICATION)
+
+# === WEBHOOK ADAPTÉ ===
+@flask_app.route('/webhook', methods=['POST'])
+def handle_webhook():
+    try:
+        update = Update.de_json(request.get_json(), application.bot)
+        # Gestion asynchrone dans une nouvelle boucle
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(application.process_update(update))
+        return "OK", 200
+    except Exception as e:
+        print(f"⚠️ Erreur webhook: {e}")
+        return "Error", 500
+
+@flask_app.route('/health')
+def health_check():
+    return "🤖 Bot en ligne", 200
+
+# === LANCEMENT ===
 def register_handlers():
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("sendusers", send_users_command))
-    application.add_handler(CommandHandler("id", get_id_command))
-    application.add_handler(CommandHandler("gr", generator))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    # ... (ajoute tous tes handlers comme avant)
+
+async def setup_webhook():
+    await application.bot.set_webhook(f"https://{os.getenv('RENDER_SERVICE_NAME')}.onrender.com/webhook")
 
 if __name__ == '__main__':
     register_handlers()
     
-    # Mode développement (polling)
     if os.getenv('ENV') == 'dev':
-        application.run_polling()
-    # Mode production (webhook)
+        application.run_polling()  # Mode dev
     else:
         loop = asyncio.get_event_loop()
         loop.run_until_complete(setup_webhook())
         flask_app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
+
+
+
