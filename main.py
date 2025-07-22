@@ -89,6 +89,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # 🚧 Générateur de CV (PDF)
 # ====================
 async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Récupération de l'utilisateur et création d'une session s'il n'en a pas
+    user = update.message.from_user
+    user_id = user.id
+    session = get_session(user_id)
+    
     try:
         await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
         file_path = session.simple_cv()
