@@ -1,11 +1,6 @@
 import os
-import asyncio
-import nest_asyncio
-
-from flask import Flask, request
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
-
 from cvbuilder import CVBuilder
 from user import *
 from bank_text import *
@@ -18,29 +13,9 @@ def get_session(user_id):
         sessions[user_id] = CVBuilder()
     return sessions[user_id]
 
-# Initialisation Flask et asyncio
-nest_asyncio.apply()
-flask_app = Flask(__name__)
-
 # Variables globales
 YOUR_USER_ID = 5227032520
 CHANNEL_ID = "@Temoignage_Service_M_A_E005"
-
-# Route Webhook Telegram
-@flask_app.post("/webhook")
-def webhook():
-    telegram_app = flask_app.config.get("telegram_app")
-    if not telegram_app:
-        return "App not configured", 500
-
-    update = Update.de_json(request.get_json(force=True), telegram_app.bot)
-    telegram_app.update_queue.put_nowait(update)
-    return "OK", 200
-
-# Route d'accueil simple
-@flask_app.route("/")
-def home():
-    return "✅ Bot Telegram CV en ligne !"
 
 # Commande /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -138,9 +113,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await update.message.reply_text("Commande non reconnue. Choisis un bouton dans le menu.")
 
-# Lancement de l'application
-async def run():
+# Lancement en mode polling
+if __name__ == "__main__":
     token = os.getenv("TELEGRAM_BOT_TOKEN")
+    if not token:
+        raise ValueError("❌ TELEGRAM_BOT_TOKEN n'est pas défini dans les variables d'environnement.")
+    
     app = ApplicationBuilder().token(token).build()
 
     app.add_handler(CommandHandler("start", start))
@@ -149,14 +127,5 @@ async def run():
     app.add_handler(CommandHandler("gr", generator))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    flask_app.config["telegram_app"] = app
-
-    await app.initialize()
-    await app.start()
-    await app.bot.set_webhook("https://cv-bot-46h5.onrender.com/webhook")
-
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, lambda: flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000))))
-
-if __name__ == "__main__":
-    asyncio.run(run())
+    print("✅ Bot lancé en mode polling...")
+    app.run_polling()
