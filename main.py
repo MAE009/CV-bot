@@ -29,11 +29,22 @@ CHANNEL_ID = "@Temoignage_Service_M_A_E005"
 # ====================
 # 🔄 Routes Webhook/Health
 # ====================
+#from flask import Flask, request
+#from telegram import Update
+#from telegram.ext import ApplicationBuilder
+import asyncio
+
+#flask_app = Flask(__name__)
+
 @flask_app.route('/webhook', methods=['POST'])
 async def webhook():
-    update = Update.de_json(request.get_json(force=True), application.bot)
-    await application.process_update(update)
-    return "OK", 200
+    try:
+        update = Update.de_json(request.get_json(force=True), application.bot)
+        await application.process_update(update)
+        return "OK", 200
+    except Exception as e:
+        print(f"Error processing update: {e}")
+        return "Error", 500
 
 @flask_app.route('/health')
 def health():
