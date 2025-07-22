@@ -1,7 +1,7 @@
-flask
-python-telegram-bot==20.3
+python-telegram-bot[webhooks]==20.3
+flask[async]
 nest_asyncio
 python-docx
-docx2pdf  # si tu veux convertir en PDF sous Windows
+docx2pdf  
 Jinja2
 WeasyPrint
