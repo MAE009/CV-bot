@@ -1,231 +1,50 @@
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
-  --accent-color: #e74c3c;
-  --light-color: #ecf0f1;
-  --dark-color: #2c3e50;
-  --text-color: #333;
-  --text-light: #7f8c8d;
-}
+/* modern.css */
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
-}
+body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; background-color: #f5f7fa; color: #333; }
 
-.cv-container {
-  display: flex;
-  max-width: 1200px;
-  margin: 20px auto;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  background-color: white;
-}
+.cv-container { display: flex; max-width: 1000px; margin: 40px auto; background-color: #fff; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); border-radius: 10px; overflow: hidden; }
 
-/* Sidebar Styles */
-.sidebar {
-  flex: 1;
-  background-color: var(--secondary-color);
-  color: white;
-  padding: 40px 30px;
-}
+/* Colonne gauche */ .sidebar { background-color: #2c3e50; color: white; width: 300px; padding: 30px 20px; display: flex; flex-direction: column; gap: 30px; }
 
-.profile {
-  text-align: center;
-  margin-bottom: 40px;
-}
+.profile h1 { font-family: 'Montserrat', sans-serif; font-size: 26px; margin: 0; line-height: 1.2; }
 
-.profile h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 28px;
-  margin-bottom: 5px;
-}
+.profile .accent { color: #00bcd4; }
 
-.profile .accent {
-  color: var(--accent-color);
-}
+.job-title { font-weight: 300; font-size: 16px; margin-top: 5px; }
 
-.job-title {
-  font-size: 16px;
-  color: var(--light-color);
-  font-weight: 300;
-}
+.sidebar h2 { font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #00bcd4; padding-bottom: 5px; }
 
-h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin: 30px 0 20px;
-  position: relative;
-  padding-bottom: 10px;
-}
+.contact-list, .skills-list, .languages-list { list-style: none; padding: 0; margin: 0; font-size: 14px; }
 
-h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background-color: var(--accent-color);
-}
+.contact-list li, .skills-list li, .languages-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
 
-.contact-list {
-  list-style: none;
-  padding: 0;
-}
+.contact-list a, .contact-list li { color: white; text-decoration: none; }
 
-.contact-list li {
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
+.skill-bar { background-color: #34495e; height: 6px; border-radius: 3px; overflow: hidden; }
 
-.contact-list i {
-  margin-right: 10px;
-  color: var(--accent-color);
-  width: 20px;
-  text-align: center;
-}
+.skill-level { background-color: #00bcd4; height: 100%; }
 
-.skills-list {
-  list-style: none;
-  padding: 0;
-}
+.language-proficiency { display: flex; gap: 3px; margin-top: 5px; }
 
-.skill-name {
-  display: block;
-  margin-bottom: 5px;
-}
+.dot { width: 10px; height: 10px; border-radius: 50%; background-color: #bbb; }
 
-.skill-bar {
-  height: 6px;
-  background-color: #34495e;
-  border-radius: 3px;
-  margin-bottom: 15px;
-}
+.dot.filled { background-color: #00bcd4; }
 
-.skill-level {
-  height: 100%;
-  background-color: var(--accent-color);
-  border-radius: 3px;
-}
+/* Colonne droite */ .main-content { flex: 1; padding: 30px 40px; display: flex; flex-direction: column; gap: 30px; }
 
-.languages-list {
-  list-style: none;
-  padding: 0;
-}
+.main-content h2 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #2c3e50; border-bottom: 2px solid #00bcd4; padding-bottom: 5px; margin-bottom: 15px; }
 
-.languages-list li {
-  margin-bottom: 15px;
-}
+.experience-item, .education-item { margin-bottom: 20px; }
 
-.language-proficiency {
-  display: flex;
-  margin-top: 5px;
-}
+.experience-header, .education-meta { display: flex; justify-content: space-between; align-items: baseline; }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 5px;
-  background-color: #34495e;
-}
+.experience-header h3, .education-item h3 { font-size: 16px; margin: 0; font-weight: 600; }
 
-.dot.filled {
-  background-color: var(--accent-color);
-}
+.experience-date, .education-date { font-size: 14px; color: #888; }
 
-/* Main Content Styles */
-.main-content {
-  flex: 2;
-  padding: 40px;
-}
+.experience-company, .education-location { font-size: 14px; font-style: italic; color: #666; margin-bottom: 5px; }
 
-.main-content h2 {
-  color: var(--secondary-color);
-}
+.experience-description p, .achievements p { margin: 5px 0; font-size: 14px; }
 
-.main-content h2 i {
-  margin-right: 10px;
-  color: var(--primary-color);
-}
+.achievements h4 { margin-top: 10px; font-size: 14px; color: #00bcd4; }
 
-.experience-item {
-  margin-bottom: 30px;
-}
-
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.experience-header h3 {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
-}
-
-.experience-date {
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-.experience-company {
-  font-style: italic;
-  color: var(--text-light);
-  margin-bottom: 10px;
-}
-
-.achievements {
-  background-color: #f8f9fa;
-  padding: 10px 15px;
-  border-left: 3px solid var(--primary-color);
-  margin-top: 10px;
-}
-
-.achievements h4 {
-  margin: 0 0 5px 0;
-  font-size: 16px;
-}
-
-.education-item {
-  margin-bottom: 25px;
-}
-
-.education-item h3 {
-  margin: 0 0 5px 0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
-}
-
-.education-meta {
-  display: flex;
-  justify-content: space-between;
-  color: var(--text-light);
-  margin-bottom: 5px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .cv-container {
-    flex-direction: column;
-  }
-  
-  .sidebar, .main-content {
-    padding: 30px;
-  }
-  
-  .experience-header {
-    flex-direction: column;
-  }
-  
-  .experience-date {
-    margin-top: 5px;
-  }
-  }
