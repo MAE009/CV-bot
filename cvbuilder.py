@@ -71,3 +71,42 @@ class CVBuilder:
         HTML(string=html, base_url='Template/ATS').write_pdf(chemin_complet)
 
         return chemin_complet
+
+
+
+def moderne_cv(self):
+        from telegram import InputFile
+        from jinja2 import Environment, FileSystemLoader
+        from weasyprint import HTML
+        import os
+
+        # Charger le template depuis le dossier Template/ATS
+        env = Environment(loader=FileSystemLoader('Template/Moderne'))
+        template = env.get_template('Mod.html')
+
+        # Organisation des données pour le template
+        context = {
+        "infos": self.data,
+        "experiences": self.experiences,
+        "competences": self.competences,
+        "formations": self.formations,
+        "langues": self.langues
+        }
+
+        # Rendu HTML du template
+        html = template.render(context)
+
+        # Nom de fichier sécurisé
+        nom = self.data.get('nom', 'cv').replace(" ", "_").lower()
+        nom_fichier = f"{nom}_moderne.pdf"
+
+        # Chemin de sauvegarde (optionnel : créer un dossier "generated_cv")
+        dossier = "generated_cv"
+        os.makedirs(dossier, exist_ok=True)
+        chemin_complet = os.path.join(dossier, nom_fichier)
+
+        # Génération du PDF
+        HTML(string=html, base_url='Template/Moderne').write_pdf(chemin_complet)
+
+        return chemin_complet
+    
