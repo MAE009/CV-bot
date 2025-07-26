@@ -74,7 +74,7 @@ class CVBuilder:
 
 
 
-def moderne_cv(self):
+    def moderne_cv(self):
         from telegram import InputFile
         from jinja2 import Environment, FileSystemLoader
         from weasyprint import HTML
