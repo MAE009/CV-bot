@@ -1,4 +1,6 @@
-/* modern.css */
+/* =============================
+   🎨 ROOT VARIABLES
+============================= */
 :root {
   --primary: #2c3e50;
   --secondary: #3498db;
@@ -7,9 +9,42 @@
   --dark: #2c3e50;
   --text: #333;
   --text-light: #7f8c8d;
+
+  --font-title: 26px;
+  --font-subtitle: 18px;
+  --font-section-title: 18px;
+  --font-subsection: 16px;
+  --font-date: 14px;
+  --font-text: 14px;
+  --font-small: 12px;
 }
 
-/* Reset et base */
+/* =============================
+   🔧 COMPRESSION MODES
+============================= */
+body.compress {
+  --font-title: 22px;
+  --font-subtitle: 16px;
+  --font-section-title: 16px;
+  --font-subsection: 14px;
+  --font-date: 12px;
+  --font-text: 12px;
+  --font-small: 11px;
+}
+
+body.compress-plus {
+  --font-title: 20px;
+  --font-subtitle: 14px;
+  --font-section-title: 14px;
+  --font-subsection: 13px;
+  --font-date: 11px;
+  --font-text: 11px;
+  --font-small: 10px;
+}
+
+/* =============================
+   🔁 RESET & BASE
+============================= */
 * {
   margin: 0;
   padding: 0;
@@ -23,6 +58,9 @@ body {
   background-color: #f9f9f9;
 }
 
+/* =============================
+   🧱 CV CONTAINER
+============================= */
 .cv-container {
   max-width: 900px;
   margin: 20px auto;
@@ -31,7 +69,9 @@ body {
   display: flex;
 }
 
-/* Colonne gauche */
+/* =============================
+   🧊 SIDEBAR (Left)
+============================= */
 .sidebar {
   width: 30%;
   background: var(--primary);
@@ -41,7 +81,7 @@ body {
 
 .profile h1 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 24px;
+  font-size: var(--font-title);
   margin-bottom: 5px;
 }
 
@@ -50,31 +90,35 @@ body {
 }
 
 .job-title {
-  font-size: 16px;
+  font-size: var(--font-subtitle);
   color: var(--light);
   margin-bottom: 30px;
 }
 
 .sidebar h2 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: var(--font-section-title);
   text-transform: uppercase;
   margin: 25px 0 15px;
   padding-bottom: 5px;
   border-bottom: 2px solid var(--secondary);
 }
 
-.contact-list, .skills-list, .languages-list {
+.contact-list,
+.skills-list,
+.languages-list {
   list-style: none;
 }
 
-.contact-list li, .skills-list li {
+.contact-list li,
+.skills-list li {
   margin-bottom: 15px;
   display: flex;
   align-items: center;
 }
 
-.contact-list i, .skills-list i {
+.contact-list i,
+.skills-list i {
   margin-right: 10px;
   width: 20px;
   color: var(--secondary);
@@ -111,7 +155,9 @@ body {
   background-color: var(--secondary);
 }
 
-/* Colonne droite */
+/* =============================
+   📝 MAIN CONTENT (Right)
+============================= */
 .main-content {
   width: 70%;
   padding: 30px;
@@ -120,7 +166,7 @@ body {
 .main-content h2 {
   font-family: 'Montserrat', sans-serif;
   color: var(--primary);
-  font-size: 20px;
+  font-size: var(--font-section-title);
   margin-bottom: 15px;
   padding-bottom: 5px;
   border-bottom: 2px solid var(--secondary);
@@ -135,27 +181,32 @@ body {
   margin-bottom: 20px;
 }
 
-.experience-item, .education-item {
+.experience-item,
+.education-item {
   margin-bottom: 25px;
 }
 
-.experience-header, .education-meta {
+.experience-header,
+.education-meta {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
 }
 
-.experience-header h3, .education-item h3 {
-  font-size: 18px;
+.experience-header h3,
+.education-item h3 {
+  font-size: var(--font-subsection);
   font-weight: 600;
 }
 
-.experience-date, .education-date {
+.experience-date,
+.education-date {
   color: var(--text-light);
-  font-size: 14px;
+  font-size: var(--font-date);
 }
 
-.experience-company, .education-location {
+.experience-company,
+.education-location {
   font-style: italic;
   color: var(--text-light);
   margin-bottom: 10px;
@@ -177,17 +228,20 @@ body {
   color: var(--secondary);
 }
 
-/* Responsive */
+/* =============================
+   📱 RESPONSIVE
+============================= */
 @media (max-width: 768px) {
   .cv-container {
     flex-direction: column;
   }
-  
-  .sidebar, .main-content {
+
+  .sidebar,
+  .main-content {
     width: 100%;
     padding: 25px;
   }
-  
+
   .profile h1 {
     font-size: 22px;
   }
