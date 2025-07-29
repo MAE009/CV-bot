@@ -9,7 +9,12 @@
   --dark: #2c3e50;
   --text: #333;
   --text-light: #7f8c8d;
+}
 
+/* =============================
+   🔧 COMPRESSION MODES
+============================= */
+body.normal{
   --font-title: 26px;
   --font-subtitle: 18px;
   --font-section-title: 18px;
@@ -19,9 +24,6 @@
   --font-small: 12px;
 }
 
-/* =============================
-   🔧 COMPRESSION MODES
-============================= */
 body.compress {
   --font-title: 22px;
   --font-subtitle: 16px;
