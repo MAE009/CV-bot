@@ -403,6 +403,7 @@ async def run():
     app.add_handler(CommandHandler("sendusers", send_users_command))
     app.add_handler(CommandHandler("id", get_id_command))
     app.add_handler(CommandHandler("gr", generator))
+    app.add_handler(CommandHandler("test", test_modern_cv_generator))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     await app.initialize()
