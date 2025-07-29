@@ -83,6 +83,21 @@ class CVBuilder:
         # Charger le template depuis le dossier Template/ATS
         env = Environment(loader=FileSystemLoader('Template/Moderne'))
         template = env.get_template('Mod.html')
+        
+        # Déterminer la quantité totale de texte
+        total_chars = sum(len(v) for v in self.data.values())
+        total_chars += sum(len(exp.get("description", "")) for exp in self.experiences)
+        total_chars += sum(len(comp.get("description", "")) for comp in self.competences)
+        total_chars += sum(len(form.get("diplome", "")) for form in self.formations)
+        total_chars += sum(len(lang.get("nom", "")) for lang in self.langues)
+
+        # Choisir la classe CSS en fonction de la quantité de contenu
+        if total_chars > 4000:
+            body_class = "compress-plus"
+        elif total_chars > 2500:
+            body_class = "compress"
+        else:
+            body_class = "normal"
 
         # Organisation des données pour le template
         context = {
@@ -90,7 +105,8 @@ class CVBuilder:
         "experiences": self.experiences,
         "competences": self.competences,
         "formations": self.formations,
-        "langues": self.langues
+        "langues": self.langues,
+        "body_class" : body_class
         }
 
         # Rendu HTML du template
