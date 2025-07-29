@@ -128,10 +128,65 @@ class CVBuilder:
         
         
 
-        def test_modern_cv_generator(data):
+        def test_modern_cv_generator(self):
             from jinja2 import Environment, FileSystemLoader
             from weasyprint import HTML
             import os
+
+            data = {
+            "infos": {
+                "nom": "DUPONT",
+                "prenom": "Jean",
+                "poste": "Développeur Python Senior",
+                "ville": "Paris, France",
+                "tel": "+33 6 12 34 56 78",
+                "email": "j.dupont@email.com",
+                "autre": "https://linkedin.com/in/jdupont",
+                "resume": "Développeur Python avec 5+ ans d'expérience dans le développement backend et l'analyse de données. Expert en Django, Flask et Pandas. Passionné par l'optimisation des performances et les architectures microservices."
+                     },
+            "experiences": [
+                {
+                     "poste": "Développeur Backend Senior",
+                     "entreprise": "TechCorp",
+                     "date": "2020 - Présent",
+                     "description": "Conception d'APIs RESTful pour une plateforme SaaS avec Django.",
+                     "realisations": "Migration réussie vers Kubernetes, amélioration des temps de réponse de 40%."
+                },
+                {
+                     "poste": "Développeur Python",
+                     "entreprise": "DataSystems",
+                     "date": "2018 - 2020",
+                     "description": "Développement de scripts ETL pour le traitement de données clients.",
+                     "realisations": "Automatisation de rapports mensuels économisant 20h/mois."
+                }
+                           ],
+            "formations": [
+                {
+                     "diplome": "Master en Informatique",
+                     "etablissement": "Université Paris-Saclay",
+                     "date_debut": "2016",
+                     "date_fin": "2018",
+                     "lieu": "Paris"
+                },
+                {
+                     "diplome": "Licence en Mathématiques Appliquées",
+                     "etablissement": "Sorbonne Université",
+                     "date_debut": "2013",
+                     "date_fin": "2016",
+                     "lieu": "Paris"
+                 }
+                         ],
+            "competences": [
+                {"comp": "Python (Django, Flask)"},
+                {"comp": "SQL/NoSQL"},
+                {"comp": "Docker/Kubernetes"},
+                {"comp": "Pandas/Numpy"}
+                           ],
+            "langues": [
+               {"nom": "Français (Langue maternelle)"},
+               {"nom": "Anglais (Courant - TOEFL 950)"}
+                       ]
+                        }
             # 1. Déterminer la complexité pour la compression
             nb_exp = len(data["experiences"])
             nb_comp = len(data["competences"])
