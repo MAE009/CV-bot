@@ -125,4 +125,54 @@ class CVBuilder:
         HTML(string=html, base_url='Template/Moderne').write_pdf(chemin_complet)
 
         return chemin_complet
+        
+        
+
+        def test_modern_cv_generator(data):
+            from jinja2 import Environment, FileSystemLoader
+            from weasyprint import HTML
+            import os
+            # 1. Déterminer la complexité pour la compression
+            nb_exp = len(data["experiences"])
+            nb_comp = len(data["competences"])
+            nb_form = len(data["formations"])
+            nb_lang = len(data["langues"])
+           taille_resume = len(data["infos"].get("resume", ""))
     
+           total_points = nb_exp * 2 + nb_comp + nb_form * 1.5 + nb_lang + (taille_resume // 100)
+
+           if total_points > 20:
+               compression = "compress-plus"
+           elif total_points > 14:
+               compression = "compress"
+           else:
+               compression = "normal"
+
+            # 2. Ajouter la variable dans le contexte pour la classe <body>
+            context = {
+            "infos": data["infos"],
+            "experiences": data["experiences"],
+            "formations": data["formations"],
+            "competences": data["competences"],
+            "langues": data["langues"],
+            "compression": compression
+            }
+
+            # 3. Chargement du template
+            env = Environment(loader=FileSystemLoader('Template/Moderne'))
+            template = env.get_template('Mod.html')
+
+            html_render = template.render(context)
+
+            # 4. Génération du PDF
+            nom = data["infos"]["nom"].lower().replace(" ", "_")
+           file_name = f"{nom}_moderne_test.pdf"
+
+           output_dir = "generated_cv"
+           os.makedirs(output_dir, exist_ok=True)
+           file_path = os.path.join(output_dir, file_name)
+
+           HTML(string=html_render, base_url='Template/Moderne').write_pdf(file_path)
+
+           print(f"✅ CV généré : {file_path} (compression: {compression})")
+           return file_path
