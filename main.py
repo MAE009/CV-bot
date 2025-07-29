@@ -96,7 +96,7 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
         await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
-        file_path = session.moderne_cv()
+        file_path = session.test_modern_cv_generator()
         with open(file_path, "rb") as file:
             await update.message.reply_document(
                 document=InputFile(file),
