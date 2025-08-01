@@ -1,6 +1,5 @@
-/* ==================== 🎨 VARIABLES & THEMING ==================== */
+/* ============================= 🎨 ROOT VARIABLES ============================= */
 :root {
-  /* Couleurs */
   --primary: #2c3e50;
   --secondary: #3498db;
   --accent: #e74c3c;
@@ -8,50 +7,49 @@
   --dark: #2c3e50;
   --text: #333;
   --text-light: #7f8c8d;
-  
-  /* Espacements de base */
-  --base-padding: 30px;
-  --base-margin: 25px;
 }
 
-/* ==================== 🔧 MODES DE COMPRESSION ==================== */
+/* ============================= 🔧 COMPRESSION MODES ============================= */
 body.normal {
   --font-title: 26px;
   --font-subtitle: 18px;
-  --font-section: 18px;
-  --font-content: 16px;
+  --font-section-title: 18px;
+  --font-subsection: 16px;
+  --font-date: 14px;
   --font-text: 14px;
   --font-small: 12px;
+  --padding: 30px;
+  --section-margin: 25px;
   --line-height: 1.6;
-  --section-gap: 25px;
-  --element-gap: 15px;
 }
 
 body.compress {
   --font-title: 22px;
   --font-subtitle: 16px;
-  --font-section: 16px;
-  --font-content: 14px;
+  --font-section-title: 16px;
+  --font-subsection: 14px;
+  --font-date: 12px;
   --font-text: 12px;
   --font-small: 11px;
+  --padding: 22px;
+  --section-margin: 18px;
   --line-height: 1.4;
-  --section-gap: 18px;
-  --element-gap: 12px;
 }
 
 body.compress-plus {
   --font-title: 20px;
   --font-subtitle: 14px;
-  --font-section: 14px;
-  --font-content: 13px;
+  --font-section-title: 14px;
+  --font-subsection: 13px;
+  --font-date: 11px;
   --font-text: 11px;
   --font-small: 10px;
+  --padding: 16px;
+  --section-margin: 12px;
   --line-height: 1.3;
-  --section-gap: 12px;
-  --element-gap: 8px;
 }
 
-/* ==================== ♻ RESET & BASE ==================== */
+/* ============================= ♻ RESET & BASE ============================= */
 * {
   margin: 0;
   padding: 0;
@@ -63,34 +61,23 @@ body {
   line-height: var(--line-height);
   color: var(--text);
   background-color: #f9f9f9;
-  padding: 20px;
 }
 
-/* ==================== 🏗️ STRUCTURE PRINCIPALE ==================== */
+/* ============================= 🧱 CV CONTAINER ============================= */
 .cv-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 20px auto;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   display: flex;
-  min-height: 100vh;
 }
 
-/* ==================== 🧱 COLONNE GAUCHE ==================== */
+/* ============================= 🧨 SIDEBAR (Left) ============================= */
 .sidebar {
   width: 30%;
   background: var(--primary);
   color: white;
-  padding: var(--base-padding);
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-gap);
-}
-
-.profile {
-  text-align: center;
-  padding-bottom: var(--section-gap);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: var(--padding);
 }
 
 .profile h1 {
@@ -101,67 +88,50 @@ body {
 
 .profile .accent {
   color: var(--secondary);
-  font-weight: 700;
 }
 
 .job-title {
   font-size: var(--font-subtitle);
   color: var(--light);
-  opacity: 0.9;
-}
-
-.sidebar-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--element-gap);
+  margin-bottom: var(--section-margin);
 }
 
 .sidebar h2 {
   font-family: 'Montserrat', sans-serif;
-  font-size: var(--font-section);
+  font-size: var(--font-section-title);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  margin: var(--section-margin) 0 15px;
   padding-bottom: 5px;
   border-bottom: 2px solid var(--secondary);
 }
 
-/* ==================== 📋 LISTES ==================== */
-.contact-list, 
-.skills-list, 
+.contact-list,
+.skills-list,
 .languages-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-.list-item {
+.contact-list li,
+.skills-list li {
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
   font-size: var(--font-text);
 }
 
-.list-icon {
+.contact-list i,
+.skills-list i {
+  margin-right: 10px;
+  width: 20px;
   color: var(--secondary);
-  min-width: 20px;
   text-align: center;
-}
-
-/* ==================== 📊 BARRES DE COMPÉTENCES ==================== */
-.skill-container {
-  width: 100%;
-}
-
-.skill-name {
-  display: block;
-  margin-bottom: 3px;
 }
 
 .skill-bar {
   height: 6px;
-  background-color: rgba(255,255,255,0.2);
+  background-color: #34495e;
   border-radius: 3px;
+  margin-top: 5px;
 }
 
 .skill-level {
@@ -170,143 +140,110 @@ body {
   border-radius: 3px;
 }
 
-/* ==================== 🌍 LANGUES ==================== */
-.language-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .language-proficiency {
   display: flex;
-  gap: 3px;
+  margin-top: 5px;
 }
 
 .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgba(255,255,255,0.3);
+  margin-right: 5px;
+  background-color: #34495e;
 }
 
 .dot.filled {
   background-color: var(--secondary);
 }
 
-/* ==================== 📝 CONTENU PRINCIPAL ==================== */
+/* ============================= 📝 MAIN CONTENT (Right) ============================= */
 .main-content {
   width: 70%;
-  padding: var(--base-padding);
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-gap);
+  padding: var(--padding);
 }
 
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--element-gap);
-}
-
-.section-title {
+.main-content h2 {
   font-family: 'Montserrat', sans-serif;
   color: var(--primary);
-  font-size: var(--font-section);
+  font-size: var(--font-section-title);
+  margin-bottom: 10px;
   padding-bottom: 5px;
   border-bottom: 2px solid var(--secondary);
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.section-icon {
+.main-content h2 i {
+  margin-right: 10px;
   color: var(--secondary);
 }
 
-/* ==================== 💼 EXPÉRIENCES ==================== */
-.experience {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.about-section p {
+  margin-bottom: 10px;
+  font-size: var(--font-text);
 }
 
-.experience-header {
+.experience-item,
+.education-item {
+  margin-bottom: var(--section-margin);
+  font-size: var(--font-text);
+}
+
+.experience-header,
+.education-meta {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 3px;
 }
 
-.experience-title {
-  font-size: var(--font-content);
+.experience-header h3,
+.education-item h3 {
+  font-size: var(--font-subsection);
   font-weight: 600;
 }
 
-.experience-date {
+.experience-date,
+.education-date {
   color: var(--text-light);
-  font-size: var(--font-text);
+  font-size: var(--font-date);
 }
 
-.experience-company {
+.experience-company,
+.education-location {
   font-style: italic;
   color: var(--text-light);
-  font-size: var(--font-text);
+  margin-bottom: 5px;
 }
 
-.experience-description {
-  font-size: var(--font-text);
+.experience-description p {
+  margin-bottom: 5px;
 }
 
 .achievements {
   background-color: #f8f9fa;
-  padding: 8px 12px;
+  padding: 8px 10px;
   border-left: 3px solid var(--secondary);
   margin-top: 8px;
 }
 
-.achievements-title {
+.achievements h4 {
+  margin-bottom: 5px;
   color: var(--secondary);
   font-size: var(--font-small);
-  font-weight: 600;
-  margin-bottom: 3px;
 }
 
-/* ==================== 🎓 FORMATIONS ==================== */
-.education {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.education-title {
-  font-size: var(--font-content);
-  font-weight: 600;
-}
-
-.education-meta {
-  display: flex;
-  justify-content: space-between;
-  color: var(--text-light);
-  font-size: var(--font-text);
-}
-
-/* ==================== 📱 RESPONSIVE ==================== */
+/* ============================= 📱 RESPONSIVE ============================= */
 @media (max-width: 768px) {
   .cv-container {
     flex-direction: column;
   }
   
-  .sidebar, 
+  .sidebar,
   .main-content {
     width: 100%;
-    padding: 25px;
+    padding: 20px;
   }
   
   .profile h1 {
     font-size: 22px;
   }
-  
-  .experience-header,
-  .education-meta {
-    flex-direction: column;
-    gap: 3px;
-  }
-   }
+    }
