@@ -156,5 +156,5 @@ class CVBuilder:
 
         HTML(string=html_render, base_url='Template/Moderne').write_pdf(file_path)  
 
-        print(f"✅ CV généré : {file_path} (compression: {compression})")  
+        print(f"✅ CV généré : {file_path} (compression: {compress})")  
         return file_path
