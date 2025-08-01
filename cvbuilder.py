@@ -1,3 +1,10 @@
+from telegram import InputFile  
+from jinja2 import Environment, FileSystemLoader  
+from weasyprint import HTML  
+import os  
+from bank_text import *
+
+
 class CVBuilder:  
     def __init__(self):  
         self.step = 0  
@@ -36,10 +43,6 @@ class CVBuilder:
         self.data[key] = value  
 
     def simple_cv(self):  
-        from telegram import InputFile  
-        from jinja2 import Environment, FileSystemLoader  
-        from weasyprint import HTML  
-        import os  
 
         env = Environment(loader=FileSystemLoader('Template/ATS'))  
         template = env.get_template('ats.html')  
@@ -66,10 +69,6 @@ class CVBuilder:
         return chemin_complet  
 
     def moderne_cv(self):  
-        from telegram import InputFile  
-        from jinja2 import Environment, FileSystemLoader  
-        from weasyprint import HTML  
-        import os  
 
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
         template = env.get_template('Mod.html')  
@@ -110,10 +109,7 @@ class CVBuilder:
         return chemin_complet  
 
     def test_modern_cv_generator(self):  
-        from jinja2 import Environment, FileSystemLoader  
-        from weasyprint import HTML  
-        import os  
-
+        
         data = test_data
 
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
