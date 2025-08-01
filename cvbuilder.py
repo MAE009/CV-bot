@@ -113,7 +113,37 @@ class CVBuilder:
         data = test_data
 
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
-        template = env.get_template('Mod.html')  
+        template = env.get_template('Mod.html')
+
+
+    
+
+        nb_exp = len(data["experiences"])  
+        nb_comp = len(data["competences"])  
+        nb_form = len(data["formations"])  
+        nb_lang = len(data["langues"])  
+        taille_resume = len(data["infos"].get("resume", ""))  
+
+        total_points = nb_exp * 2 + nb_comp + nb_form * 1.5 + nb_lang + (taille_resume // 100)  
+
+        if total_points > 20:  
+            body_class = "compress-plus"  
+        elif total_points > 14:  
+            body_class = "compress"  
+        else:  
+            body_class = "normal"  
+
+        context = {
+            "body_class": body_class
+            "infos": data["infos"],  
+            "experiences": data["experiences"],  
+            "formations": data["formations"],  
+            "competences": data["competences"],  
+            "langues": data["langues"],  
+            "compress": body_class,
+            "taill": total_points,
+            
+        }  
 
         html_render = template.render(context)  
 
