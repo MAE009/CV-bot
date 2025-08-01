@@ -134,7 +134,7 @@ class CVBuilder:
             body_class = "normal"  
 
         context = {
-            "body_class": body_class
+            "body_class": body_class,
             "infos": data["infos"],  
             "experiences": data["experiences"],  
             "formations": data["formations"],  
