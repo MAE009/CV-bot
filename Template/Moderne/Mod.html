@@ -36,9 +36,6 @@
           {% for skill in competences %}
           <li>
             <span class="skill-name">{{ skill.comp }}</span>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 85%;"></div>
-            </div>
           </li>
           {% endfor %}
         </ul>
@@ -50,13 +47,6 @@
           {% for lang in langues %}
           <li>
             {{ lang.nom }}
-            <div class="language-proficiency">
-              <span class="dot filled"></span>
-              <span class="dot filled"></span>
-              <span class="dot filled"></span>
-              <span class="dot {% if lang.nom == 'Anglais' %}filled{% else %}empty{% endif %}"></span>
-              <span class="dot empty"></span>
-            </div>
           </li>
           {% endfor %}
         </ul>
