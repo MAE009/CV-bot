@@ -68,6 +68,53 @@ class CVBuilder:
 
         return chemin_complet  
 
+    
+    
+    def test_modern_cv_generator_1(self):  
+        
+        env = Environment(loader=FileSystemLoader('Template/Moderne'))  
+        template = env.get_template('Mod.html')
+
+        nb_exp = len(self.experiences)  
+        nb_comp = len(self.competences)  
+        nb_form = len(self.formations)  
+        nb_lang = len(self.langues)  
+        taille_resume = len(self.data["resume"].get("resume", ""))  
+
+        total_points = nb_exp * 2 + nb_comp + nb_form * 1.5 + nb_lang + (taille_resume // 100)  
+
+        if total_points > 20:  
+            body_class = "compress-plus"  
+        elif total_points > 14:  
+            body_class = "compress"  
+        else:  
+            body_class = "normal"  
+
+        context = {
+            "infos": self.data,  
+            "experiences": self.experiences,  
+            "competences": self.competences,  
+            "formations": self.formations,  
+            "langues": self.langues,  
+            "body_class": body_class
+            
+        }  
+
+        html_render = template.render(context)  
+
+        #nom = self.data.get('nom', 'cv').replace(" ", "_").lower() 
+        nom = data["nom"].lower().replace(" ", "sans_nom")  
+        file_name = f"{nom}_moderne_test_1.pdf"  
+
+        output_dir = "generated_cv"  
+        os.makedirs(output_dir, exist_ok=True)  
+        file_path = os.path.join(output_dir, file_name)  
+
+        HTML(string=html_render, base_url='Template/Moderne').write_pdf(file_path)  
+
+        #print(f"✅ CV généré : {file_path} (compression: {compress})")  
+        return file_path
+        
     def moderne_cv(self):  
 
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
