@@ -79,7 +79,7 @@ class CVBuilder:
         nb_comp = len(self.competences)  
         nb_form = len(self.formations)  
         nb_lang = len(self.langues)  
-        taille_resume = len(self.data["resume"].get("resume", ""))  
+        taille_resume = len(self.data["resume"])  
 
         total_points = nb_exp * 2 + nb_comp + nb_form * 1.5 + nb_lang + (taille_resume // 100)  
 
