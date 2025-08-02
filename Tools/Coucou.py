@@ -36,7 +36,7 @@ def keep_alive(token, channel_id):
             try:
                 await bot.send_message(
                     chat_id=channel_id,
-                    text=random.randint(PING_MESSAGES)
+                    text=random.choice(PING_MESSAGES)
                 )
             except Exception as e:
                 print("Erreur keep_alive:", e)
