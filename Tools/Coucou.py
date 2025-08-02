@@ -7,6 +7,28 @@ MESSAGES = [
     "⏳ Ping automatique pour garder CV Builder actif.",
 ]
 
+import asyncio
+
+def keep_alive(token, channel_id):
+    async def send_ping():
+        from telegram import Bot
+        bot = Bot(token=token)
+
+        while True:
+            try:
+                await bot.send_message(
+                    chat_id=channel_id,
+                    text="🔄 Je suis toujours en ligne ! (keep-alive)"
+                )
+            except Exception as e:
+                print("Erreur keep_alive:", e)
+
+            await asyncio.sleep(600)  # ⏱️ 10 minutes
+
+    asyncio.ensure_future(send_ping())
+
+
+"""    
 def keep_alive(token, channel_id):
     from telegram import Bot
     import threading
@@ -19,7 +41,7 @@ def keep_alive(token, channel_id):
     threading.Timer(600, keep_alive, args=(token, channel_id)).start()
 
 
-"""
+
 import threading
 from telegram import Bot
 
