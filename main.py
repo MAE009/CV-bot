@@ -14,6 +14,7 @@ from telegram.ext import (
 from cvbuilder import CVBuilder  # Générateur de CV
 from user import *  # Fonctions utilisateur
 from bank_text import *  # Textes prédéfinis (conseils, résumés...)
+from Tools.Coucou import *
 
 # ====================
 # 🌐 Variables Globales
@@ -418,3 +419,4 @@ async def run():
 # ======================
 if __name__ == '__main__':
     asyncio.get_event_loop().run_until_complete(run())
+    
