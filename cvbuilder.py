@@ -103,7 +103,7 @@ class CVBuilder:
         html_render = template.render(context)  
 
         #nom = self.data.get('nom', 'cv').replace(" ", "_").lower() 
-        nom = data["nom"].lower().replace(" ", "sans_nom")  
+        nom = self.data["nom"].lower().replace(" ", "sans_nom")  
         file_name = f"{nom}_moderne_test_1.pdf"  
 
         output_dir = "generated_cv"  
