@@ -418,5 +418,7 @@ async def run():
 # ⭐ Point d'entrée du script
 # ======================
 if __name__ == '__main__':
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+    keep_alive(token, CHANNEL_ID)
     asyncio.get_event_loop().run_until_complete(run())
     
