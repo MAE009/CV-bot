@@ -41,6 +41,6 @@ def keep_alive(token, channel_id):
             except Exception as e:
                 print("Erreur keep_alive:", e)
 
-            await asyncio.sleep(120)  # ⏱️ 2 minutes
+            await asyncio.sleep(600)  # ⏱️ 10 minutes
 
     asyncio.ensure_future(send_ping())
