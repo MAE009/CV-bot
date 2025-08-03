@@ -201,7 +201,7 @@ class CVBuilder:
         os.makedirs(output_dir, exist_ok=True)  
         file_path = os.path.join(output_dir, file_name)  
 
-        HTML(string=html_render, base_url='Template/Moderne').write_pdf(file_path)  
+        HTML(string=html_render, base_url='Template/Creative').write_pdf(file_path)  
 
         #print(f"✅ CV généré : {file_path} (compression: {compress})")  
         return file_path
