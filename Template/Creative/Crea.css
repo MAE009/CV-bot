@@ -22,13 +22,22 @@ body {
 
 /* ========== LAYOUT ========== */
 .cv-container {
+  max-width: 900px;
+  margin: 20px auto;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   display: flex;
-  width: 210mm; /* Format A4 */
+}
+/*
+.cv-container {
+  display: flex;
+  width: 210mm; 
   min-height: 297mm;
   margin: 0 50px 0 0;
   border: 5px solid var(--secondary);
   background: white;
-}
+} 
+*/
 
 /* ========== SIDEBAR ========== */
 .sidebar {
