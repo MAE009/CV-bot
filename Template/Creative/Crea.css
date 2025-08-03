@@ -1,10 +1,11 @@
 /* ========== VARIABLES ========== */
 :root {
-  --primary: #FF3E4D;
-  --secondary: #2B2D42;
-  --accent: #FFD166;
-  --text: #2B2D42;
-  --light: #F8F7FF;
+  --primary: #FF3E4D;         /* Rouge vif pour les titres */
+  --secondary: #2B2D42;       /* Bleu foncé pour le sidebar */
+  --accent: #FFD166;          /* Jaune doré pour les accents */
+  --text: #2B2D42;           /* Couleur texte principale */
+  --light: #F8F7FF;          /* Fond clair */
+  --gap: 24px;               /* Espacement cohérent */
 }
 
 /* ========== BASE ========== */
@@ -18,16 +19,17 @@ body {
   font-family: 'Raleway', sans-serif;
   color: var(--text);
   background: var(--light);
+  line-height: 1.6;          /* Améliore la lisibilité */
 }
 
 /* ========== LAYOUT ========== */
 .cv-container {
   display: flex;
-  width: 210mm; /* Format A4 */
+  width: 210mm;
   min-height: 297mm;
   margin: 0 auto;
-  border: 5px solid var(--secondary);
-  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ombre subtile */
+  overflow: hidden;          /* Cache les débordements */
 }
 
 /* ========== SIDEBAR ========== */
@@ -35,179 +37,160 @@ body {
   width: 30%;
   background: var(--secondary);
   color: white;
-  padding: 30px;
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
 }
 
 .profile {
-  margin-bottom: 40px;
+  margin-bottom: var(--gap);
+  text-align: center;       /* Centrage du profil */
 }
 
 .profile h1 {
   font-family: 'Righteous', cursive;
-  font-size: 32px;
+  font-size: clamp(24px, 3vw, 32px); /* Taille responsive */
   color: var(--accent);
-  margin-bottom: 10px;
-  line-height: 1.1;
+  margin-bottom: 8px;
 }
 
 .profile .job-title {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 16px;
   font-style: italic;
+  opacity: 0.9;
 }
 
+/* Sections sidebar */
 .sidebar-section {
-  margin-bottom: 30px;
+  margin-bottom: var(--gap);
 }
 
 .sidebar-section h2 {
   font-family: 'Righteous', cursive;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--accent);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   padding-bottom: 5px;
   border-bottom: 2px solid var(--accent);
+  text-transform: uppercase; /* Style plus pro */
 }
 
-.contact-list {
-  list-style: none;
-}
-
+/* Contact */
 .contact-list li {
   margin-bottom: 12px;
   display: flex;
   align-items: center;
+  font-size: 14px;
 }
 
 .contact-list i {
   margin-right: 10px;
   color: var(--accent);
-  width: 20px;
-  text-align: center;
+  min-width: 20px;          /* Alignement parfait */
 }
 
 /* Compétences */
 .skills-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 
 .skill-tag {
   background: var(--accent);
   color: var(--secondary);
-  padding: 5px 12px;
-  border-radius: 15px;
+  padding: 6px 10px;
+  border-radius: 12px;
   font-weight: 600;
   font-size: 12px;
-}
-
-/* Langues */
-.language-item {
-  margin-bottom: 10px;
-}
-
-.language-level {
-  display: flex;
-  margin-top: 5px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 5px;
-  background: rgba(255,255,255,0.2);
-}
-
-.dot.filled {
-  background: var(--accent);
+  text-align: center;
 }
 
 /* ========== MAIN CONTENT ========== */
 .main-content {
   width: 70%;
-  padding: 40px;
+  padding: var(--gap);
+  background: white;
 }
 
 .section {
-  margin-bottom: 30px;
+  margin-bottom: var(--gap);
 }
 
 .section h2 {
   font-family: 'Righteous', cursive;
-  font-size: 24px;
+  font-size: 20px;
   color: var(--primary);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   position: relative;
 }
 
 .section h2::after {
   content: "";
   position: absolute;
-  bottom: -5px;
+  bottom: -8px;
   left: 0;
   width: 50px;
   height: 3px;
   background: var(--accent);
 }
 
-.profile-text {
-  line-height: 1.6;
-}
-
-/* Timeline */
+/* Timeline améliorée */
 .timeline-item {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   position: relative;
-  padding-left: 20px;
+  padding-left: 24px;
+  border-left: 2px solid var(--primary);
 }
 
 .timeline-item::before {
-  content: "▸";
+  content: "";
   position: absolute;
-  left: 0;
-  color: var(--primary);
+  left: -7px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
 }
 
 .timeline-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.timeline-header h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  flex-wrap: wrap;          /* Responsive */
+  margin-bottom: 8px;
 }
 
 .timeline-date {
   color: var(--primary);
   font-weight: 600;
   font-size: 14px;
+  white-space: nowrap;      /* Empêche le retour à la ligne */
 }
 
-.timeline-company {
-  font-style: italic;
-  margin-bottom: 5px;
-  color: var(--text);
-}
-
-.timeline-location {
-  font-size: 14px;
-  color: var(--text);
-}
-
+/* Réalisations */
 .achievements {
   background: rgba(255, 214, 102, 0.1);
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
+  border-radius: 0 4px 4px 0;
   border-left: 3px solid var(--accent);
 }
 
-/* ========== RESPONSIVE ========== */
+.achievements::before {
+  content: "🏆 ";
+}
+
+/* ========== IMPRESSION ========== */
 @media print {
   body {
-    zoom: 0.9; /* Ajustement pour l'impression */
+    zoom: 0.9;
+    background: white !important;
   }
-}
+  
+  .cv-container {
+    box-shadow: none;
+    border: none;
+  }
+  }
