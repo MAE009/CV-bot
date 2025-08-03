@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Créatif - {{ infos.prenom }} {{ infos.nom }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;600&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="creative.css">
+</head>
+<body>
+  <div class="cv-container">
+    <!-- Colonne gauche -->
+    <aside class="sidebar">
+      <div class="graphic-element circle"></div>
+      <div class="graphic-element triangle"></div>
+      
+      <div class="profile">
+        <h1>{{ infos.prenom }}<br>{{ infos.nom }}</h1>
+        <div class="job-title">{{ infos.poste }}</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2>CONTACT</h2>
+        <ul class="contact-list">
+          <li><i class="fas fa-envelope"></i> {{ infos.email }}</li>
+          <li><i class="fas fa-phone"></i> {{ infos.tel }}</li>
+          <li><i class="fas fa-map-marker-alt"></i> {{ infos.ville }}</li>
+          {% if infos.autre != "❌ Non fourni" %}
+          <li><i class="fas fa-globe"></i> {{ infos.autre }}</li>
+          {% endif %}
+        </ul>
+      </div>
+      
+      <div class="sidebar-section">
+        <h2>MES SUPER POUVOIRS</h2>
+        <div class="skills-list">
+          {% for comp in competences %}
+          <span class="skill-tag">{{ comp.comp }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Colonne droite -->
+    <main class="main-content">
+      <section class="section">
+        <h2>PROFIL</h2>
+        <p class="profile-text">{{ infos.resume }}</p>
+      </section>
+      
+      <section class="section">
+        <h2>PARCOURS PRO</h2>
+        {% for exp in experiences %}
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <h3>{{ exp.poste }}</h3>
+            <span class="timeline-date">{{ exp.date }}</span>
+          </div>
+          <div class="timeline-company">{{ exp.entreprise }}</div>
+          <div class="timeline-description">
+            <p>{{ exp.description }}</p>
+          </div>
+          {% if exp.realisations %}
+          <div class="achievements">
+            <strong>Réalisations marquantes :</strong> {{ exp.realisations }}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      
+      <section class="section">
+        <h2>FORMATION</h2>
+        {% for edu in formations %}
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <h3>{{ edu.diplome }}</h3>
+            <span class="timeline-date">{{ edu.date_debut }} - {{ edu.date_fin }}</span>
+          </div>
+          <div class="timeline-company">{{ edu.etablissement }}</div>
+          <div class="timeline-description">
+            {{ edu.lieu }}
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+    </main>
+  </div>
+</body>
+  </html>
