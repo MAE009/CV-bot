@@ -208,4 +208,6 @@ body {
 /* ========== RESPONSIVE ========== */
 @media print {
   body {
-    zoom: 0.9; /* Ajustement pour l'impress
+    zoom: 0.9; /* Ajustement pour l'impression */
+  }
+    }
