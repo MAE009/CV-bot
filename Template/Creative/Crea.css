@@ -23,7 +23,7 @@ body {
 /* ========== LAYOUT ========== */
 .cv-container {
   max-width: 900px;
-  margin: 20px auto;
+  margin: 70px auto;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   display: flex;
