@@ -159,8 +159,8 @@ class CVBuilder:
         
         data = test_data
 
-        env = Environment(loader=FileSystemLoader('Template/Moderne'))  
-        template = env.get_template('Mod.html')
+        env = Environment(loader=FileSystemLoader('Template/Creative'))  
+        template = env.get_template('Crea.html')
 
 
     
