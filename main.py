@@ -15,6 +15,9 @@ from cvbuilder import CVBuilder  # Générateur de CV
 from user import *  # Fonctions utilisateur
 from bank_text import *  # Textes prédéfinis (conseils, résumés...)
 from Tools.Coucou import *
+from Tools.capture_image import *
+
+
 
 # ====================
 # 🌐 Variables Globales
@@ -73,6 +76,10 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 filename=os.path.basename(file_path),
                 caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !"
             )
+        image_path = pdf_to_linkedin_image(file_path)
+        await context.bot.send_photo(chat_id=query.message.chat.id,
+                                     photo=InputFile(image_path),
+                                     caption="🎯 Voici une image adaptée à LinkedIn. Tu peux la publier facilement !")
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
