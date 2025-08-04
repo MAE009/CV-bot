@@ -455,8 +455,8 @@ async def run():
     app.add_handler(CommandHandler("gr", generator))
     #app.add_handler(CommandHandler("test", test_modern_cv_generator))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    application.add_handler(CommandHandler("voir_modeles", see_modele))
-    application.add_handler(CallbackQueryHandler(modele_callback))
+    app.add_handler(CommandHandler("voir_modeles", see_modele))
+    app.add_handler(CallbackQueryHandler(modele_callback))
 
     await app.initialize()
     await app.start()
