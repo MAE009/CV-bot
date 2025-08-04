@@ -1,0 +1,45 @@
+from pdf2image import convert_from_path
+from PIL import Image
+import os
+
+def pdf_to_linkedin_image(pdf_path, output_folder="images", target_size=(1200, 627)):
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Convertir le PDF en image (page 1 uniquement)
+    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=1)
+    if not pages:
+        raise Exception("❌ Échec de la conversion du PDF.")
+
+    # Redimensionner l’image proprement (avec remplissage si besoin)
+    page = pages[0]
+    original = page.convert("RGB")
+    original = resize_with_padding(original, target_size)
+
+    output_path = os.path.join(output_folder, "linkedin_preview.jpg")
+    original.save(output_path, format="JPEG", quality=95)
+
+    return output_path
+
+def resize_with_padding(image, target_size):
+    target_width, target_height = target_size
+    img_ratio = image.width / image.height
+    target_ratio = target_width / target_height
+
+    if img_ratio > target_ratio:
+        # Image trop large → redimensionner largeur
+        new_width = target_width
+        new_height = int(target_width / img_ratio)
+    else:
+        # Image trop haute → redimensionner hauteur
+        new_height = target_height
+        new_width = int(target_height * img_ratio)
+
+    resized = image.resize((new_width, new_height), Image.LANCZOS)
+
+    # Créer un fond blanc à la bonne taille
+    result = Image.new("RGB", target_size, (255, 255, 255))
+    pos_x = (target_width - new_width) // 2
+    pos_y = (target_height - new_height) // 2
+    result.paste(resized, (pos_x, pos_y))
+    return result
