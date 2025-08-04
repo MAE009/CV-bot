@@ -3,59 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>CV {{ infos.prenom }} {{ infos.nom }} | {{ infos.poste }}</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0 auto;
-      max-width: 800px;
-      padding: 20px;
-      color: #000;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    h1 {
-      font-size: 22px;
-      margin-bottom: 5px;
-      color: #333;
-    }
-    
-    h2 {
-      font-size: 18px;
-      color: #2c3e50;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 3px;
-      margin-top: 25px;
-    }
-    
-    .contact-info {
-      margin: 10px 0;
-    }
-    
-    .job {
-      margin-bottom: 15px;
-    }
-    
-    .job-title {
-      font-weight: bold;
-    }
-    
-    ul {
-      padding-left: 20px;
-      margin-top: 5px;
-    }
-    
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-  </style>
+  <link rel="stylesheet" href="ATS.css">
 </head>
-<body>
+<body class={{body_class}}>
   <header>
     <h1>{{ infos.prenom }} {{ infos.nom }}</h1>
     <p class="job-title">{{ infos.poste }}</p>
@@ -78,12 +28,15 @@
     <h2>Expérience Professionnelle</h2>
     {% for exp in experiences %}
     <div class="job">
-      <div class="job-title">{{ exp.poste }} - {{ exp.entreprise }}</div>
-      <div>{{ exp.date }}</div>
-      <ul>
+      <div class="job-header">
+        <span class="job-position">{{ exp.poste }}</span>
+        <span class="job-company">- {{ exp.entreprise }}</span>
+        <span class="job-date">{{ exp.date }}</span>
+      </div>
+      <ul class="job-details">
         <li>{{ exp.description }}</li>
         {% if exp.realisations %}
-        <li>Réalisations clés : {{ exp.realisations }}</li>
+        <li class="achievements">Réalisations clés : {{ exp.realisations }}</li>
         {% endif %}
       </ul>
     </div>
@@ -93,18 +46,18 @@
   <section>
     <h2>Formation</h2>
     {% for edu in formations %}
-    <div>
-      <strong>{{ edu.diplome }}</strong><br>
-      {{ edu.etablissement }}<br>
-      {{ edu.date_debut }} - {{ edu.date_fin }} | {{ edu.lieu }}
+    <div class="education">
+      <div class="education-degree">{{ edu.diplome }}</div>
+      <div class="education-school">{{ edu.etablissement }}</div>
+      <div class="education-dates">{{ edu.date_debut }} - {{ edu.date_fin }} | {{ edu.lieu }}</div>
     </div>
-    {% if not loop.last %}<br>{% endif %}
+    {% if not loop.last %}<hr class="separator">{% endif %}
     {% endfor %}
   </section>
 
   <section>
     <h2>Compétences Techniques</h2>
-    <ul>
+    <ul class="skills">
       {% for skill in competences %}
         <li>{{ skill.comp }}</li>
       {% endfor %}
@@ -113,11 +66,11 @@
   
   <section>
     <h2>Langues</h2>
-    <ul>
+    <ul class="languages">
       {% for lang in langues %}
-        <li>{{ lang.nom }}</li>
+        <li>{{ lang.nom }} <span class="level">({{ lang.niveau }})</span></li>
       {% endfor %}
     </ul>
   </section>
 </body>
-</html>
+        </html>
