@@ -173,12 +173,12 @@ class CVBuilder:
 
         return chemin_complet  
 
-    def test_modern_cv_generator(self):  
+    def test_modern_cv_generator(self, type, fichier):  
         
         data = test_data
 
-        env = Environment(loader=FileSystemLoader('Template/Creative'))  
-        template = env.get_template('Crea.html')
+        env = Environment(loader=FileSystemLoader(f'Template/{type}'))  
+        template = env.get_template(f'{fichier}.html')
 
 
         nb_exp = len(data["experiences"])  
@@ -211,13 +211,13 @@ class CVBuilder:
         html_render = template.render(context)  
 
         nom = data["infos"]["nom"].lower().replace(" ", "_")  
-        file_name = f"{nom}_moderne_test.pdf"  
+        file_name = f"{nom}_{type}_test.pdf"  
 
         output_dir = "generated_cv"  
         os.makedirs(output_dir, exist_ok=True)  
         file_path = os.path.join(output_dir, file_name)  
 
-        HTML(string=html_render, base_url='Template/Creative').write_pdf(file_path)  
+        HTML(string=html_render, base_url=f'Template/{type}').write_pdf(file_path)  
 
         #print(f"✅ CV généré : {file_path} (compression: {compress})")  
         return file_path
