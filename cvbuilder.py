@@ -1,8 +1,9 @@
 from telegram import InputFile  
-from jinja2 import Environment, FileSystemLoader  
-from weasyprint import HTML  
+from jinja2 import Environment, FileSystemLoader, select_autoescape  
+from weasyprint import HTML, CSS  
 import os  
-from bank_text import *
+from datetime import datetime  
+from bank_text import *  
 
 
 class CVBuilder:  
@@ -43,7 +44,6 @@ class CVBuilder:
         self.data[key] = value  
 
     def simple_cv(self):  
-
         env = Environment(loader=FileSystemLoader('Template/ATS'))  
         template = env.get_template('ats.html')  
 
@@ -67,8 +67,8 @@ class CVBuilder:
             "experiences": self.experiences,  
             "competences": self.competences,  
             "formations": self.formations,  
-            "langues": self.langues,
-            "body_class": body_class
+            "langues": self.langues,  
+            "body_class": body_class  
         }  
 
         html = template.render(context)  
@@ -84,12 +84,9 @@ class CVBuilder:
 
         return chemin_complet  
 
-    
-    
     def creative(self):  
-        
         env = Environment(loader=FileSystemLoader('Template/Creative'))  
-        template = env.get_template('Crea.html')
+        template = env.get_template('Crea.html')  
 
         nb_exp = len(self.experiences)  
         nb_comp = len(self.competences)  
@@ -106,19 +103,17 @@ class CVBuilder:
         else:  
             body_class = "normal"  
 
-        context = {
+        context = {  
             "infos": self.data,  
             "experiences": self.experiences,  
             "competences": self.competences,  
             "formations": self.formations,  
             "langues": self.langues,  
-            "body_class": body_class
-            
+            "body_class": body_class  
         }  
 
         html_render = template.render(context)  
 
-        #nom = self.data.get('nom', 'cv').replace(" ", "_").lower() 
         nom = self.data["nom"].lower().replace(" ", "sans_nom")  
         file_name = f"{nom}_CV_creative.pdf"  
 
@@ -128,11 +123,9 @@ class CVBuilder:
 
         HTML(string=html_render, base_url='Template/Creative').write_pdf(file_path)  
 
-        #print(f"✅ CV généré : {file_path} (compression: {compress})")  
-        return file_path
-        
-    def moderne_cv(self):  
+        return file_path  
 
+    def moderne_cv(self):  
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
         template = env.get_template('Mod.html')  
 
@@ -149,7 +142,7 @@ class CVBuilder:
         elif total_points > 14:  
             body_class = "compress"  
         else:  
-            body_class = "normal"    
+            body_class = "normal"  
 
         context = {  
             "infos": self.data,  
@@ -173,94 +166,73 @@ class CVBuilder:
 
         return chemin_complet  
 
-    def test_modern_cv_generator(self, cv_type, template_file):
-    """
-    Génère un CV moderne avec adaptation automatique de la mise en page
-    selon la quantité de contenu.
-    
-    Args:
-        cv_type (str): Type de template ('moderne', 'classique', etc.)
-        template_file (str): Nom du fichier template sans extension
-        
-    Returns:
-        str: Chemin du fichier PDF généré
-    """
-    try:
-        # Chargement des données de test
-        data = test_data
-        
-        # Configuration de l'environnement Jinja2
-        template_dir = f'Template/{cv_type}'
-        env = Environment(
-            loader=FileSystemLoader(template_dir),
-            autoescape=select_autoescape(['html', 'xml'])
-        )
-        template = env.get_template(f'{template_file}.html')
+    def test_modern_cv_generator(self, cv_type, template_file):  
+        """  
+        Génère un CV moderne avec adaptation automatique de la mise en page  
+        selon la quantité de contenu.  
+        """  
+        try:  
+            data = test_data  
 
-        # Calcul du score de densité de contenu
-        content_metrics = {
-            'experiences': len(data["experiences"]),
-            'competences': len(data["competences"]),
-            'formations': len(data["formations"]),
-            'langues': len(data["langues"]),
-            'resume_length': len(data["infos"].get("resume", ""))
-        }
-        
-        # Pondération différente pour chaque section
-        content_score = (
-            content_metrics['experiences'] * 2 + 
-            content_metrics['competences'] * 1 +
-            content_metrics['formations'] * 1.5 +
-            content_metrics['langues'] * 1 +
-            (content_metrics['resume_length'] // 100)
-        )
+            template_dir = f'Template/{cv_type}'  
+            env = Environment(  
+                loader=FileSystemLoader(template_dir),  
+                autoescape=select_autoescape(['html', 'xml'])  
+            )  
+            template = env.get_template(f'{template_file}.html')  
 
-        # Sélection du mode de compression adaptatif
-        if content_score > 20:
-            body_class = "compress-plus"
-        elif content_score > 14:
-            body_class = "compress"
-        else:
-            body_class = "normal"
+            content_metrics = {  
+                'experiences': len(data["experiences"]),  
+                'competences': len(data["competences"]),  
+                'formations': len(data["formations"]),  
+                'langues': len(data["langues"]),  
+                'resume_length': len(data["infos"].get("resume", ""))  
+            }  
 
-        # Préparation du contexte
-        context = {
-            "body_class": body_class,
-            "infos": data["infos"],
-            "experiences": data["experiences"],
-            "formations": data["formations"],
-            "competences": data["competences"],
-            "langues": data["langues"],
-            "content_score": content_score,  # Pour debug éventuel
-            "generation_date": datetime.now().strftime("%Y-%m-%d")
-        }
+            content_score = (  
+                content_metrics['experiences'] * 2 +  
+                content_metrics['competences'] * 1 +  
+                content_metrics['formations'] * 1.5 +  
+                content_metrics['langues'] * 1 +  
+                (content_metrics['resume_length'] // 100)  
+            )  
 
-        # Rendu du template
-        html_content = template.render(context)
+            if content_score > 20:  
+                body_class = "compress-plus"  
+            elif content_score > 14:  
+                body_class = "compress"  
+            else:  
+                body_class = "normal"  
 
-        # Génération du nom de fichier
-        safe_name = data["infos"]["nom"].lower().replace(" ", "_")
-        output_filename = f"{safe_name}_{cv_type}_{body_class}.pdf"
-        
-        # Création du répertoire de sortie
-        output_dir = "generated_cv"
-        os.makedirs(output_dir, exist_ok=True)
-        output_path = os.path.join(output_dir, output_filename)
+            context = {  
+                "body_class": body_class,  
+                "infos": data["infos"],  
+                "experiences": data["experiences"],  
+                "formations": data["formations"],  
+                "competences": data["competences"],  
+                "langues": data["langues"],  
+                "content_score": content_score,  
+                "generation_date": datetime.now().strftime("%Y-%m-%d")  
+            }  
 
-        # Conversion en PDF avec des paramètres optimisés
-        HTML(
-            string=html_content,
-            base_url=template_dir
-        ).write_pdf(
-            output_path,
-            stylesheets=[CSS(string='@page { size: A4; margin: 1cm; }')],
-            optimize_size=('fonts', 'images', 'content')
-        )
+            html_content = template.render(context)  
 
-        # Log de confirmation
-        print(f"CV généré avec succès: {output_path} | Mode: {body_class} | Score: {content_score}")
-        return output_path
+            safe_name = data["infos"]["nom"].lower().replace(" ", "_")  
+            output_filename = f"{safe_name}_{cv_type}_{body_class}.pdf"  
 
-    except Exception as e:
-        print(f"Erreur lors de la génération du CV: {str(e)}")
-        raise
+            output_dir = "generated_cv"  
+            os.makedirs(output_dir, exist_ok=True)  
+            output_path = os.path.join(output_dir, output_filename)  
+
+            HTML(string=html_content, base_url=template_dir).write_pdf(  
+                output_path,  
+                stylesheets=[CSS(string='@page { size: A4; margin: 1cm; }')],  
+                optimize_size=('fonts', 'images', 'content')  
+            )  
+
+            print(f"CV généré avec succès: {output_path} | Mode: {body_class} | Score: {content_score}")  
+            return output_path  
+
+        except Exception as e:  
+            print(f"Erreur lors de la génération du CV: {str(e)}")  
+            raise
