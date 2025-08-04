@@ -34,6 +34,54 @@ def get_session(user_id):
 # ====================
 # 🔧 Handlers Principaux
 # ====================
+# Debut New function
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import CallbackQueryHandler
+
+async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("📄 Simple ATS", callback_data="ATS|ats")],
+        [InlineKeyboardButton("🧩 Moderne", callback_data="Moderne|Mod")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="Creative|Crea")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        "📌 Choisis un modèle de CV à générer :",
+        reply_markup=reply_markup
+)
+    
+from telegram import InputFile
+
+async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    try:
+        cv_type, template_file = query.data.split("|")
+        user_id = query.from_user.id
+        session = get_session(user_id)
+
+        await query.edit_message_text(f"⚙️ Génération du CV {cv_type} en cours...")
+
+        file_path = session.test_modern_cv_generator(cv_type, template_file)
+
+        with open(file_path, "rb") as f:
+            await context.bot.send_document(
+                chat_id=query.message.chat.id,
+                document=InputFile(f),
+                filename=os.path.basename(file_path),
+                caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !"
+            )
+    except Exception as e:
+        await context.bot.send_message(
+            chat_id=query.message.chat.id,
+            text=f"❌ Une erreur est survenue : {e}"
+        )
+        print("Erreur :", e)
+        
+# fin
+
 async def infos(update, context):
     web_app_url = "https://cv-bot-infos.onrender.com"
     keyboard = [[InlineKeyboardButton("🌐 Ouvrir la Web App", web_app=WebAppInfo(url=web_app_url))]]
@@ -369,7 +417,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await event_CVbuilding(update, context)
 
     elif text == "📄 Voir un exemple":
-        await update.message.reply_text("Voici un exemple de CV fictif : Jean Dupont, développeur Python...")
+        await update.message.reply_text("Voici un exemple de CV:")
+        await see_modele()
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
@@ -406,6 +455,8 @@ async def run():
     app.add_handler(CommandHandler("gr", generator))
     #app.add_handler(CommandHandler("test", test_modern_cv_generator))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    application.add_handler(CommandHandler("voir_modeles", see_modele))
+    application.add_handler(CallbackQueryHandler(modele_callback))
 
     await app.initialize()
     await app.start()
