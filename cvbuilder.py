@@ -231,7 +231,16 @@ class CVBuilder:
             )  
 
             print(f"CV généré avec succès: {output_path} | Mode: {body_class} | Score: {content_score}")  
-            return output_path  
+            # Étape 1 : Sauvegarder le HTML dans un fichier temporaire
+            html_temp_path = os.path.join(output_dir, f"{safe_name}_{cv_type}_{body_class}.html")
+            with open(html_temp_path, "w", encoding="utf-8") as f:
+            f.write(html_content)
+
+            # Étape 2 : Convertir en image LinkedIn
+            image_path = html_to_linkedin_image(html_temp_path)  # ← à créer (voir ci-dessous)
+
+            # Retourner les deux chemins
+            return output_path, image_path
 
         except Exception as e:  
             print(f"Erreur lors de la génération du CV: {str(e)}")  
