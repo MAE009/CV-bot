@@ -1,4 +1,4 @@
-from html2image import Html2Image
+
 from PIL import Image
 import os
 
