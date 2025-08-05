@@ -68,20 +68,23 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(f"⚙️ Génération du CV {cv_type} en cours...")
 
         file_path = session.test_modern_cv_generator(cv_type, template_file)
+        file_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
 
+        # Envoie PDF
         with open(file_path, "rb") as f:
             await context.bot.send_document(
                 chat_id=query.message.chat.id,
                 document=InputFile(f),
                 filename=os.path.basename(file_path),
-                caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !"
-            )
-        
-        html_path = f"templates/{template_file}.html"
-        image_path = html_to_linkedin_image(html_path)
-        await context.bot.send_photo(chat_id=query.message.chat.id,
-                                     photo=InputFile(image_path),
-                                     caption="🎯 Voici une image adaptée à LinkedIn. Tu peux la publier facilement !")
+                caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !")
+
+        # Envoie image LinkedIn
+        with open(image_path, "rb") as f:
+            await context.bot.send_photo(
+                chat_id=query.message.chat.id,
+                photo=InputFile(f),
+                caption="🎯 Voici une image adaptée à LinkedIn. Tu peux la publier facilement !")
+    
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
