@@ -5,6 +5,7 @@ python-docx
 docx2pdf  
 Jinja2
 WeasyPrint
-html2image
+imgkit
+flask
 Pillow
 reportlab==4.1.0
