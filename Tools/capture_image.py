@@ -4,7 +4,7 @@ import os
 
 import imgkit
 
-def html_to_linkedin_image(html_path, output_folder="images", target_size=(1200, 627)):
+def html_to_linkedin_image(html_path, output_folder="images", target_size=(627, 1200)):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
