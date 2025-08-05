@@ -3,7 +3,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from weasyprint import HTML, CSS  
 import os  
 from datetime import datetime  
-from bank_text import *  
+from bank_text import *
+from Tools.capture_image import *
 
 
 class CVBuilder:  
