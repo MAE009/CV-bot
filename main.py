@@ -76,7 +76,8 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 filename=os.path.basename(file_path),
                 caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !"
             )
-        image_path = pdf_to_linkedin_image(file_path)
+        
+        image_path = html_to_linkedin_image(file_path)
         await context.bot.send_photo(chat_id=query.message.chat.id,
                                      photo=InputFile(image_path),
                                      caption="🎯 Voici une image adaptée à LinkedIn. Tu peux la publier facilement !")
