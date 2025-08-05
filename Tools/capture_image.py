@@ -1,25 +1,34 @@
-from pdf2image import convert_from_path
+from html2image import Html2Image
 from PIL import Image
 import os
 
-def pdf_to_linkedin_image(pdf_path, output_folder="images", target_size=(1200, 627)):
+def html_to_linkedin_image(html_path, output_folder="images", target_size=(1200, 627)):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    # Convertir le PDF en image (page 1 uniquement)
-    pages = convert_from_path(pdf_path, dpi=300, first_page=1, last_page=1)
-    if not pages:
-        raise Exception("❌ Échec de la conversion du PDF.")
+    hti = Html2Image(output_path=output_folder)
 
-    # Redimensionner l’image proprement (avec remplissage si besoin)
-    page = pages[0]
-    original = page.convert("RGB")
-    original = resize_with_padding(original, target_size)
+    # Générer une image temporaire à partir du HTML
+    tmp_name = "temp_preview.png"
+    hti.screenshot(
+        html_file=html_path,
+        save_as=tmp_name,
+        size=(target_size[0], target_size[1])  # base size
+    )
 
-    output_path = os.path.join(output_folder, "linkedin_preview.jpg")
-    original.save(output_path, format="JPEG", quality=95)
+    # Charger et redimensionner l'image finale
+    temp_image_path = os.path.join(output_folder, tmp_name)
+    image = Image.open(temp_image_path).convert("RGB")
+    final_image = resize_with_padding(image, target_size)
 
-    return output_path
+    final_path = os.path.join(output_folder, "linkedin_preview.jpg")
+    final_image.save(final_path, format="JPEG", quality=95)
+
+    # Nettoyage du fichier temporaire
+    os.remove(temp_image_path)
+
+    return final_path
+
 
 def resize_with_padding(image, target_size):
     target_width, target_height = target_size
