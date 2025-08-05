@@ -234,7 +234,7 @@ class CVBuilder:
             # Étape 1 : Sauvegarder le HTML dans un fichier temporaire
             html_temp_path = os.path.join(output_dir, f"{safe_name}_{cv_type}_{body_class}.html")
             with open(html_temp_path, "w", encoding="utf-8") as f:
-            f.write(html_content)
+                f.write(html_content)
 
             # Étape 2 : Convertir en image LinkedIn
             image_path = html_to_linkedin_image(html_temp_path)  # ← à créer (voir ci-dessous)
