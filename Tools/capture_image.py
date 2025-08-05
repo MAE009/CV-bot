@@ -2,32 +2,26 @@ from html2image import Html2Image
 from PIL import Image
 import os
 
+import imgkit
+
 def html_to_linkedin_image(html_path, output_folder="images", target_size=(1200, 627)):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    hti = Html2Image(output_path=output_folder)
+    # Génère une image temporaire à partir du HTML
+    image_path = os.path.join(output_folder, os.path.basename(html_path).replace(".html", "_linkedin.jpg"))
+    
+    options = {
+        "format": "jpg",
+        "crop-h": str(target_size[1]),
+        "crop-w": str(target_size[0]),
+        "quality": "95",
+        "encoding": "UTF-8",
+        "enable-local-file-access": "",  # nécessaire pour lire les fichiers CSS locaux
+    }
 
-    # Générer une image temporaire à partir du HTML
-    tmp_name = "temp_preview.png"
-    hti.screenshot(
-        html_file=html_path,
-        save_as=tmp_name,
-        size=(target_size[0], target_size[1])  # base size
-    )
-
-    # Charger et redimensionner l'image finale
-    temp_image_path = os.path.join(output_folder, tmp_name)
-    image = Image.open(temp_image_path).convert("RGB")
-    final_image = resize_with_padding(image, target_size)
-
-    final_path = os.path.join(output_folder, "linkedin_preview.jpg")
-    final_image.save(final_path, format="JPEG", quality=95)
-
-    # Nettoyage du fichier temporaire
-    os.remove(temp_image_path)
-
-    return final_path
+    imgkit.from_file(html_path, image_path, options=options)
+    return image_path
 
 
 def resize_with_padding(image, target_size):
