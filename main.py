@@ -91,7 +91,7 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|ats")],
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="ATS|ats")],
         [InlineKeyboardButton("🎯 Moderne", callback_data="template|Mod")],
         [InlineKeyboardButton("🎨 Créatif", callback_data="template|Crea")]
     ]
