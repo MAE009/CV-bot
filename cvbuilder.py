@@ -167,21 +167,20 @@ class CVBuilder:
 
         return chemin_complet  
 
-    def test_modern_cv_generator(self, cv_type, template_file):  
-        """  
-        Génère un CV moderne avec adaptation automatique de la mise en page  
-        selon la quantité de contenu.  
-        """  
+    def  test_modern_cv_generator(self, cv_type, template_file):  
+        """Génère un CV moderne et son image LinkedIn"""  
         try:  
             data = test_data  
+            template_dir = f'Template/{cv_type}'
+            
+            # 1. Préparation du template
+            env = Environment(
+                loader=FileSystemLoader(template_dir),
+                autoescape=select_autoescape(['html', 'xml'])
+            )
+            template = env.get_template(f'{template_file}.html')
 
-            template_dir = f'Template/{cv_type}'  
-            env = Environment(  
-                loader=FileSystemLoader(template_dir),  
-                autoescape=select_autoescape(['html', 'xml'])  
-            )  
-            template = env.get_template(f'{template_file}.html')  
-
+            # ... (votre logique existante de calcul du content_score) ...
             content_metrics = {  
                 'experiences': len(data["experiences"]),  
                 'competences': len(data["competences"]),  
@@ -215,34 +214,36 @@ class CVBuilder:
                 "content_score": content_score,  
                 "generation_date": datetime.now().strftime("%Y-%m-%d")  
             }  
+            # 2. Génération du HTML
+            html_content = template.render(context)
+            safe_name = data["infos"]["nom"].lower().replace(" ", "_")
+            output_dir = "generated_cv"
+            os.makedirs(output_dir, exist_ok=True)
 
-            html_content = template.render(context)  
-
-            safe_name = data["infos"]["nom"].lower().replace(" ", "_")  
-            output_filename = f"{safe_name}_{cv_type}_{body_class}.pdf"  
-
-            output_dir = "generated_cv"  
-            os.makedirs(output_dir, exist_ok=True)  
-            output_path = os.path.join(output_dir, output_filename)  
-
-            HTML(string=html_content, base_url=template_dir).write_pdf(  
-                output_path,  
-                stylesheets=[CSS(string='@page { size: A4; margin: 1cm; }')],  
-                optimize_size=('fonts', 'images', 'content')  
-            )  
-
-            print(f"CV généré avec succès: {output_path} | Mode: {body_class} | Score: {content_score}")  
-            # Étape 1 : Sauvegarder le HTML dans un fichier temporaire
-            html_temp_path = os.path.join(output_dir, f"{safe_name}_{cv_type}_{body_class}.html")
+            # 3. Sauvegarde du HTML temporaire
+            html_temp_path = os.path.join(output_dir, f"temp_{safe_name}.html")
             with open(html_temp_path, "w", encoding="utf-8") as f:
                 f.write(html_content)
 
-            # Étape 2 : Convertir en image LinkedIn
-            image_path = html_to_linkedin_image(html_temp_path)  # ← à créer (voir ci-dessous)
+            # 4. Génération PDF
+            pdf_path = os.path.join(output_dir, f"{safe_name}_{cv_type}.pdf")
+            HTML(string=html_content, base_url=template_dir).write_pdf(
+                pdf_path,
+                stylesheets=[CSS(string='@page { size: A4; margin: 1cm; }')]
+            )
 
-            # Retourner les deux chemins
-            return output_path, image_path
+            # 5. Génération image LinkedIn
+            css_path = os.path.join(template_dir, f"{template_file}.css")
+            linkedin_image_path = html_to_linkedin_image(
+                html_path=html_temp_path,
+                css_path=css_path
+            )
+
+            # Nettoyage du HTML temporaire
+            os.remove(html_temp_path)
+
+            return pdf_path, linkedin_image_path
 
         except Exception as e:  
-            print(f"Erreur lors de la génération du CV: {str(e)}")  
+            print(f"❌ Erreur CV generation: {str(e)}")  
             raise
