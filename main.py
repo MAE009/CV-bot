@@ -54,7 +54,6 @@ async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
 )
     
-from telegram import InputFile
 
 async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -62,35 +61,35 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
         cv_type, template_file = query.data.split("|")
-        user_id = query.from_user.id
-        session = get_session(user_id)
+        session = get_session(query.from_user.id)
 
-        await query.edit_message_text(f"⚙️ Génération du CV {cv_type} en cours...")
+        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
 
-        file_path = session.test_modern_cv_generator(cv_type, template_file)
-        file_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+        # Génération des fichiers
+        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
 
-        # Envoie PDF
-        with open(file_path, "rb") as f:
+        # Envoi du PDF
+        with open(pdf_path, "rb") as pdf_file:
             await context.bot.send_document(
                 chat_id=query.message.chat.id,
-                document=InputFile(f),
-                filename=os.path.basename(file_path),
-                caption=f"✅ Voici ton CV {cv_type.lower()} prêt à l'emploi !")
+                document=InputFile(pdf_file),
+                caption="📄 Ton CV prêt à imprimer/envoyer"
+            )
 
-        # Envoie image LinkedIn
-        with open(image_path, "rb") as f:
+        # Envoi de l'image LinkedIn
+        with open(image_path, "rb") as img_file:
             await context.bot.send_photo(
                 chat_id=query.message.chat.id,
-                photo=InputFile(f),
-                caption="🎯 Voici une image adaptée à LinkedIn. Tu peux la publier facilement !")
-    
+                photo=InputFile(img_file),
+                caption="✨ Version optimisée pour LinkedIn"
+            )
+
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
-            text=f"❌ Une erreur est survenue : {e}"
+            text=f"❌ Erreur: {str(e)}"
         )
-        print("Erreur :", e)
+        print(f"Erreur callback: {str(e)}")
         
 # fin
 
