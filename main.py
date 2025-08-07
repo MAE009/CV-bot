@@ -8,7 +8,7 @@ from telegram import (
     InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 )
 from telegram.ext import (
-    ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+    ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 )
 
 from cvbuilder import CVBuilder  # Générateur de CV
@@ -38,8 +38,6 @@ def get_session(user_id):
 # 🔧 Handlers Principaux
 # ====================
 # Debut New function
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import CallbackQueryHandler
 
 async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -53,7 +51,6 @@ async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📌 Choisis un modèle de CV à générer :",
         reply_markup=reply_markup
 )
-    
 
 async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -90,6 +87,47 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=f"❌ Erreur: {str(e)}"
         )
         print(f"Erreur callback: {str(e)}")
+
+
+async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|simple_cv")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="template|moderne_cv")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="template|creative_cv")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
+
+async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    try:
+        _, template = query.data.split("|")  # ex: "template|moderne_cv"
+        user_id = query.from_user.id
+        session = get_session(user_id)
+
+        await query.edit_message_text("⚙️ Génération de ton CV en cours...")
+
+        # Appelle dynamiquement la bonne méthode : moderne_cv(), simple_cv(), creative_cv()
+        cv_generator = getattr(session, template)
+        file_path = cv_generator()
+
+        with open(file_path, "rb") as file:
+            await context.bot.send_document(
+                chat_id=query.message.chat.id,
+                document=InputFile(file),
+                filename=os.path.basename(file_path),
+                caption="✅ Voici ton CV généré ! Tu peux l’utiliser directement 💼"
+            )
+    except Exception as e:
+        await context.bot.send_message(
+            chat_id=query.message.chat.id,
+            text=f"❌ Une erreur est survenue : {e}"
+        )
+        print("Erreur :", e)
+
+
         
 # fin
 
@@ -410,7 +448,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
-        await generator(update, context)
+        await update.message.reply_text("Toutes les données sont fournis, pour gérer cliquer sur menu puis générer")
 
 
 
@@ -468,6 +506,8 @@ async def run():
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
+    app.add_handler(CommandHandler("generer", choisir_template))
+    app.add_handler(CallbackQueryHandler(template_callback, pattern="^template\|"))
 
     await app.initialize()
     await app.start()
