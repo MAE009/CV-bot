@@ -91,9 +91,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|simple")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="template|moderne")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="template|creative")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|ats")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="template|Mod")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="template|Crea")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
@@ -108,11 +108,11 @@ async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text("⚙️ Génération de ton CV en cours...")
 
     try:
-        if template_choice == "moderne":
+        if template_choice == "Mod":
             file_path = session.moderne_cv()
-        elif template_choice == "simple":
+        elif template_choice == "ats":
             file_path = session.simple_cv()
-        elif template_choice == "creative":
+        elif template_choice == "Crea":
             file_path = session.creative_cv()
         else:
             raise Exception("❌ Modèle de CV inconnu.")
