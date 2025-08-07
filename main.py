@@ -91,9 +91,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|simple_cv")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="template|moderne_cv")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="template|creative_cv")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|simple")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="template|moderne")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="template|creative")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
@@ -102,31 +102,33 @@ async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
+    _, template_choice = query.data.split("|")
+    session = get_session(query.from_user.id)
+
+    await query.edit_message_text("⚙️ Génération de ton CV en cours...")
+
     try:
-        _, template = query.data.split("|")  # ex: "template|moderne_cv"
-        user_id = query.from_user.id
-        session = get_session(user_id)
-
-        await query.edit_message_text("⚙️ Génération de ton CV en cours...")
-
-        # Appelle dynamiquement la bonne méthode : moderne_cv(), simple_cv(), creative_cv()
-        cv_generator = getattr(session, template)
-        file_path = cv_generator()
+        if template_choice == "moderne":
+            file_path = session.moderne_cv()
+        elif template_choice == "simple":
+            file_path = session.simple_cv()
+        elif template_choice == "creative":
+            file_path = session.creative_cv()
+        else:
+            raise Exception("❌ Modèle de CV inconnu.")
 
         with open(file_path, "rb") as file:
             await context.bot.send_document(
                 chat_id=query.message.chat.id,
                 document=InputFile(file),
-                filename=os.path.basename(file_path),
-                caption="✅ Voici ton CV généré ! Tu peux l’utiliser directement 💼"
+                caption="✅ Voici ton CV prêt à l’emploi ! 🚀"
             )
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
             text=f"❌ Une erreur est survenue : {e}"
         )
-        print("Erreur :", e)
-
+        print("Erreur template_callback:", e)
 
         
 # fin
@@ -448,8 +450,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
-        await update.message.reply_text("Toutes les données sont fournis, pour gérer cliquer sur menu puis générer")
-
+        choisir_template()
 
 
 # ====================
