@@ -85,7 +85,7 @@ class CVBuilder:
 
         return chemin_complet  
 
-    def creative(self):  
+    def creative_cv(self):  
         env = Environment(loader=FileSystemLoader('Template/Creative'))  
         template = env.get_template('Crea.html')  
 
