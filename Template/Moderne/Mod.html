@@ -35,7 +35,7 @@
         <ul class="skills-list">
           {% for skill in competences %}
           <li>
-            <span class="skill-name">"🏆" {{ skill.comp }}</span>
+            <span class="skill-name">{{ skill.comp }}</span>
           </li>
           {% endfor %}
         </ul>
@@ -73,7 +73,7 @@
             <p>{{ exp.description }}</p>
             {% if exp.realisations %}
             <div class="achievements">
-              <h4>Réalisations clés :</h4>
+              <h4>🏆 Réalisations clés :</h4>
               <p>{{ exp.realisations }}</p>
             </div>
             {% endif %}
