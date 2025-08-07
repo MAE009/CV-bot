@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV {{ infos.prenom }} {{ infos.nom }} | {{ infos.poste }}</title>
+  <title>CV {{ infos.nom }} {{ infos.prenom }} | {{ infos.poste }}</title>
   <link rel="stylesheet" href="Mod.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,7 +23,7 @@
         <ul class="contact-list">
           <li><i class="fas fa-map-marker-alt"></i> {{ infos.ville }}</li>
           <li><i class="fas fa-phone"></i> {{ infos.tel }}</li>
-          <li><i class="fas fa-envelope"></i> <a href="mailto:{{ infos.email }}">{{ infos.email }}</a></li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:{{ infos.email }}">mon e-mail</a></li>
           {% if infos.autre != "❌ Non fourni" %}
           <li><i class="fas fa-globe"></i> <a href="{{ infos.autre }}">Portfolio</a></li>
           {% endif %}
