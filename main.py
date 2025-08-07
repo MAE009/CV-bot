@@ -91,9 +91,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="ATS|ats")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="Moderne|Mod")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="Creative|Crea")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="template|simple_cv")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="template|moderne_cv")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="template|creative_cv")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
