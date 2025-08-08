@@ -61,3 +61,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=f"❌ Erreur: {str(e)}"
         )
         print(f"Erreur callback: {str(e)}")
+        
+
+def setup_models_handlers(app):
+    app.add_handler(CommandHandler("voir_modeles", see_modele))
+    app.add_handler(CallbackQueryHandler(modele_callback))
+    
