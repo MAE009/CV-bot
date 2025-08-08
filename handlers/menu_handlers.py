@@ -2,6 +2,8 @@ from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ContextTypes, CommandHandler
 from utils.helpers import *
 from cv_handlers import *
+from models import *
+
 
 
 # ============================
@@ -62,7 +64,4 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_menu_handlers(app):
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(
-        filters.TEXT & filters.Regex(r"^(📝 Créer un CV|📄 Voir un exemple|⚙️ Aide|❌ Quitter|🧽 Clean)$"),
-        handle_main_menu
-    ))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
