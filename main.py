@@ -468,7 +468,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV:")
-        await see_modele()
+        see_modele()
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
