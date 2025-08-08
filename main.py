@@ -89,11 +89,12 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Erreur callback: {str(e)}")
 
 """
+
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="ATS|ats")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="generate|Moderne")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="generate|Creative")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="simple")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="moderne")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="creative")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
@@ -101,35 +102,39 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
-    action, cv_type = query.data.split("|")
+    
+    template_choice = query.data  # On récupère directement la valeur
     session = get_session(query.from_user.id)
 
-    await query.edit_message_text("⚙️ Génération de ton CV {cv_type} en cours...")
+    await query.edit_message_text("⚙️ Génération de ton CV en cours...")
 
     try:
-        if action == "generate":
-            if cv_type == "Moderne":
-                file_path = session.moderne_cv()
-            elif cv_type == "ATS":
-                file_path = session.simple_cv()
-            elif cv_type == "Creative":
-                file_path = session.creative_cv()
-            else:
-                raise Exception("❌ Modèle de CV inconnu.")
+        if template_choice == "simple":
+            file_path = session.simple_cv()
+            template_name = "Simple (ATS)"
+        elif template_choice == "moderne":
+            file_path = session.moderne_cv()
+            template_name = "Moderne"
+        elif template_choice == "creative":
+            file_path = session.creative_cv()
+            template_name = "Créatif"
+        else:
+            raise ValueError("Type de template inconnu")
 
-            with open(file_path, "rb") as file:
-                await context.bot.send_document(
-                    chat_id=query.message.chat.id,
-                    document=InputFile(file),
-                    caption="✅ Voici ton CV prêt à l’emploi ! 🚀"
-                )
+        with open(file_path, "rb") as file:
+            await context.bot.send_document(
+                chat_id=query.message.chat.id,
+                document=InputFile(file),
+                filename=os.path.basename(file_path),
+                caption=f"✅ Ton CV {template_name} est prêt ! 🚀"
+            )
+            
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
-            text=f"❌ Une erreur est survenue : {e}"
+            text=f"❌ Erreur lors de la génération : {str(e)}"
         )
-        print("Erreur template_callback:", e)
+        print(f"Erreur template_callback: {str(e)}")
 
         
 # fin
