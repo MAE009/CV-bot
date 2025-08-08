@@ -112,6 +112,7 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_template_choice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Gère la sélection du template"""
+    choisir_template()
     choice = update.message.text
     session = get_session(update.message.from_user.id)
     
@@ -523,7 +524,7 @@ async def run():
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
     # Commande pour afficher le menu
-    app.add_handler(CommandHandler("cv", choisir_template))
+    app.add_handler(CommandHandler("cv", handle_template_choice))
     
     # Handler pour les choix de template
     app.add_handler(MessageHandler(
