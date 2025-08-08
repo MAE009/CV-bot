@@ -1,10 +1,22 @@
+# 📦 Imports
 import os
 import asyncio
+import nest_asyncio
+from flask import Flask
 from telegram.ext import ApplicationBuilder
 from handlers import setup_handlers
 from Config import *
 from Tools.Coucou import *
 
+
+
+nest_asyncio.apply()
+flask_app = Flask(__name__)
+
+@flask_app.route('/')
+def home():
+    return "✅ Bot Telegram CV en ligne !"
+    
 
 async def run():
     
@@ -20,7 +32,6 @@ async def run():
   
 
 if __name__ == '__main__':
-    
     keep_alive(token, CHANNEL_ID)
     asyncio.get_event_loop().run_until_complete(run())
     
