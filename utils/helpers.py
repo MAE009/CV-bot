@@ -9,7 +9,7 @@ from telegram.ext import (
 
 from cvbuilder import CVBuilder  # Générateur de CV
 from user import *  # Fonctions utilisateur
-
+from Config import *
 
 
 
