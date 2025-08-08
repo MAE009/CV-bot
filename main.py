@@ -110,40 +110,6 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
         )
 
-async def handle_template_choice(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Gère la sélection du template"""
-    choisir_template()
-    choice = update.message.text
-    session = get_session(update.message.from_user.id)
-    
-    try:
-        await update.message.reply_text("⚙️ Génération de ton CV en cours...")
-        
-        if choice == "🧾 Simple (ATS)":
-            file_path = session.simple_cv()
-            template_name = "Simple (ATS)"
-        elif "Moderne" in choice:
-            file_path = session.moderne_cv()
-            template_name = "Moderne"
-        elif "Créatif" in choice:
-            file_path = session.creative_cv()
-            template_name = "Créatif"
-        elif "Annuler" in choice:
-            await update.message.reply_text("Opération annulée.")
-            return
-        else:
-            raise ValueError("Choix non reconnu")
-
-        with open(file_path, "rb") as file:
-            await update.message.reply_document(
-                document=InputFile(file),
-                filename=os.path.basename(file_path),
-                caption=f"✅ Ton CV {template_name} est prêt ! 🚀"
-            )
-            
-    except Exception as e:
-        await update.message.reply_text(f"❌ Erreur lors de la génération : {str(e)}")
-        print(f"Erreur handle_template_choice: {str(e)}")
 
 
         
@@ -540,14 +506,7 @@ async def run():
     # Commande pour afficher le menu
     app.add_handler(CommandHandler("cv", choisir_template))
     
-    # Handler pour les choix de template
-    app.add_handler(MessageHandler(
-        filters.TEXT & (
-            filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$")
-        ),
-        generator
-    ))
-
+    
     await app.initialize()
     await app.start()
     await app.updater.start_polling()
