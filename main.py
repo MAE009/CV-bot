@@ -108,7 +108,7 @@ async def handle_template_choice(update: Update, context: ContextTypes.DEFAULT_T
     try:
         await update.message.reply_text("⚙️ Génération de ton CV en cours...")
         
-        if "Simple" in choice:
+        if choice == "🧾 Simple (ATS)":
             file_path = session.simple_cv()
             template_name = "Simple (ATS)"
         elif "Moderne" in choice:
