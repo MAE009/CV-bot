@@ -104,11 +104,13 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if session.step == 0:
             await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
             await update.message.reply_text("Quel est ton nom de famille ?")
+            await choisir_template(update, context)
             session.next_step()
 
         elif session.step == 1:
             session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton prénom ?")
+            await generator(update, context)
             session.next_step()
 
         elif session.step == 2:
