@@ -90,15 +90,25 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Affiche le menu de sélection de template"""
-    keyboard = [
-        ["🧾 Simple (ATS)", "🎯 Moderne"],
-        ["🎨 Créatif", "❌ Annuler"]
+    buttons = [
+        KeyboardButton("🧾 Simple (ATS)"),
+        KeyboardButton("🎯 Moderne"),
+        KeyboardButton("🎨 Créatif"),
+        KeyboardButton("❌ Annuler")
     ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    # Organisez en 2 colonnes
+    keyboard = [buttons[i:i+2] for i in range(0, len(buttons), 2)]
+    
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True,
+        one_time_keyboard=True  # Le clavier disparaît après sélection
+    )
+    
     await update.message.reply_text(
         "🧑‍🎓 Choisis un style de CV :",
         reply_markup=reply_markup
-    )
+        )
 
 async def handle_template_choice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Gère la sélection du template"""
