@@ -2,7 +2,7 @@ from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ContextTypes, CommandHandler
 from utils.helpers import *
 from handlers.cv_handlers import *
-from models import *
+from handlers.models_handlers import *
 from bank_text import *
 
 
