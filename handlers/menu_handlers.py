@@ -1,5 +1,10 @@
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import ContextTypes, CommandHandler
+from telegram import (
+    Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
+    InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+)
+from telegram.ext import (
+    ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, CallbackQueryHandler
+)
 from utils.helpers import *
 from handlers.cv_handlers import *
 from handlers.models_handlers import *
