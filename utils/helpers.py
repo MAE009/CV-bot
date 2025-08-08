@@ -1,10 +1,23 @@
+import asyncio
+from telegram import (
+    Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
+    InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+)
+from telegram.ext import (
+    ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, CallbackQueryHandler
+)
+
 from cvbuilder import CVBuilder  # Générateur de CV
+from user import *  # Fonctions utilisateur
+
+
 
 
 def get_session(user_id):
     if user_id not in sessions:
         sessions[user_id] = CVBuilder()
     return sessions[user_id]
+
 
 async def infos(update, context):
     web_app_url = "https://cv-bot-infos.onrender.com"
@@ -14,6 +27,7 @@ async def infos(update, context):
         "🛠️ Clique sur le bouton ci-dessous pour ouvrir l’aide dans la Web App :",
         reply_markup=reply_markup
     )
+
 
 async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -25,6 +39,7 @@ async def get_id_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
+
 async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id == YOUR_USER_ID:
@@ -33,3 +48,9 @@ async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
         await update.message.reply_text("✅ Liste envoyée au canal !")
     else:
         await update.message.reply_text("🚫 Accès refusé.")
+
+
+def setup_helpers(app):
+    app.add_handler(CommandHandler("sendusers", send_users_command))
+    app.add_handler(CommandHandler("id", get_id_command))
+    
