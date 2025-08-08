@@ -209,8 +209,9 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.message.from_user
     user_id = user.id
     session = get_session(user_id)
-    await choisir_template()
+   # await choisir_template()
     choix = update.message.text
+    await update.message.reply_text(choix)
 
     
     
@@ -537,14 +538,14 @@ async def run():
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
     # Commande pour afficher le menu
-    app.add_handler(CommandHandler("cv", handle_template_choice))
+    app.add_handler(CommandHandler("cv", choisir_template))
     
     # Handler pour les choix de template
     app.add_handler(MessageHandler(
         filters.TEXT & (
             filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$")
         ),
-        handle_template_choice
+        generator
     ))
 
     await app.initialize()
