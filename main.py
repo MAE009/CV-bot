@@ -91,9 +91,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="ATS|ats")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="template|Mod")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="template|Crea")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="generate|ATS|ats")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="generate|Moderne|Mod")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="generate|Creative|Crea")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
@@ -102,27 +102,28 @@ async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    _, template_choice = query.data.split("|")
+    action, cv_type, template_choice = query.data.split("|")
     session = get_session(query.from_user.id)
 
-    await query.edit_message_text("⚙️ Génération de ton CV en cours...")
+    await query.edit_message_text("⚙️ Génération de ton CV {cv_type} en cours...")
 
     try:
-        if template_choice == "Mod":
-            file_path = session.moderne_cv()
-        elif template_choice == "ats":
-            file_path = session.simple_cv()
-        elif template_choice == "Crea":
-            file_path = session.creative_cv()
-        else:
-            raise Exception("❌ Modèle de CV inconnu.")
+        if action == generate:
+            if template_choice == "Mod":
+                file_path = session.moderne_cv()
+            elif template_choice == "ats":
+                file_path = session.simple_cv()
+            elif template_choice == "Crea":
+                file_path = session.creative_cv()
+            else:
+                raise Exception("❌ Modèle de CV inconnu.")
 
-        with open(file_path, "rb") as file:
-            await context.bot.send_document(
-                chat_id=query.message.chat.id,
-                document=InputFile(file),
-                caption="✅ Voici ton CV prêt à l’emploi ! 🚀"
-            )
+            with open(file_path, "rb") as file:
+                await context.bot.send_document(
+                    chat_id=query.message.chat.id,
+                    document=InputFile(file),
+                    caption="✅ Voici ton CV prêt à l’emploi ! 🚀"
+                )
     except Exception as e:
         await context.bot.send_message(
             chat_id=query.message.chat.id,
@@ -468,7 +469,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV:")
-        see_modele()
+        await see_modele(Update, context)
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
@@ -508,7 +509,7 @@ async def run():
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
     app.add_handler(CommandHandler("generer", choisir_template))
-    app.add_handler(CallbackQueryHandler(template_callback, pattern="^template\|"))
+    app.add_handler(CallbackQueryHandler(template_callback, pattern="^generate\|"))
 
     await app.initialize()
     await app.start()
