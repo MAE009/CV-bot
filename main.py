@@ -38,7 +38,7 @@ def get_session(user_id):
 # 🔧 Handlers Principaux
 # ====================
 # Debut New function
-
+"""
 async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("📄 Simple ATS", callback_data="ATS|ats")],
@@ -88,10 +88,10 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         print(f"Erreur callback: {str(e)}")
 
-
+"""
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="generate|ATS")],
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="ATS|ats")],
         [InlineKeyboardButton("🎯 Moderne", callback_data="generate|Moderne")],
         [InlineKeyboardButton("🎨 Créatif", callback_data="generate|Creative")]
     ]
