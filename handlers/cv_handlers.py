@@ -1,5 +1,10 @@
-from telegram import Update, InputFile, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import ContextTypes, MessageHandler, filters
+from telegram import (
+    Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
+    InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+)
+from telegram.ext import (
+    ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, CallbackQueryHandler
+)
 from cvbuilder import CVBuilder
 from utils.helpers import get_session
 from bank_text import *  # Textes prédéfinis (conseils, résumés...)
