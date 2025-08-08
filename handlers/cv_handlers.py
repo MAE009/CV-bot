@@ -1,3 +1,4 @@
+import os
 from telegram import (
     Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
     InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
@@ -6,7 +7,7 @@ from telegram.ext import (
     ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, CallbackQueryHandler
 )
 from cvbuilder import CVBuilder
-from utils.helpers import get_session
+from utils.helpers import *
 from user import *
 from bank_text import *  # Textes prédéfinis (conseils, résumés...)
 
