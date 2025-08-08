@@ -11,6 +11,7 @@ from telegram.ext import (
 from cvbuilder import CVBuilder  # Générateur de CV
 from Tools.Coucou import *
 from Tools.capture_image import *
+from utils.helpers import *
 
 
 
