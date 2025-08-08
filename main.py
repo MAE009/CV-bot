@@ -514,7 +514,7 @@ async def run():
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
     app.add_handler(CommandHandler("generer", choisir_template))
-    app.add_handler(CallbackQueryHandler(template_callback, pattern="^generate\|"))
+    app.add_handler(CallbackQueryHandler(template_callback))
 
     await app.initialize()
     await app.start()
