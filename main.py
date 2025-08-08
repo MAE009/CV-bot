@@ -184,6 +184,7 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         
         await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
+        """
         if "Simple" in choix:
             file_path = session.simple_cv()
         elif "Moderne" in choix :
@@ -192,7 +193,8 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
             file_path = session.creative_cv()
         else:
             raise ValueError("Choix non reconnu")
-        
+        """
+        file_path = session.moderne_cv()
         with open(file_path, "rb") as file:
             await update.message.reply_document(
                 document=InputFile(file),
