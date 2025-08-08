@@ -209,8 +209,8 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.message.from_user
     user_id = user.id
     session = get_session(user_id)
-    choisir_template()
-    choice = update.message.text
+    await choisir_template()
+    choix = update.message.text
 
     
     
