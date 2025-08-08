@@ -38,7 +38,6 @@ def get_session(user_id):
 # 🔧 Handlers Principaux
 # ====================
 # Debut New function
-#"""
 async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("📄 Simple ATS", callback_data="ATS|ats")],
@@ -88,53 +87,53 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         print(f"Erreur callback: {str(e)}")
 
-#"""
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Affiche le menu de sélection de template"""
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="simple")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="moderne")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="creative")]
+        ["🧾 Simple (ATS)", "🎯 Moderne"],
+        ["🎨 Créatif", "❌ Annuler"]
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text(
+        "🧑‍🎓 Choisis un style de CV :",
+        reply_markup=reply_markup
+    )
 
-async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
+async def handle_template_choice(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Gère la sélection du template"""
+    choice = update.message.text
+    session = get_session(update.message.from_user.id)
     
-    template_choice = query.data  # On récupère directement la valeur
-    session = get_session(query.from_user.id)
-
-    await query.edit_message_text("⚙️ Génération de ton CV en cours...")
-
     try:
-        if template_choice == "simple":
+        await update.message.reply_text("⚙️ Génération de ton CV en cours...")
+        
+        if "Simple" in choice:
             file_path = session.simple_cv()
             template_name = "Simple (ATS)"
-        elif template_choice == "moderne":
+        elif "Moderne" in choice:
             file_path = session.moderne_cv()
             template_name = "Moderne"
-        elif template_choice == "creative":
+        elif "Créatif" in choice:
             file_path = session.creative_cv()
             template_name = "Créatif"
+        elif "Annuler" in choice:
+            await update.message.reply_text("Opération annulée.")
+            return
         else:
-            raise ValueError("Type de template inconnu")
+            raise ValueError("Choix non reconnu")
 
         with open(file_path, "rb") as file:
-            await context.bot.send_document(
-                chat_id=query.message.chat.id,
+            await update.message.reply_document(
                 document=InputFile(file),
                 filename=os.path.basename(file_path),
                 caption=f"✅ Ton CV {template_name} est prêt ! 🚀"
             )
             
     except Exception as e:
-        await context.bot.send_message(
-            chat_id=query.message.chat.id,
-            text=f"❌ Erreur lors de la génération : {str(e)}"
-        )
-        print(f"Erreur template_callback: {str(e)}")
+        await update.message.reply_text(f"❌ Erreur lors de la génération : {str(e)}")
+        print(f"Erreur handle_template_choice: {str(e)}")
+
 
         
 # fin
@@ -513,8 +512,16 @@ async def run():
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.add_handler(CommandHandler("voir_modeles", see_modele))
     app.add_handler(CallbackQueryHandler(modele_callback))
-    app.add_handler(CommandHandler("generer", choisir_template))
-    app.add_handler(CallbackQueryHandler(template_callback))
+    # Commande pour afficher le menu
+    app.add_handler(CommandHandler("cv", choisir_template))
+    
+    # Handler pour les choix de template
+    app.add_handler(MessageHandler(
+        filters.TEXT & (
+            filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$")
+        ),
+        handle_template_choice
+    ))
 
     await app.initialize()
     await app.start()
