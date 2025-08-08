@@ -5,4 +5,4 @@ from .models_handlers import setup_models_handlers
 def setup_handlers(app):
     setup_menu_handlers(app)
     setup_cv_handlers(app)
-    setup_admin_handlers(app)
+    setup_models_handlers(app)
