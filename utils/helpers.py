@@ -50,7 +50,7 @@ async def send_users_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
         await update.message.reply_text("🚫 Accès refusé.")
 
 
-def setup_helpers(app):
+async def setup_helpers(app):
     app.add_handler(CommandHandler("sendusers", send_users_command))
     app.add_handler(CommandHandler("id", get_id_command))
     
