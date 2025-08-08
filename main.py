@@ -91,9 +91,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="generate|ATS|ats")],
-        [InlineKeyboardButton("🎯 Moderne", callback_data="generate|Moderne|Mod")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="generate|Creative|Crea")]
+        [InlineKeyboardButton("🧾 Simple (ATS)", callback_data="generate|ATS")],
+        [InlineKeyboardButton("🎯 Moderne", callback_data="generate|Moderne")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="generate|Creative")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("🧑‍🎓 Choisis un style de CV :", reply_markup=reply_markup)
@@ -102,18 +102,18 @@ async def template_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    action, cv_type, template_choice = query.data.split("|")
+    action, cv_type = query.data.split("|")
     session = get_session(query.from_user.id)
 
     await query.edit_message_text("⚙️ Génération de ton CV {cv_type} en cours...")
 
     try:
-        if action == generate:
-            if template_choice == "Mod":
+        if action == "generate":
+            if cv_type == "Moderne":
                 file_path = session.moderne_cv()
-            elif template_choice == "ats":
+            elif cv_type == "ATS":
                 file_path = session.simple_cv()
-            elif template_choice == "Crea":
+            elif cv_type == "Creative":
                 file_path = session.creative_cv()
             else:
                 raise Exception("❌ Modèle de CV inconnu.")
