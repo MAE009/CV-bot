@@ -1,5 +1,6 @@
 import os
 import asyncio
+from bank_text import
 from telegram import (
     Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
     InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
