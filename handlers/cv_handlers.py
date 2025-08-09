@@ -14,9 +14,9 @@ from bank_text import *  # Textes prédéfinis (conseils, résumés...)
 
 
 
-
+"""
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Affiche le menu de sélection de template"""
+    #Affiche le menu de sélection de template
     buttons = [
         KeyboardButton("🧾 Simple (ATS)"),
         KeyboardButton("🎯 Moderne"),
@@ -53,7 +53,7 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         
         await update.message.reply_text("🛠️ Génération de ton CV en cours... ⏳")
-        """
+        #
         if "Simple" in choix:
             file_path = session.simple_cv()
         elif "Moderne" in choix :
@@ -62,7 +62,7 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
             file_path = session.creative_cv()
         else:
             raise ValueError("Choix non reconnu")
-        """
+        #
         file_path = session.moderne_cv()
         with open(file_path, "rb") as file:
             await update.message.reply_document(
@@ -75,11 +75,104 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("Erreur :", e)
 
 
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InputFile, ReplyKeyboardRemove
+from telegram.ext import ContextTypes, MessageHandler, filters
+from cvbuilder import CVBuilder
+"""
+
+
+# Fonction pour choisir le template
+async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #Affiche le menu de sélection de template
+    buttons = [
+        KeyboardButton("🧾 Simple (ATS)"),
+        KeyboardButton("🎯 Moderne"), 
+        KeyboardButton("🎨 Créatif"),
+        KeyboardButton("❌ Annuler")
+    ]
+    keyboard = [buttons[i:i+2] for i in range(0, len(buttons), 2)]
+    
+    # Configure l'attente du choix
+    session = get_session(update.message.from_user.id)
+    session.waiting_for = "template_choice"
+    
+    await update.message.reply_text(
+        "🧑‍🎓 Choisis un style de CV :",
+        reply_markup=ReplyKeyboardMarkup(
+            keyboard,
+            resize_keyboard=True,
+            one_time_keyboard=True
+        )
+    )
+
+# Fonction pour générer le CV
+async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #Génère le CV selon le template choisi
+    choice = update.message.text
+    session = get_session(update.message.from_user.id)
+    
+    try:
+        await update.message.reply_text(
+            f"🛠️ Génération du CV {choice} en cours...",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        
+        if "Simple" in choice:
+            file_path = session.simple_cv()
+            template_name = "Simple (ATS)"
+        elif "Moderne" in choice:
+            file_path = session.moderne_cv() 
+            template_name = "Moderne"
+        elif "Créatif" in choice:
+            file_path = session.creative_cv()
+            template_name = "Créatif"
+        elif "Annuler" in choice:
+            await update.message.reply_text("❌ Génération annulée")
+            return
+        else:
+            raise ValueError("Type de template inconnu")
+
+        # Envoi du CV généré
+        with open(file_path, "rb") as f:
+            await update.message.reply_document(
+                document=InputFile(f),
+                filename=f"CV_{template_name}.pdf",
+                caption=f"✅ Ton CV {template_name} est prêt !"
+            )
+            
+    except Exception as e:
+        await update.message.reply_text(f"❌ Erreur: {str(e)}")
+        print(f"Erreur génération: {str(e)}")
+
+# Handler principal
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #Route les messages vers la bonne fonction
+    session = get_session(update.message.from_user.id)
+    
+    # Si on attend un choix de template
+    if getattr(session, 'waiting_for', None) == "template_choice":
+        session.waiting_for = None
+        await generate_cv(update, context)
+        return
+        
+    # Sinon poursuit le processus normal
+    await event_CVbuilding(update, context)
+
+# Configuration des handlers
+#def setup_handlers(app):
+    #app.add_handler(MessageHandler(
+        #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
+        #handle_message
+   # ))
+
+
+
+
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", choisir_template))
     app.add_handler(MessageHandler(
         filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
-        generator
+        handle_message
     ))
     app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
