@@ -80,7 +80,6 @@ from telegram.ext import ContextTypes, MessageHandler, filters
 from cvbuilder import CVBuilder
 """
 
-
 # Fonction pour choisir le template
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #Affiche le menu de sélection de template
@@ -174,7 +173,7 @@ def setup_cv_handlers(app):
         #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
        # handle_message
     #))
-    app.add_handler(CommandHandler("gr", generator))
+    #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
 
 
