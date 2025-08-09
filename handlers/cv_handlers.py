@@ -160,7 +160,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Configuration des handlers
 #def setup_handlers(app):
-    #app.add_handler(MessageHandler(
+   # app.add_handler(MessageHandler(
         #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
         #handle_message
    # ))
@@ -170,9 +170,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", choisir_template))
-    #app.add_handler(MessageHandler(
+   # app.add_handler(MessageHandler(
         #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
-        #handle_message
+       # handle_message
     #))
     app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
@@ -197,13 +197,11 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if session.step == 0:
             await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
             await update.message.reply_text("Quel est ton nom de famille ?")
-            await choisir_template(update, context)
             session.next_step()
 
         elif session.step == 1:
             session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton prénom ?")
-            await generator(update, context)
             session.next_step()
 
         elif session.step == 2:
