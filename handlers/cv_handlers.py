@@ -144,18 +144,20 @@ async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Erreur génération: {str(e)}")
 
 # Handler principal
+# Gestion des messages
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    #Route les messages vers la bonne fonction
     session = get_session(update.message.from_user.id)
-    
+    text = update.message.text
+
     # Si on attend un choix de template
-    if getattr(session, 'waiting_for', None) == "template_choice":
-        session.waiting_for = None
+    if getattr(session, "attente", None) == "choix_template":
+        session.attente = None  # reset
         await generate_cv(update, context)
         return
-        
-    # Sinon poursuit le processus normal
-    await event_CVbuilding(update, context)
+
+    # Sinon on continue le process normal
+    if session.step >= 0:
+        await event_CVbuilding(update, context)
 
 # Configuration des handlers
 #def setup_handlers(app):
