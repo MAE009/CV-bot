@@ -38,12 +38,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if text == "📝 Créer un CV":
         session.step = 0
         await update.message.reply_text("Super ! Commençons la création du CV.")
-        #await event_CVbuilding(update, context)
+        await event_CVbuilding(update, context)
         await handle_message(update, context)
 
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV:")
-        await see_modele(Update, context)
+        #await see_modele(Update, context)
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
