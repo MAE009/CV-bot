@@ -159,8 +159,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Configuration des handlers
 #def setup_handlers(app):
-   # app.add_handler(MessageHandler(
-        #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
+    #app.add_handler(MessageHandler(
+       # filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
         #handle_message
    # ))
 
@@ -169,10 +169,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", choisir_template))
-   # app.add_handler(MessageHandler(
-        #filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
-       # handle_message
-    #))
+    app.add_handler(MessageHandler(
+        filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
+        handle_message
+    ))
     #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
 
