@@ -105,9 +105,9 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # Fonction pour générer le CV
-async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice):
     #Génère le CV selon le template choisi
-    choice = update.message.text
+    #choice = update.message.text
     session = get_session(update.message.from_user.id)
     
     try:
@@ -189,21 +189,28 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = user.id
     session = get_session(user_id)
     save_user(user)
+    choix = False
 
     # Informer de l'étape actuelle (à des fins de debug)
     await update.message.reply_text(session.step)
 
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
     if session.step <= 5:
-        if session.step == 0:
+        if not choix:
+            await choisir_template()
+            choix = True
+            value_choix = update.message.text
+            
+        if session.step == 0 and choix:
             await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
             await update.message.reply_text("Quel est ton nom de famille ?")
             session.next_step()
 
         elif session.step == 1:
-            session.update_info("nom", update.message.text)
-            await update.message.reply_text("Quel est ton prénom ?")
-            session.next_step()
+            await generate_cv(value_choix)
+            #session.update_info("nom", update.message.text)
+            #await update.message.reply_text("Quel est ton prénom ?")
+            #session.next_step()
 
         elif session.step == 2:
             session.update_info("prenom", update.message.text)
