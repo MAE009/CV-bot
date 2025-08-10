@@ -180,6 +180,59 @@ def setup_cv_handlers(app):
 
 
 
+async def event_CVbuilding_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    global session
+
+    # Récupération de l'utilisateur et création d'une session s'il n'en a pas
+    user = update.message.from_user
+    user_id = user.id
+    session = get_session(user_id)
+    save_user(user)
+
+    # Informer de l'étape actuelle (pour débogage)
+    await update.message.reply_text(f"Étape actuelle: {session.step}")
+
+    # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
+    if session.step <= 5:
+        # Vérification si un choix a déjà été fait
+        if not session.template_choice:
+            # Si aucun choix n'a été fait, demander le choix
+            await choisir_template(update, context)
+            return  # Sortir de la fonction pour attendre une réponse
+
+        # Une fois le choix fait, passer à la première question
+        if session.step == 0:
+            await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
+            await update.message.reply_text("Quel est ton nom de famille ?")
+            session.next_step()
+
+        elif session.step == 1:
+            # Quand le nom est renseigné, demande le prénom
+            session.update_info("nom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
+
+        # Ici tu peux ajouter le reste des étapes pour demander des infos personnelles
+        # Par exemple : ville, tel, email, lien, etc.
+        
+    # D'autres étapes de création du CV (expérience, compétences, formation, etc.)
+    elif session.step == 6:
+        await update.message.reply_text("Partie N° 2 : *le résumé 📜*", parse_mode="Markdown")
+        # Continuer avec la demande de résumé et ainsi de suite...
+
+    # Enfin, la génération du CV
+    if session.step == 10:
+        # Générer le CV en fonction du template choisi
+        file_path = await generate_cv(update, context, session.template_choice)
+        with open(file_path, "rb") as file:
+            await update.message.reply_document(
+                document=InputFile(file),
+                filename=os.path.basename(file_path),
+                caption="✅ Voici ton CV tout beau, tout propre ! 💼"
+            )
+
+
+
 
 async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global session
@@ -189,7 +242,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = user.id
     session = get_session(user_id)
     save_user(user)
-    choix = False
+    
 
     # Informer de l'étape actuelle (à des fins de debug)
     await update.message.reply_text(f"Étape actuelle : {session.step}")
@@ -200,26 +253,15 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
         # 🧩 Partie 1 : L'entête
         if session.step == 0:
-            # Premier passage : afficher le menu des templates
-            if not hasattr(session, 'template_choice'):
-                await choisir_template(update, context)
-                #return  # On quitte pour attendre la réponse
-            
              # Si on a déjà le choix du template
              await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
              await update.message.reply_text("Quel est ton nom de famille ?")
              session.next_step()
     
         elif session.step == 1:
-            # Génération après choix du template
-            if hasattr(session, 'template_choice'):
-                await generate_cv(update, context, session.template_choice)
-            £session.next_step()
-            else:
-                await update.message.reply_text("Erreur : Aucun template sélectionné")
-            #session.update_info("nom", update.message.text)
-            #await update.message.reply_text("Quel est ton prénom ?")
-            #session.next_step()
+            session.update_info("nom", update.message.text)
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
 
         elif session.step == 2:
             session.update_info("prenom", update.message.text)
