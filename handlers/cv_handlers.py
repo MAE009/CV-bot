@@ -37,7 +37,7 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-
+"""
 
 async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Récupération de l'utilisateur et création d'une session s'il n'en a pas
@@ -75,10 +75,8 @@ async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("Erreur :", e)
 
 
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InputFile, ReplyKeyboardRemove
-from telegram.ext import ContextTypes, MessageHandler, filters
-from cvbuilder import CVBuilder
-"""
+
+
 
 # Fonction pour choisir le template
 async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -217,7 +215,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", choisir_template))
     
-    #app.add_handler(CommandHandler("gr", generator))
+    app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
     #application = ApplicationBuilder().token(BOT_TOKEN).build()
 
@@ -481,4 +479,4 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
-        choisir_template()
+        await generator(update, context)
