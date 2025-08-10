@@ -192,22 +192,31 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     choix = False
 
     # Informer de l'étape actuelle (à des fins de debug)
-    await update.message.reply_text(session.step)
+    await update.message.reply_text(f"Étape actuelle : {session.step}")
 
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
     if session.step <= 5:
-        if not choix:
-            await choisir_template(update, context)
-            choix = True
-            value_choix = update.message.text
+        
+    
+        # 🧩 Partie 1 : L'entête
+        if session.step == 0:
+            # Premier passage : afficher le menu des templates
+            if not hasattr(session, 'template_choice'):
+                await choisir_template(update, context)
+                return  # On quitte pour attendre la réponse
             
-        if session.step == 0 and choix:
-            await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
-            await update.message.reply_text("Quel est ton nom de famille ?")
-            session.next_step()
-
+             # Si on a déjà le choix du template
+             await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
+             await update.message.reply_text("Quel est ton nom de famille ?")
+             session.next_step()
+    
         elif session.step == 1:
-            await generate_cv(update, context, value_choix)
+            # Génération après choix du template
+            if hasattr(session, 'template_choice'):
+                await generate_cv(update, context, session.template_choice)
+            £session.next_step()
+            else:
+                await update.message.reply_text("Erreur : Aucun template sélectionné")
             #session.update_info("nom", update.message.text)
             #await update.message.reply_text("Quel est ton prénom ?")
             #session.next_step()
