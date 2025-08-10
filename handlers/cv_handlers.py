@@ -203,7 +203,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Premier passage : afficher le menu des templates
             if not hasattr(session, 'template_choice'):
                 await choisir_template(update, context)
-                return  # On quitte pour attendre la réponse
+                #return  # On quitte pour attendre la réponse
             
              # Si on a déjà le choix du template
              await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
