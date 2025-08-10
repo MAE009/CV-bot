@@ -143,28 +143,73 @@ async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice
         await update.message.reply_text(f"❌ Erreur: {str(e)}")
         print(f"Erreur génération: {str(e)}")
 
-# Handler principal
-# Gestion des messages
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    session = get_session(update.message.from_user.id)
-    text = update.message.text
 
-    # Si on attend un choix de template
-    if getattr(session, "attente", None) == "choix_template":
-        session.attente = None  # reset
-        await generate_cv(update, context)
+
+
+
+# 1️⃣ Quand on veut commencer la création du CV
+async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.message.from_user.id
+    session = get_session(user_id)
+    session.step = 0  # reset
+
+    # On demande de choisir un template
+    buttons = [
+        ["🧾 Simple (ATS)", "🎯 Moderne"],
+        ["🎨 Créatif", "❌ Annuler"]
+    ]
+    reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=True)
+
+    await update.message.reply_text(
+        "🧑‍🎓 Choisis un style de CV :",
+        reply_markup=reply_markup
+    )
+
+    # On met le bot dans l'état "CHOIX_TEMPLATE"
+    context.user_data["state"] = "CHOIX_TEMPLATE"
+
+
+# 2️⃣ Quand l'utilisateur choisit un template
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.message.from_user.id
+    session = get_session(user_id)
+    text = update.message.text
+    state = context.user_data.get("state")
+
+    if state == "CHOIX_TEMPLATE":
+        # Sauvegarder le choix dans la session
+        if "Simple" in text:
+            session.template_choice = "simple"
+        elif "Moderne" in text:
+            session.template_choice = "moderne"
+        elif "Créatif" in text:
+            session.template_choice = "creative"
+        else:
+            await update.message.reply_text("❌ Choix invalide. Réessaie.")
+            return
+
+        context.user_data["state"] = "ENTETE"  # étape suivante
+        await update.message.reply_text("Partie N° 1 : *l'entête 🪧*\nQuel est ton nom de famille ?", parse_mode="Markdown")
         return
 
-    # Sinon on continue le process normal
-    if session.step >= 0:
-        await event_CVbuilding(update, context)
+    elif state == "ENTETE":
+        session.update_info("nom", text)
+        context.user_data["state"] = "PRENOM"
+        await update.message.reply_text("Quel est ton prénom ?")
+        return
 
-# Configuration des handlers
-#def setup_handlers(app):
-    #app.add_handler(MessageHandler(
-       # filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
-        #handle_message
-   # ))
+    elif state == "PRENOM":
+        session.update_info("prenom", text)
+        await update.message.reply_text("✅ Merci ! On passe à la suite...")
+        # Ici tu peux continuer avec les autres étapes
+
+
+
+
+
+
+
+
 
 
 
@@ -177,59 +222,18 @@ def setup_cv_handlers(app):
     ))
     #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
+    #application = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    # Commande pour commencer la création du CV
+    app.add_handler(CommandHandler("creercv", event_CVbuilding_text))
+
+   # Handler qui capture toutes les réponses textuelles après
+   application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+   
 
 
 
-async def event_CVbuilding_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    global session
-
-    # Récupération de l'utilisateur et création d'une session s'il n'en a pas
-    user = update.message.from_user
-    user_id = user.id
-    session = get_session(user_id)
-    save_user(user)
-
-    # Informer de l'étape actuelle (pour débogage)
-    await update.message.reply_text(f"Étape actuelle: {session.step}")
-
-    # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
-    if session.step <= 5:
-        # Vérification si un choix a déjà été fait
-        if not session.template_choice:
-            # Si aucun choix n'a été fait, demander le choix
-            await choisir_template(update, context)
-            return  # Sortir de la fonction pour attendre une réponse
-
-        # Une fois le choix fait, passer à la première question
-        if session.step == 0:
-            await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
-            await update.message.reply_text("Quel est ton nom de famille ?")
-            session.next_step()
-
-        elif session.step == 1:
-            # Quand le nom est renseigné, demande le prénom
-            session.update_info("nom", update.message.text)
-            await update.message.reply_text("Quel est ton prénom ?")
-            session.next_step()
-
-        # Ici tu peux ajouter le reste des étapes pour demander des infos personnelles
-        # Par exemple : ville, tel, email, lien, etc.
-        
-    # D'autres étapes de création du CV (expérience, compétences, formation, etc.)
-    elif session.step == 6:
-        await update.message.reply_text("Partie N° 2 : *le résumé 📜*", parse_mode="Markdown")
-        # Continuer avec la demande de résumé et ainsi de suite...
-
-    # Enfin, la génération du CV
-    if session.step == 10:
-        # Générer le CV en fonction du template choisi
-        file_path = await generate_cv(update, context, session.template_choice)
-        with open(file_path, "rb") as file:
-            await update.message.reply_document(
-                document=InputFile(file),
-                filename=os.path.basename(file_path),
-                caption="✅ Voici ton CV tout beau, tout propre ! 💼"
-            )
 
 
 
