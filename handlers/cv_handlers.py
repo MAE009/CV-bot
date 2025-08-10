@@ -224,8 +224,8 @@ def setup_cv_handlers(app):
     # Commande pour commencer la création du CV
     app.add_handler(CommandHandler("creercv", event_CVbuilding_text))
 
-   # Handler qui capture toutes les réponses textuelles après
-   app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    # Handler qui capture toutes les réponses textuelles après
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
    
 
