@@ -216,10 +216,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", choisir_template))
-    app.add_handler(MessageHandler(
-        filters.TEXT & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif|❌ Annuler)$"),
-        handle_message
-    ))
+    
     #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
     #application = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -228,7 +225,7 @@ def setup_cv_handlers(app):
     app.add_handler(CommandHandler("creercv", event_CVbuilding_text))
 
    # Handler qui capture toutes les réponses textuelles après
-   application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+   app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
    
 
