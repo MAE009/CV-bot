@@ -197,7 +197,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
     if session.step <= 5:
         if not choix:
-            await choisir_template()
+            await choisir_template(update, context)
             choix = True
             value_choix = update.message.text
             
@@ -207,7 +207,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             session.next_step()
 
         elif session.step == 1:
-            await generate_cv(value_choix)
+            await generate_cv(update, context, value_choix)
             #session.update_info("nom", update.message.text)
             #await update.message.reply_text("Quel est ton prénom ?")
             #session.next_step()
