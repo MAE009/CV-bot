@@ -217,7 +217,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def setup_cv_handlers(app):
-    app.add_handler(CommandHandler("cv", event_CVbuilding_text))
+    app.add_handler(CommandHandler("cv", handle_message))
     
     app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
