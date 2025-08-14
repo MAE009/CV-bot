@@ -59,7 +59,7 @@ async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice
 
 
 
-
+"""
 # 1️⃣ Quand on veut commencer la création du CV
 async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
@@ -120,7 +120,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await generate_cv(update, context, session.template_choice)
         # Ici tu peux continuer avec les autres étapes
 
-
+"""
 
 
 
@@ -148,7 +148,7 @@ def setup_cv_handlers(app):
     app.add_handler(CommandHandler("creercv", event_CVbuilding_text))
 
     # Handler qui capture toutes les réponses textuelles après
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    #5app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
    
 
@@ -418,4 +418,5 @@ f
 
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
-        await generator(update, context)
+        await generate_cv(update, context, session.template_choice)
+        
