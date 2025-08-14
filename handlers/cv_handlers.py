@@ -171,8 +171,11 @@ async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TY
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     session = get_session(user_id)
-    text = update.message.text
+    #text = update.message.text
     state = context.user_data.get("state")
+
+    await update.message.reply_text("choix")
+    text = update.message.text
 
     if state == "CHOIX_TEMPLATE":
         # Sauvegarder le choix dans la session
@@ -199,6 +202,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif state == "PRENOM":
         session.update_info("prenom", text)
         await update.message.reply_text("✅ Merci ! On passe à la suite...")
+        await generate_cv(session.template_choice)
         # Ici tu peux continuer avec les autres étapes
 
 
@@ -213,7 +217,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def setup_cv_handlers(app):
-    app.add_handler(CommandHandler("cv", choisir_template))
+    app.add_handler(CommandHandler("cv", event_CVbuilding_text)
     
     app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
