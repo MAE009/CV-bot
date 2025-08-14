@@ -189,6 +189,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 return
 
             context.user_data["state"] = "ENTETE"  # étape suivante
+            session.step = 0
         
         # 🧩 Partie 1 : L'entête
         if (session.step == 0) and state == "ENTETE":
