@@ -59,7 +59,7 @@ async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice
 
 
 
-"""
+
 # 1️⃣ Quand on veut commencer la création du CV
 async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
@@ -81,7 +81,7 @@ async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TY
     # On met le bot dans l'état "CHOIX_TEMPLATE"
     context.user_data["state"] = "CHOIX_TEMPLATE"
 
-
+"""
 # 2️⃣ Quand l'utilisateur choisit un template
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
