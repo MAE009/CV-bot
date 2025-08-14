@@ -41,6 +41,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await event_CVbuilding_text(update, context)
         #await handle_message(update, context)
 
+    elif text == "🧾 Simple (ATS)" or text == "🎯 Moderne" or text == "🎨 Créatif":
+        await event_CVbuilding(update, context)
+
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV:")
         #await see_modele(Update, context)
