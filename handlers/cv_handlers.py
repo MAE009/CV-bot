@@ -37,7 +37,7 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-"""
+
 
 async def generator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Récupération de l'utilisateur et création d'une session s'il n'en a pas
@@ -101,7 +101,7 @@ async def choisir_template(update: Update, context: ContextTypes.DEFAULT_TYPE):
             one_time_keyboard=True
         )
     )
-
+"""
 # Fonction pour générer le CV
 async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice):
     #Génère le CV selon le template choisi
@@ -114,13 +114,13 @@ async def generate_cv(update: Update, context: ContextTypes.DEFAULT_TYPE, choice
             reply_markup=ReplyKeyboardRemove()
         )
         
-        if "Simple" in choice:
+        if choice == "🧾 Simple (ATS)":
             file_path = session.simple_cv()
             template_name = "Simple (ATS)"
-        elif "Moderne" in choice:
+        elif choice == "🎯 Moderne":
             file_path = session.moderne_cv() 
             template_name = "Moderne"
-        elif "Créatif" in choice:
+        elif choice == "🎨 Créatif":
             file_path = session.creative_cv()
             template_name = "Créatif"
         elif "Annuler" in choice:
@@ -180,11 +180,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if state == "CHOIX_TEMPLATE":
         # Sauvegarder le choix dans la session
         if text == "🧾 Simple (ATS)":
-            session.template_choice = "Simple"
+            session.template_choice = text
         elif text == "🎯 Moderne":
-            session.template_choice = "Moderne"
+            session.template_choice = text
         elif text == "🎨 Créatif":
-            session.template_choice = "Creative"
+            session.template_choice = text
         else:
             await update.message.reply_text("❌ Choix invalide. Réessaie.")
             return
@@ -202,7 +202,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif state == "PRENOM":
         session.update_info("prenom", text)
         await update.message.reply_text("✅ Merci ! On passe à la suite...")
-        await generate_cv(session.template_choice)
+        await generate_cv(Update, context, session.template_choice)
         # Ici tu peux continuer avec les autres étapes
 
 
