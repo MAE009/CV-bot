@@ -179,11 +179,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if state == "CHOIX_TEMPLATE":
         # Sauvegarder le choix dans la session
-        if "Simple" in text:
+        if text == "🧾 Simple (ATS)":
             session.template_choice = "Simple"
-        elif "Moderne" in text:
+        elif text == "🎯 Moderne":
             session.template_choice = "Moderne"
-        elif "Créatif" in text:
+        elif text == "🎨 Créatif":
             session.template_choice = "Creative"
         else:
             await update.message.reply_text("❌ Choix invalide. Réessaie.")
