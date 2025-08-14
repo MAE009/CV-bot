@@ -202,7 +202,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif state == "PRENOM":
         session.update_info("prenom", text)
         await update.message.reply_text("✅ Merci ! On passe à la suite...")
-        await generate_cv(Update, context, session.template_choice)
+        await generate_cv(update, context, session.template_choice)
         # Ici tu peux continuer avec les autres étapes
 
 
