@@ -1,6 +1,6 @@
 import os
 from telegram import (
-    Update, ReplyKeyboardMarkup, KeyboardButton, InputFile,
+    Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, InputFile,
     InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 )
 from telegram.ext import (
