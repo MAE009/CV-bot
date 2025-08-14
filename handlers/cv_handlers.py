@@ -178,27 +178,29 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if (session.step <= 5) :
         if state == "CHOIX_TEMPLATE":
             # Sauvegarder le choix dans la session
-            if text == "🧾 Simple (ATS)":
+            if text in ["🧾 Simple (ATS)", "🎯 Moderne", "🎨 Créatif"]:
                 session.template_choice = text
-            elif text == "🎯 Moderne":
-                session.template_choice = text
-            elif text == "🎨 Créatif":
-                session.template_choice = text
+            #elif text == "🎯 Moderne":
+                #session.template_choice = text
+            #elif text == "🎨 Créatif":
+                #session.template_choice = text
             else:
                 await update.message.reply_text("❌ Choix invalide. Réessaie.")
                 return
 
             context.user_data["state"] = "ENTETE"  # étape suivante
-            session.step = 0
+            
+            await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
+            await update.message.reply_text("Quel est ton nom de famille ?")
+            session.next_step()
+            return
         
         # 🧩 Partie 1 : L'entête
-        if (session.step == 0) and state == "ENTETE":
+        #if (session.step == 0) and state == "ENTETE":
              # Si on a déjà le choix du template
-             await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
-             await update.message.reply_text("Quel est ton nom de famille ?")
-             session.next_step()
+             #pass
     
-        elif session.step == 1:
+        if session.step == 1:
             session.update_info("nom", update.message.text)
             await update.message.reply_text("Quel est ton prénom ?")
             session.next_step()
