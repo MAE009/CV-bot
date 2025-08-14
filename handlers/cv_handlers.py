@@ -173,7 +173,7 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Informer de l'étape actuelle (à des fins de debug)
     await update.message.reply_text(f"Étape actuelle : {session.step}")
-f
+
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
     if (session.step <= 5) and state == "CHOIX_TEMPLATE":
         # Sauvegarder le choix dans la session
