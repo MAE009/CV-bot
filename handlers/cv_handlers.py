@@ -219,7 +219,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", handle_message))
     
-    app.add_handler(CommandHandler("gr", generator))
+    #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
     #application = ApplicationBuilder().token(BOT_TOKEN).build()
 
