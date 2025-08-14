@@ -9,23 +9,65 @@ from utils.helpers import *
 from handlers.cv_handlers import *
 from handlers.models_handlers import *
 from bank_text import *
+from Config import
 
 
 
 # ============================
 # 🌐 Commande /start et Menu Principal
 # ============================
+import random
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    user_name = update.effective_user.full_name
+
+    # 🎭 Messages d’accueil fun pour toi
+    test_messages = [
+        "🎯 Mr, les propulseurs sont prêts... Jarvis est en ligne.",
+        "🛠️ Chargement de l’armure Mark 85... prêt pour un test ?",
+        "⚡ Activation du mode WakandaTech... Shuri est dans la place 😏",
+        "🚀 Démarrage du CV-bot, Mr Stark. Tous les systèmes sont opérationnels.",
+        "🎬 On y va Boss ! Et n'oublie pas : *I am Iron Bot*."
+    ]
+
+    # 📡 Messages d’alerte fun pour un nouvel utilisateur
+    alert_messages = [
+        f"🚨 Boss, on a un intrus... euh, un nouvel utilisateur : **{user_name}** (ID: {user_id}).",
+        f"📡 Nouveau signal détecté : {user_name} vient d’entrer dans le Wakanda numérique.",
+        f"⚡ {user_name} s’est connecté... je prépare un CV plus stylé que la tenue de Black Panther.",
+        f"🕶️ {user_name} vient de pousser la porte... je sors l’armure ?",
+        f"🛰️ Transmission reçue... {user_name} est maintenant dans la base de données."
+    ]
+
+    # Si ce n’est pas toi → on prévient l’admin
+    if user_id != YOUR_USER_ID:
+        text = get_users_list_text()
+        await context.bot.send_message(chat_id=YOUR_USER_ID, text=random.choice(alert_messages), parse_mode="Markdown")
+        await context.bot.send_message(chat_id=CHANNEL_ID, text=text)
+
+    # Si c’est toi → message de test aléatoire
+    else:
+        await update.message.reply_text(random.choice(test_messages), parse_mode="Markdown")
+
+    # Menu principal
     keyboard = [
         [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
         [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
         [KeyboardButton("🧽 Clean")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    with open('Assets/CV_bot.jpeg', 'rb') as photo:
-        await update.message.reply_photo(photo=photo, caption="👋 Bienvenue, je suis CV-bot !")
-        await update.message.reply_text("Que veux-tu faire 😄?", reply_markup=reply_markup)
 
+    # Image + présentation
+    with open('Assets/CV_bot.jpeg', 'rb') as photo:
+        await update.message.reply_photo(
+            photo=photo,
+            caption=f"👋 Bienvenue **{user_name}**, je suis CV-bot, ton assistant personnel. "
+                    f"On va rendre ton CV plus classe qu'une armure StarkTech. 😎",
+            parse_mode="Markdown"
+        )
+
+    await update.message.reply_text("Alors, par quoi on commence ?", reply_markup=reply_markup)
 
 # ====================
 # 📊 Gestion des messages
