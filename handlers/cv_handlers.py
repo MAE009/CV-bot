@@ -133,6 +133,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_cv_handlers(app):
     app.add_handler(CommandHandler("cv", handle_message))
+    app.add_handler(
+    MessageHandler(
+        filters.TEXT & ~filters.COMMAND & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif)$"),
+        event_CVbuilding
+    )
+    )
     
     #app.add_handler(CommandHandler("gr", generator))
     # Autres handlers CV...
@@ -160,17 +166,31 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = user.id
     session = get_session(user_id)
     save_user(user)
-    
+    state = context.user_data.get("state")
+
+    await update.message.reply_text("choix")
+    text = update.message.text
 
     # Informer de l'étape actuelle (à des fins de debug)
     await update.message.reply_text(f"Étape actuelle : {session.step}")
-
+f
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
-    if session.step <= 5:
+    if (session.step <= 5) and state == "CHOIX_TEMPLATE":
+        # Sauvegarder le choix dans la session
+        if text == "🧾 Simple (ATS)":
+            session.template_choice = text
+        elif text == "🎯 Moderne":
+            session.template_choice = text
+        elif text == "🎨 Créatif":
+            session.template_choice = text
+        else:
+            await update.message.reply_text("❌ Choix invalide. Réessaie.")
+            return
+
+        context.user_data["state"] = "ENTETE"  # étape suivante
         
-    
         # 🧩 Partie 1 : L'entête
-        if session.step == 0:
+        if (session.step == 0) and state == "ENTETE":
              # Si on a déjà le choix du template
              await update.message.reply_text("Partie N° 1 : *l'entête 🪧*", parse_mode="Markdown")
              await update.message.reply_text("Quel est ton nom de famille ?")
