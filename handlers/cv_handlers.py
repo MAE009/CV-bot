@@ -198,8 +198,9 @@ f
     
         elif session.step == 1:
             session.update_info("nom", update.message.text)
-            await update.message.reply_text("Quel est ton prénom ?")
-            session.next_step()
+            await generate_cv(update, context, session.template_choice)
+            #await update.message.reply_text("Quel est ton prénom ?")
+            #session.next_step()
 
         elif session.step == 2:
             session.update_info("prenom", update.message.text)
