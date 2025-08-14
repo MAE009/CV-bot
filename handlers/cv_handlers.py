@@ -200,9 +200,8 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
         elif session.step == 1:
             session.update_info("nom", update.message.text)
-            await generate_cv(update, context, session.template_choice)
-            #await update.message.reply_text("Quel est ton prénom ?")
-            #session.next_step()
+            await update.message.reply_text("Quel est ton prénom ?")
+            session.next_step()
 
         elif session.step == 2:
             session.update_info("prenom", update.message.text)
