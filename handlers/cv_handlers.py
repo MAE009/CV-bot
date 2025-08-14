@@ -175,19 +175,20 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"Étape actuelle : {session.step}")
 
     # 🧩 Partie 1 : L'entête (nom, prénom, ville, tel, email, lien)
-    if (session.step <= 5) and state == "CHOIX_TEMPLATE":
-        # Sauvegarder le choix dans la session
-        if text == "🧾 Simple (ATS)":
-            session.template_choice = text
-        elif text == "🎯 Moderne":
-            session.template_choice = text
-        elif text == "🎨 Créatif":
-            session.template_choice = text
-        else:
-            await update.message.reply_text("❌ Choix invalide. Réessaie.")
-            return
+    if (session.step <= 5) :
+        if state == "CHOIX_TEMPLATE":
+            # Sauvegarder le choix dans la session
+            if text == "🧾 Simple (ATS)":
+                session.template_choice = text
+            elif text == "🎯 Moderne":
+                session.template_choice = text
+            elif text == "🎨 Créatif":
+                session.template_choice = text
+            else:
+                await update.message.reply_text("❌ Choix invalide. Réessaie.")
+                return
 
-        context.user_data["state"] = "ENTETE"  # étape suivante
+            context.user_data["state"] = "ENTETE"  # étape suivante
         
         # 🧩 Partie 1 : L'entête
         if (session.step == 0) and state == "ENTETE":
