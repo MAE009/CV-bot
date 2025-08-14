@@ -6,6 +6,7 @@ from flask import Flask
 from telegram.ext import ApplicationBuilder
 from handlers import setup_handlers
 from Config import *
+from utils.helpers import *
 from Tools.Coucou import *
 
 
@@ -22,6 +23,7 @@ async def run():
     
     app = ApplicationBuilder().token(token).build()
     await setup_handlers(app)
+    await setup_helpers(app)
     #await app.run_polling()
     await app.initialize()
     await app.start()
