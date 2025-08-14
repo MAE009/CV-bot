@@ -132,7 +132,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def setup_cv_handlers(app):
-    app.add_handler(CommandHandler("cv", handle_message))
+    #app.add_handler(CommandHandler("cv", handle_message))
     app.add_handler(
     MessageHandler(
         filters.TEXT & ~filters.COMMAND & filters.Regex(r"^(🧾 Simple \(ATS\)|🎯 Moderne|🎨 Créatif)$"),
