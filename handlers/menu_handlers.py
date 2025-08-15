@@ -9,7 +9,7 @@ from utils.helpers import *
 from handlers.cv_handlers import *
 from handlers.models_handlers import *
 from bank_text import *
-from Config import
+from Config import *
 
 
 
