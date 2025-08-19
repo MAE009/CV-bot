@@ -54,7 +54,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Menu principal
     keyboard = [
         [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+        [KeyboardButton("⚙️ Aide")],
         [KeyboardButton("🧽 Clean")]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
@@ -95,7 +95,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif text == "🔙 Go back":
         keyboard = [
             [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-            [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+            [KeyboardButton("⚙️ Aide")],
             [KeyboardButton("🧽 Clean")]
         ]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
@@ -116,7 +116,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             del sessions[user_id]
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=ReplyKeyboardMarkup([
             [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-            [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+            [KeyboardButton("⚙️ Aide")],
             [KeyboardButton("🧽 Clean")]
         ], resize_keyboard=True))
 
