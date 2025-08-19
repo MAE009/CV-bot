@@ -94,9 +94,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text == "🔙 Go back":
         keyboard = [
-        [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter") un exemple")],
-        [KeyboardButton("🧽 Clean")]
+            [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
+            [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+            [KeyboardButton("🧽 Clean")]
         ]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text("Vous êtes au menu départ ?", reply_markup=reply_markup)
