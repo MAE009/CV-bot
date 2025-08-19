@@ -45,6 +45,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = get_users_list_text()
         await context.bot.send_message(chat_id=YOUR_USER_ID, text=random.choice(alert_messages), parse_mode="Markdown")
         await context.bot.send_message(chat_id=CHANNEL_ID, text=text)
+        await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
 
     # Si c’est toi → message de test aléatoire
     else:
@@ -98,6 +99,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Merci et à bientôt !")
 
     elif text == "🧽 Clean":
+        await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
         if user_id in sessions:
             del sessions[user_id]
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=ReplyKeyboardMarkup([
