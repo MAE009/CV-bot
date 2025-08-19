@@ -85,21 +85,22 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         #await handle_message(update, context)
 
     elif text in ["🧾 Simple (ATS)", "🎯 Moderne", "🎨 Créatif"]:
-        await event_CVbuilding(update, context)
         keyboard = [[KeyboardButton("🔙 Go back")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-       
-    elif text == "📄 Voir un exemple":
-        await update.message.reply_text("Voici un exemple de CV:")
-        #await see_modele(Update, context)
+        await update.message.reply_text("📂 Tu peux revenir au menu de départ si tu veux !!!", reply_markup=reply_markup)
+        #await   #await see_modele(Update, context)
+        await event_CVbuilding(update, context)
+        
 
     elif text == "🔙 Go back":
         keyboard = [
         [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
-        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+        [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter") un exemple")],
         [KeyboardButton("🧽 Clean")]
         ]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        await update.message.reply_text("Vous êtes au menu départ ?", reply_markup=reply_markup)
+        
 
 
     elif text == "⚙️ Aide":
