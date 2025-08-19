@@ -68,8 +68,8 @@ async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TY
 
     # On demande de choisir un template
     buttons = [
-        ["🧾 Simple (ATS)", "🎯 Moderne"],
-        ["🎨 Créatif", "❌ Annuler"]
+        ["🧾 Simple (ATS)"], ["🎯 Moderne"],
+        ["🎨 Créatif"]
     ]
     reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=True)
 
@@ -80,51 +80,6 @@ async def event_CVbuilding_text(update: Update, context: ContextTypes.DEFAULT_TY
 
     # On met le bot dans l'état "CHOIX_TEMPLATE"
     context.user_data["state"] = "CHOIX_TEMPLATE"
-
-"""
-# 2️⃣ Quand l'utilisateur choisit un template
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.message.from_user.id
-    session = get_session(user_id)
-    #text = update.message.text
-    state = context.user_data.get("state")
-
-    await update.message.reply_text("choix")
-    text = update.message.text
-
-    if state == "CHOIX_TEMPLATE":
-        # Sauvegarder le choix dans la session
-        if text == "🧾 Simple (ATS)":
-            session.template_choice = text
-        elif text == "🎯 Moderne":
-            session.template_choice = text
-        elif text == "🎨 Créatif":
-            session.template_choice = text
-        else:
-            await update.message.reply_text("❌ Choix invalide. Réessaie.")
-            return
-
-        context.user_data["state"] = "ENTETE"  # étape suivante
-        await update.message.reply_text("Partie N° 1 : *l'entête 🪧*\nQuel est ton nom de famille ?", parse_mode="Markdown")
-        return
-
-    elif state == "ENTETE":
-        session.update_info("nom", text)
-        context.user_data["state"] = "PRENOM"
-        await update.message.reply_text("Quel est ton prénom ?")
-        return
-
-    elif state == "PRENOM":
-        session.update_info("prenom", text)
-        await update.message.reply_text("✅ Merci ! On passe à la suite...")
-        await generate_cv(update, context, session.template_choice)
-        # Ici tu peux continuer avec les autres étapes
-
-"""
-
-
-
-
 
 
 
