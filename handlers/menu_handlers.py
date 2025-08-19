@@ -45,7 +45,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = get_users_list_text()
         await context.bot.send_message(chat_id=YOUR_USER_ID, text=random.choice(alert_messages), parse_mode="Markdown")
         await context.bot.send_message(chat_id=CHANNEL_ID, text=text)
-        await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
+        #await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
 
     # Si c’est toi → message de test aléatoire
     else:
@@ -86,10 +86,20 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text in ["🧾 Simple (ATS)", "🎯 Moderne", "🎨 Créatif"]:
         await event_CVbuilding(update, context)
+        await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=ReplyKeyboardMarkup([
+            [KeyboardButton("🔙 Go back")]], resize_keyboard=True))
 
     elif text == "📄 Voir un exemple":
         await update.message.reply_text("Voici un exemple de CV:")
         #await see_modele(Update, context)
+
+    elif text == "🔙 Go back":
+        await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=ReplyKeyboardMarkup([
+            [KeyboardButton("📝 Créer un CV"), KeyboardButton("📄 Voir un exemple")],
+            [KeyboardButton("⚙️ Aide"), KeyboardButton("❌ Quitter")],
+            [KeyboardButton("🧽 Clean")]
+        ], resize_keyboard=True))
+       
 
     elif text == "⚙️ Aide":
         await update.message.reply_text(texte_aide, parse_mode="Markdown")
@@ -99,7 +109,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Merci et à bientôt !")
 
     elif text == "🧽 Clean":
-        await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
+        #await update.message.reply_text(f"Sessions : {str(sessions)} et user_id : {str(user_id)}")
         if user_id in sessions:
             del sessions[user_id]
         await update.message.reply_text("Données utilisateur réinitialisées.", reply_markup=ReplyKeyboardMarkup([
