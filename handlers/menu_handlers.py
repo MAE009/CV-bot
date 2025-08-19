@@ -84,7 +84,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await event_CVbuilding_text(update, context)
         #await handle_message(update, context)
 
-    elif text == "🧾 Simple (ATS)" or "🎯 Moderne" or "🎨 Créatif":
+    elif text in ["🧾 Simple (ATS)", "🎯 Moderne", "🎨 Créatif"]:
         await event_CVbuilding(update, context)
 
     elif text == "📄 Voir un exemple":
