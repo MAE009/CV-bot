@@ -130,4 +130,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def setup_menu_handlers(app):
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(MessageHandler(
+        filters.TEXT | filters.PHOTO | filters.ATTACHMENT, 
+        handle_message
+    ))
