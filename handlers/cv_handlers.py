@@ -372,9 +372,46 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(f"👉 Langue {session.lag_index + 1} : Quel est le nom de la langue ?")
         else:
             await update.message.reply_text("✅ Super, tu as terminé la section Langues !")
+            #session.step = 29
+            # Étape photo avant de générer
+            keyboard = [["📸 Oui, j’envoie une photo"], ["❌ Non merci"]]
+            reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+            await update.message.reply_text(
+                "Veux-tu ajouter une photo de profil à ton CV ?",
+                reply_markup=reply_markup
+            )
+            session.step = 28.5  # étape spéciale pour la photo
+    
+            await event_CVbuilding(update, context)
+
+    
+    # 🧩 Étape 28.5 : choix photo
+    elif session.step == 28.5:
+        text = update.message.text
+        refus = ["❌ Non merci", "Non", "Pas de photo", "Sans photo"]
+
+        if text in refus:
+            session.photo_path = None
+            await update.message.reply_text("Ok, pas de photo 👍")
             session.step = 29
             await event_CVbuilding(update, context)
 
+        elif update.message.photo:
+           # Récupérer la photo envoyée
+           photo = update.message.photo[-1]
+           file = await context.bot.get_file(photo.file_id)
+           path = f"temp/photo_{user_id}.jpg"
+           await file.download_to_drive(path)
+
+           session.photo_path = path
+           await update.message.reply_text("📸 Photo enregistrée avec succès !")
+           session.step = 29
+           await event_CVbuilding(update, context)
+
+        else:
+            await update.message.reply_text("❌ Envoie une photo ou clique sur 'Non merci'.")
+    
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
         await generate_cv(update, context, session.template_choice)
