@@ -398,8 +398,8 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
             if text in refus:
                 session.photo_path = None
-                 await update.message.reply_text("Ok, pas de photo 👍", reply_markup=ReplyKeyboardRemove())
-                 session.step = 29
+                await update.message.reply_text("Ok, pas de photo 👍", reply_markup=ReplyKeyboardRemove())
+                session.step = 29
                 await event_CVbuilding(update, context)
             else:
                 # Rappeler les options
