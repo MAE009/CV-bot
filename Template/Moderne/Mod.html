@@ -13,6 +13,11 @@
     <!-- Colonne de gauche -->
     <aside class="sidebar">
       <div class="profile">
+        {% if photo_path %}
+        <div class="profile-photo">
+          <img src="{{ photo_path }}" alt="Photo de {{ infos.prenom }} {{ infos.nom }}">
+        </div>
+        {% endif %}
         <h1>{{ infos.prenom }} <span class="accent">{{ infos.nom }}</span></h1>
         
         <p class="job-title">{{ infos.poste }}</p>
