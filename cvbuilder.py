@@ -17,7 +17,8 @@ class CVBuilder:
             "tel": "",  
             "autre": "",  
             "resume": ""  
-        }  
+        }
+        self.photo_path = ""
         self.competences = []  
         self.current_comp = {}  
         self.comp_index = 0  
@@ -69,7 +70,8 @@ class CVBuilder:
             "competences": self.competences,  
             "formations": self.formations,  
             "langues": self.langues,  
-            "body_class": body_class  
+            "body_class": body_class,
+            "photo_path" : self.photo_path
         }  
 
         html = template.render(context)  
@@ -110,7 +112,8 @@ class CVBuilder:
             "competences": self.competences,  
             "formations": self.formations,  
             "langues": self.langues,  
-            "body_class": body_class  
+            "body_class": body_class,
+            "photo_path" : self.photo_path
         }  
 
         html_render = template.render(context)  
@@ -151,7 +154,8 @@ class CVBuilder:
             "competences": self.competences,  
             "formations": self.formations,  
             "langues": self.langues,  
-            "body_class": body_class  
+            "body_class": body_class,
+            "photo_path" : self.photo_path
         }  
 
         html = template.render(context)  
