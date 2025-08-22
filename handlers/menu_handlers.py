@@ -74,9 +74,49 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # 📊 Gestion des messages
 # ====================
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
     user_id = update.message.from_user.id
+    text = update.message.text
     session = get_session(user_id)
+    
+    # VÉRIFIER D'ABORD SI C'EST UNE PHOTO
+    if update.message.photo:
+        await update.message.reply_text(f"📸 Photo reçue à l'étape {session.step}")
+        
+        # Si on est à l'étape où on attend une photo
+        if session.step == 28.5:
+            try:
+                # Récupérer la photo de meilleure qualité
+                photo = update.message.photo[-1]
+                file = await context.bot.get_file(photo.file_id)
+                
+                # Créer le dossier temporaire
+                os.makedirs("temp", exist_ok=True)
+                path = f"temp/photo_{user_id}.jpg"
+                
+                # Télécharger la photo
+                await file.download_to_drive(path)
+                session.photo_path = path
+                
+                await update.message.reply_text(
+                    "📸 Photo enregistrée avec succès !",
+                    reply_markup=ReplyKeyboardRemove()
+                )
+                
+                # Passer à l'étape suivante
+                session.step = 29
+                await event_CVbuilding(update, context)
+                
+            except Exception as e:
+                await update.message.reply_text("❌ Erreur lors du traitement de la photo.")
+                print(f"Erreur photo: {e}")
+        
+        # Si on n'attend pas de photo
+        else:
+            await update.message.reply_text("❌ Je n'attends pas de photo pour le moment.")
+        
+        return  # Important : arrêter le traitement ici
+    
+    
 
     if text == "📝 Créer un CV":
         session.step = 0
