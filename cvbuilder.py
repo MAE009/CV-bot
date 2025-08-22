@@ -96,9 +96,9 @@ class CVBuilder:
                 with open(self.photo_path, "rb") as image_file:
                     photo_base64 = base64.b64encode(image_file.read()).decode('utf-8')
         # Utiliser dans le template
-        except Exception as e:
-            print(f"❌ Erreur lecture photo: {e}")
-            photo_base64 = None
+            except Exception as e:
+                print(f"❌ Erreur lecture photo: {e}")
+                photo_base64 = None
 
         nb_exp = len(self.experiences)  
         nb_comp = len(self.competences)  
