@@ -389,46 +389,17 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # 🧩 Étape 28.5 : choix photo
     # 🧩 Étape 28.5 : choix photo
     elif session.step == 28.5:
-        user_id = update.message.from_user.id
+    # CETTE PARTIE NE S'OCCUPE PLUS DES PHOTOS
+    # (elles sont gérées par handle_message maintenant)
     
-        # 1. Si l'utilisateur envoie une photo
-        if update.message.photo:
-            try:
-                # Récupérer la photo de meilleure qualité
-                photo = update.message.photo[-1]
-                file = await context.bot.get_file(photo.file_id)
-            
-                # Créer le dossier temporaire
-                os.makedirs("temp", exist_ok=True)
-                path = f"temp/photo_{user_id}.jpg"
-            
-                # Télécharger la photo
-                await file.download_to_drive(path)
-                session.photo_path = path
-            
-                await update.message.reply_text(
-                    "📸 Photo enregistrée avec succès !",
-                    reply_markup=ReplyKeyboardRemove()
-                )
-                session.step = 29
-                await event_CVbuilding(update, context)
-            
-            except Exception as e:
-                await update.message.reply_text(f"❌ Erreur lors du traitement de la photo.\n{e}")
-                print(f"Erreur photo: {e}")
-    
-        # 2. Si l'utilisateur envoie du texte
-        elif update.message.text:
-            text = update.message.text.strip()
+        if update.message.text:
+            text = update.message.text.strip().lower()
             refus = ["❌ non merci", "non", "pas de photo", "sans photo", "non merci"]
         
-            if text.lower() in [r.lower() for r in refus]:
+            if text in refus:
                 session.photo_path = None
-                await update.message.reply_text(
-                    "Ok, pas de photo 👍",
-                    reply_markup=ReplyKeyboardRemove()
-                )
-                session.step = 29
+                 await update.message.reply_text("Ok, pas de photo 👍", reply_markup=ReplyKeyboardRemove())
+                 session.step = 29
                 await event_CVbuilding(update, context)
             else:
                 # Rappeler les options
@@ -437,14 +408,6 @@ async def event_CVbuilding(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "❌ Choisis une option :\n- Envoie une photo\n- Ou clique sur 'Non merci'",
                     reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
                 )
-    
-        # 3. Si autre type de message
-        else:
-            keyboard = [["📸 Oui, j'envoie une photo"], ["❌ Non merci"]]
-            await update.message.reply_text(
-                "📷 Pour ajouter une photo, envoie-la directement !\nSinon clique sur 'Non merci'.",
-                reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-            )
             
     # 🧾 Étape 29 : Génération du CV final
     elif session.step == 29:
