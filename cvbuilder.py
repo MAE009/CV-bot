@@ -5,6 +5,7 @@ import os
 from datetime import datetime  
 from bank_text import *
 from Tools.capture_image import *
+import base64
 
 
 class CVBuilder:  
@@ -137,7 +138,7 @@ class CVBuilder:
     def moderne_cv(self):  
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
         template = env.get_template('Mod.html')
-        import base64
+        
 
         with open(self.photo_path, "rb") as f:
             img_data = f.read()
