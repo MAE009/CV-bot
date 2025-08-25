@@ -73,7 +73,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ====================
 # 📊 Gestion des messages
 # ====================
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def handle_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     text = update.message.text
     session = get_session(user_id)
@@ -172,5 +172,5 @@ def setup_menu_handlers(app):
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(
         filters.TEXT | filters.PHOTO | filters.ATTACHMENT, 
-        handle_message
+        handle_messages
     ))
