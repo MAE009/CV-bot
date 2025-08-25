@@ -140,7 +140,14 @@ class CVBuilder:
 
     def moderne_cv(self):  
         env = Environment(loader=FileSystemLoader('Template/Moderne'))  
-        template = env.get_template('Mod.html')  
+        template = env.get_template('Mod.html')
+        import base64
+
+        with open(self.photo_path, "rb") as f:
+            img_data = f.read()
+        photo_b64 = "data:image/jpeg;base64," + base64.b64encode(img_data).decode()
+
+
 
         nb_exp = len(self.experiences)  
         nb_comp = len(self.competences)  
@@ -148,6 +155,7 @@ class CVBuilder:
         nb_lang = len(self.langues)  
         taille_resume = len(self.data["resume"])  
 
+        
         total_points = nb_exp * 2 + nb_comp + nb_form * 1.5 + nb_lang + (taille_resume // 100)  
 
         if total_points > 20:  
@@ -164,7 +172,7 @@ class CVBuilder:
             "formations": self.formations,  
             "langues": self.langues,  
             "body_class": body_class,
-            "photo_path" : self.photo_path
+            "photo_path" : photo_b64
         }  
 
         html = template.render(context)  
