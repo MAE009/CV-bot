@@ -1,12 +1,14 @@
-/* ============================= 🎨 ROOT VARIABLES ============================= */
+/* ============================= 🎨 MODERN VARIABLES ============================= */
 :root {
-  --primary: #1f2a38;
-  --secondary: #f1c40f;
-  --accent: #3498db;
-  --light: #f5f5f5;
-  --dark: #2c3e50;
-  --text: #2c3e50;
-  --text-light: #7f8c8d;
+  --primary: #2563eb;
+  --secondary: #1e293b;
+  --accent: #f59e0b;
+  --light: #f8fafc;
+  --dark: #0f172a;
+  --text: #334155;
+  --text-light: #64748b;
+  --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================= 🔧 COMPRESSION MODES ============================= */
@@ -14,48 +16,51 @@ body.normal {
   --font-title: 28px;
   --font-subtitle: 18px;
   --font-section-title: 20px;
-  --font-subsection: 16px;
+  --font-subsection: 17px;
   --font-date: 14px;
-  --font-text: 14px;
-  --font-small: 12px;
-  --padding: 30px;
-  --section-margin: 25px;
-  --line-height: 1.6;
+  --font-text: 15px;
+  --font-small: 13px;
+  --padding: 35px;
+  --section-margin: 28px;
+  --line-height: 1.7;
   --photo-size: 130px;
-  --photo-border: 4px;
-  --photo-margin: 0 auto 20px;
+  --photo-border: 5px;
+  --border-radius: 16px;
+  --card-padding: 25px;
 }
 
 body.compress {
   --font-title: 24px;
   --font-subtitle: 16px;
   --font-section-title: 18px;
-  --font-subsection: 14px;
-  --font-date: 12px;
-  --font-text: 12px;
-  --font-small: 11px;
-  --padding: 22px;
-  --section-margin: 18px;
-  --line-height: 1.4;
+  --font-subsection: 15px;
+  --font-date: 13px;
+  --font-text: 14px;
+  --font-small: 12px;
+  --padding: 25px;
+  --section-margin: 22px;
+  --line-height: 1.6;
   --photo-size: 110px;
-  --photo-border: 3px;
-  --photo-margin: 0 auto 15px;
+  --photo-border: 4px;
+  --border-radius: 12px;
+  --card-padding: 20px;
 }
 
 body.compress-plus {
-  --font-title: 20px;
-  --font-subtitle: 14px;
+  --font-title: 22px;
+  --font-subtitle: 15px;
   --font-section-title: 16px;
-  --font-subsection: 13px;
-  --font-date: 11px;
-  --font-text: 11px;
-  --font-small: 10px;
-  --padding: 16px;
-  --section-margin: 12px;
-  --line-height: 1.3;
+  --font-subsection: 14px;
+  --font-date: 12px;
+  --font-text: 13px;
+  --font-small: 11px;
+  --padding: 20px;
+  --section-margin: 18px;
+  --line-height: 1.5;
   --photo-size: 90px;
-  --photo-border: 2px;
-  --photo-margin: 0 auto 10px;
+  --photo-border: 3px;
+  --border-radius: 10px;
+  --card-padding: 16px;
 }
 
 /* ============================= ♻ RESET & BASE ============================= */
@@ -66,43 +71,64 @@ body.compress-plus {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   line-height: var(--line-height);
   color: var(--text);
-  background-color: var(--light);
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  min-height: 100vh;
+  padding: 20px;
 }
 
 /* ============================= 🧱 CV CONTAINER ============================= */
 .cv-container {
-  max-width: 950px;
-  margin: 20px auto;
+  max-width: 1000px;
+  margin: 40px auto;
   background: white;
-  display: flex;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  border-radius: 12px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   overflow: hidden;
+  position: relative;
 }
 
-/* ============================= 🧨 SIDEBAR (Left) ============================= */
+.cv-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gradient);
+  z-index: 10;
+}
+
+/* ============================= 🎯 SIDEBAR MODERNE ============================= */
 .sidebar {
-  width: 28%;
-  background: var(--primary);
+  background: var(--secondary);
   color: white;
   padding: var(--padding);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: var(--section-margin);
+  position: relative;
 }
 
-/* ============================= 📸 PHOTO DE PROFIL ============================= */
+/* Photo de profil moderne */
 .profile-photo {
   width: var(--photo-size);
   height: var(--photo-size);
-  margin: var(--photo-margin);
+  margin: 0 auto calc(var(--section-margin) * 0.8);
   border-radius: 50%;
-  border: var(--photo-border) solid var(--secondary);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  border: var(--photo-border) solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
 }
 
 .profile-photo img {
@@ -111,142 +137,367 @@ body {
   object-fit: cover;
 }
 
-/* ============================= PROFILE INFO ============================= */
-.profile h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: var(--font-title);
-  margin: 10px 0 5px;
-  text-align: center;
-}
-
-.profile .accent {
-  color: var(--secondary);
-}
-
-.job-title {
-  font-size: var(--font-subtitle);
-  color: var(--secondary);
+/* Header profil */
+.profile-header {
   text-align: center;
   margin-bottom: var(--section-margin);
 }
 
-/* ============================= SIDEBAR SECTIONS ============================= */
-.sidebar h2 {
-  font-family: 'Poppins', sans-serif;
+.profile-name {
+  font-size: var(--font-title);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.profile-title {
+  font-size: var(--font-subtitle);
+  color: var(--accent);
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--accent), #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Sections sidebar */
+.sidebar-section {
+  background: rgba(255, 255, 255, 0.08);
+  padding: var(--card-padding);
+  border-radius: calc(var(--border-radius) - 4px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-section h2 {
   font-size: var(--font-section-title);
-  text-transform: uppercase;
-  margin: var(--section-margin) 0 10px;
-  border-bottom: 2px solid var(--accent);
-  width: 100%;
-  text-align: center;
-}
-
-.contact-list, .skills-list, .languages-list {
-  list-style: none;
-  width: 100%;
-}
-
-.contact-list li, .skills-list li, .languages-list li {
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: var(--accent);
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 12px;
+}
+
+.sidebar-section h2::before {
+  content: '';
+  width: 20px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Listes modernes */
+.contact-list,
+.skills-list,
+.languages-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-list li,
+.skills-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: var(--font-text);
 }
 
-.contact-list i, .skills-list i {
-  width: 20px;
-  margin-right: 10px;
+.contact-list i {
   color: var(--accent);
+  font-size: 18px;
+  width: 20px;
   text-align: center;
-  font-size: calc(var(--font-text) + 2px);
+  flex-shrink: 0;
 }
 
-/* ============================= SKILLS & LANGUAGES ============================= */
-.skill-bar {
-  height: 6px;
-  background-color: rgba(255,255,255,0.2);
-  border-radius: 3px;
-  margin-top: 5px;
+/* Compétences modernes */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
 }
 
-.skill-level {
-  height: 100%;
-  background-color: var(--secondary);
-  border-radius: 3px;
+.skill-tag {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: var(--font-small);
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  transition: all 0.3s ease;
+  cursor: default;
 }
 
-.language-proficiency {
-  display: flex;
-  margin-top: 5px;
+.skill-tag:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 5px;
-  background-color: rgba(255,255,255,0.3);
-}
-
-.dot.filled {
-  background-color: var(--secondary);
-}
-
-/* ============================= 📝 MAIN CONTENT (Right) ============================= */
-.main-content {
-  width: 72%;
-  padding: var(--padding);
-}
-
-.main-content h2 {
-  font-family: 'Poppins', sans-serif;
-  color: var(--primary);
-  font-size: var(--font-section-title);
-  margin-bottom: 10px;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 5px;
-}
-
-.experience-item, .education-item {
-  margin-bottom: var(--section-margin);
-}
-
-.experience-header, .education-meta {
+/* Langues */
+.language-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 3px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.experience-header h3, .education-item h3 {
+.language-item:last-child {
+  border-bottom: none;
+}
+
+.language-name {
+  font-size: var(--font-text);
+}
+
+.language-level {
+  display: flex;
+  gap: 4px;
+}
+
+.language-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.language-dot.filled {
+  background: var(--accent);
+}
+
+/* ============================= 🚀 MAIN CONTENT MODERNE ============================= */
+.main-content {
+  padding: var(--padding);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-margin);
+}
+
+/* Sections principales */
+.content-section {
+  padding-bottom: var(--section-margin);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.content-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.content-section h2 {
+  font-size: var(--font-section-title);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.content-section h2::before {
+  content: '';
+  width: 30px;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
+/* Timeline moderne */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  background: white;
+  z-index: 2;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  bottom: -25px;
+  width: 2px;
+  background: var(--primary);
+  opacity: 0.3;
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-title {
   font-size: var(--font-subsection);
+  font-weight: 600;
+  color: var(--dark);
+  margin: 0;
+}
+
+.timeline-date {
+  background: var(--gradient);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: var(--font-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.timeline-company {
+  font-size: var(--font-text);
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.timeline-description {
+  color: var(--text);
+  line-height: var(--line-height);
+  margin-bottom: 8px;
+}
+
+/* Réalisations */
+.achievements {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  padding: 16px;
+  border-radius: var(--border-radius);
+  margin-top: 12px;
+  border-left: 4px solid var(--accent);
+}
+
+.achievements strong {
+  color: var(--accent);
   font-weight: 600;
 }
 
-.experience-date, .education-date {
-  color: var(--text-light);
-  font-size: var(--font-date);
+/* ============================= 📱 RESPONSIVE ============================= */
+@media (max-width: 900px) {
+  .cv-container {
+    grid-template-columns: 1fr;
+    margin: 20px;
+  }
+  
+  .sidebar {
+    order: 1;
+  }
+  
+  .main-content {
+    order: 2;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.experience-company, .education-location {
-  font-style: italic;
-  color: var(--text-light);
-  margin-bottom: 5px;
-}
-
-.experience-description p {
-  margin-bottom: 5px;
+@media (max-width: 600px) {
+  .timeline-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-photo {
+    --photo-size: 100px;
+  }
 }
 
 /* ============================= 🖨️ PRINT OPTIMIZATION ============================= */
 @media print {
-  body { zoom: 0.95; }
-  .sidebar, .skill-level, .dot.filled { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    background: white !important;
+    padding: 0;
+  }
+  
+  .cv-container {
+    box-shadow: none;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .cv-container::before {
+    display: none;
+  }
+  
+  .skill-tag {
+    border: 1px solid var(--accent);
+  }
+  
+  .sidebar {
+    background: var(--secondary) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 
-/* ============================= 📱 RESPONSIVE ============================= */
-@media (max-width: 768px) {
-  .cv-container { flex-direction: column; }
-  .sidebar, .main-content { width: 100%; padding: 20px; }
-  .profile h1 { font-size: 22px; }
-  .profile-photo { --photo-size: 100px; --photo-margin: 0 auto 15px; }
+/* ============================= 🎨 ANIMATIONS ============================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+.cv-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.sidebar-section {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.content-section {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Délais d'animation pour un effet séquentiel */
+.sidebar-section:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-section:nth-child(2) { animation-delay: 0.2s; }
+.sidebar-section:nth-child(3) { animation-delay: 0.3s; }
+.content-section:nth-child(1) { animation-delay: 0.2s; }
+.content-section:nth-child(2) { animation-delay: 0.3s; }
+.content-section:nth-child(3) { animation-delay: 0.4s; }
