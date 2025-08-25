@@ -91,14 +91,10 @@ class CVBuilder:
         env = Environment(loader=FileSystemLoader('Template/Creative'))  
         template = env.get_template('Crea.html')
 
-        if self.photo_path and os.path.exists(self.photo_path):
-            try:
-                with open(self.photo_path, "rb") as image_file:
-                    photo_base64 = base64.b64encode(image_file.read()).decode('utf-8')
-        # Utiliser dans le template
-            except Exception as e:
-                print(f"❌ Erreur lecture photo: {e}")
-                photo_base64 = None
+        with open(self.photo_path, "rb") as f:
+            img_data = f.read()
+        photo_b64 = "data:image/jpeg;base64," + base64.b64encode(img_data).decode()
+
 
         nb_exp = len(self.experiences)  
         nb_comp = len(self.competences)  
@@ -122,7 +118,7 @@ class CVBuilder:
             "formations": self.formations,  
             "langues": self.langues,  
             "body_class": body_class,
-            "photo_path" : photo_base64
+            "photo_path" : photo_b64
         }  
 
         html_render = template.render(context)  
