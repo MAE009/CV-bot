@@ -1,4 +1,3 @@
-
 /* ============================= 🎨 ROOT VARIABLES ============================= */
 :root {
     --primary: #4a6fa5;
@@ -72,7 +71,7 @@ body.compress-plus {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     line-height: var(--line-height);
     color: var(--text);
     background-color: #f0f2f5;
@@ -80,7 +79,7 @@ body {
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
 }
 
@@ -123,7 +122,6 @@ h1, h2, h3, h4 {
     overflow: hidden;
     border: var(--photo-border) solid rgba(255,255,255,0.3);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    position: relative;
 }
 
 .profile-photo img {
@@ -181,17 +179,16 @@ h1, h2, h3, h4 {
     list-style: none;
 }
 
-.languages-list li,
 .contact-list li,
-.skills-list li {
+.skills-list li,
+.languages-list li {
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     font-size: var(--font-body);
 }
 
-.contact-list i,
-.skills-list i {
+.contact-list i {
     margin-right: 12px;
     width: var(--icon-size);
     color: var(--accent);
@@ -199,35 +196,18 @@ h1, h2, h3, h4 {
     font-size: calc(var(--font-body) + 2px);
 }
 
-.skill-bar {
-    height: 6px;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 3px;
-    margin-top: 5px;
-    overflow: hidden;
+.contact-list a {
+    color: white;
+    text-decoration: none;
 }
 
-.skill-level {
-    height: 100%;
-    background-color: var(--accent);
-    border-radius: 3px;
+.contact-list a:hover {
+    text-decoration: underline;
 }
 
-.language-proficiency {
-    display: flex;
-    margin-top: 5px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 6px;
-    background-color: rgba(255,255,255,0.2);
-}
-
-.dot.filled {
-    background-color: var(--accent);
+.skill-name,
+.lang-name {
+    font-size: var(--font-body);
 }
 
 /* ============================= 📝 MAIN CONTENT (Right) ============================= */
@@ -261,14 +241,6 @@ h1, h2, h3, h4 {
     color: var(--accent);
 }
 
-.section-card {
-    background: var(--light);
-    border-radius: calc(var(--border-radius) - 4px);
-    padding: var(--card-padding);
-    margin-bottom: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-}
-
 .about-section p {
     margin-bottom: 10px;
     font-size: var(--font-body);
@@ -294,7 +266,12 @@ h1, h2, h3, h4 {
     background: var(--accent);
 }
 
-.experience-header,
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
 .education-meta {
     display: flex;
     justify-content: space-between;
@@ -308,14 +285,12 @@ h1, h2, h3, h4 {
     color: var(--dark);
 }
 
-.experience-date,
-.education-date {
+.experience-date {
     color: var(--text-light);
     font-size: var(--font-small);
 }
 
-.experience-company,
-.education-location {
+.experience-company {
     font-style: italic;
     color: var(--text-light);
     margin-bottom: 8px;
@@ -341,6 +316,18 @@ h1, h2, h3, h4 {
     font-size: var(--font-small);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.education-institution,
+.education-date {
+    color: var(--text-light);
+    font-size: var(--font-small);
+}
+
+.education-location {
+    font-style: italic;
+    color: var(--text-light);
+    font-size: var(--font-small);
 }
 
 /* ============================= 🎛️ COMPRESSION CONTROLS ============================= */
@@ -383,6 +370,16 @@ h1, h2, h3, h4 {
         width: 100%;
     }
     
+    .experience-header,
+    .education-meta {
+        flex-direction: column;
+    }
+    
+    .experience-date,
+    .education-date {
+        margin-top: 3px;
+    }
+    
     .compression-controls {
         bottom: 10px;
         right: 10px;
@@ -415,23 +412,12 @@ h1, h2, h3, h4 {
         print-color-adjust: exact;
     }
     
-    .skill-level, .dot.filled {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-
     .compression-controls {
         display: none;
     }
-}
-```
-
-J'ai adapté le CSS pour qu'il corresponde exactement à vos nouvelles variables de compression. Les principaux changements incluent :
-
-1. Remplacement des variables de police :
-   · --font-section-title → --font-section
-   · --font-text → --font-body
-   · --font-date → --font-small
-2. Ajustement de toutes les propriétés qui utilisaient ces variables pour correspondre au nouveau schéma de compression
-3. Suppression des valeurs redondantes comme --photo-margin qui est maintenant géré directement dans le sélecteur .profile-photo
-4. Conservation de toutes les fonctionnalités et du design original tout en respectant vos nouvelles échelles de compression
+    
+    .contact-list a {
+        color: white !important;
+        text-decoration: none !important;
+    }
+    }
