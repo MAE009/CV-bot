@@ -18,8 +18,8 @@ from utils.helpers import *
 async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("📄 Simple ATS", callback_data="ATS|ats")],
-        [InlineKeyboardButton("🧩 Moderne", callback_data="Moderne|Mod1")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="Creative|Crea")]
+        [InlineKeyboardButton("🧩 Moderne", callback_data="Moderne|Mod")],
+        [InlineKeyboardButton("🎨 Créatif", callback_data="Creative|Crea1")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
