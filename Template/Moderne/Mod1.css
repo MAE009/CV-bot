@@ -1,381 +1,437 @@
-/* ============================= 🎨 MODERN CLEAN VARIABLES ============================= */
+```css
+/* ============================= 🎨 ROOT VARIABLES ============================= */
 :root {
-  --primary: #2563eb;       /* Bleu professionnel */
-  --secondary: #374151;     /* Gris foncé */
-  --accent: #059669;        /* Vert émeraude */
-  --light: #f9fafb;         /* Fond très clair */
-  --text: #1f2937;          /* Texte foncé */
-  --text-light: #6b7280;    /* Texte secondaire */
-  --border: #e5e7eb;        /* Bordures */
+    --primary: #4a6fa5;
+    --secondary: #166088;
+    --accent: #4cb5ae;
+    --light: #f8f9fa;
+    --dark: #2d3e50;
+    --text: #333;
+    --text-light: #6c757d;
+    --card-bg: #ffffff;
+    --sidebar-bg: linear-gradient(135deg, #4a6fa5 0%, #166088 100%);
 }
 
 /* ============================= 🔧 COMPRESSION MODES ============================= */
 body.normal {
-  --font-title: 26px;
-  --font-subtitle: 18px;
-  --font-section: 20px;
-  --font-subsection: 17px;
-  --font-body: 15px;
-  --font-small: 13px;
-  --padding: 40px;
-  --section-margin: 30px;
-  --line-height: 1.6;
-  --photo-size: 120px;
+    --font-title: 26px;
+    --font-subtitle: 18px;
+    --font-section: 20px;
+    --font-subsection: 17px;
+    --font-body: 15px;
+    --font-small: 13px;
+    --padding: 40px;
+    --section-margin: 30px;
+    --line-height: 1.6;
+    --photo-size: 120px;
+    --photo-border: 4px;
+    --border-radius: 12px;
+    --card-padding: 25px;
+    --icon-size: 20px;
 }
 
 body.compress {
-  --font-title: 23px;
-  --font-subtitle: 16px;
-  --font-section: 18px;
-  --font-subsection: 15px;
-  --font-body: 14px;
-  --font-small: 12px;
-  --padding: 30px;
-  --section-margin: 24px;
-  --line-height: 1.5;
-  --photo-size: 100px;
+    --font-title: 23px;
+    --font-subtitle: 16px;
+    --font-section: 18px;
+    --font-subsection: 15px;
+    --font-body: 14px;
+    --font-small: 12px;
+    --padding: 30px;
+    --section-margin: 24px;
+    --line-height: 1.5;
+    --photo-size: 100px;
+    --photo-border: 3px;
+    --border-radius: 10px;
+    --card-padding: 20px;
+    --icon-size: 18px;
 }
 
 body.compress-plus {
-  --font-title: 21px;
-  --font-subtitle: 15px;
-  --font-section: 16px;
-  --font-subsection: 14px;
-  --font-body: 13px;
-  --font-small: 11px;
-  --padding: 24px;
-  --section-margin: 20px;
-  --line-height: 1.4;
-  --photo-size: 90px;
+    --font-title: 21px;
+    --font-subtitle: 15px;
+    --font-section: 16px;
+    --font-subsection: 14px;
+    --font-body: 13px;
+    --font-small: 11px;
+    --padding: 24px;
+    --section-margin: 20px;
+    --line-height: 1.4;
+    --photo-size: 90px;
+    --photo-border: 2px;
+    --border-radius: 8px;
+    --card-padding: 15px;
+    --icon-size: 16px;
 }
 
 /* ============================= ♻ RESET & BASE ============================= */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: var(--line-height);
-  color: var(--text);
-  background-color: #fafafa;
-  padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    line-height: var(--line-height);
+    color: var(--text);
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
 /* ============================= 🧱 CV CONTAINER ============================= */
 .cv-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  background: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+    max-width: 950px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
 }
 
-/* ============================= 🎯 SIDEBAR ÉPURÉ ============================= */
+/* ============================= 🧨 SIDEBAR (Left) ============================= */
 .sidebar {
-  background: var(--secondary);
-  color: white;
-  padding: var(--padding);
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-margin);
+    width: 35%;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: var(--padding);
+    position: relative;
 }
 
-/* Photo de profil */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+}
+
+/* ============================= 📸 PHOTO DE PROFIL ============================= */
 .profile-photo {
-  width: var(--photo-size);
-  height: var(--photo-size);
-  margin: 0 auto 25px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid white;
+    width: var(--photo-size);
+    height: var(--photo-size);
+    margin: 0 auto var(--section-margin);
+    border-radius: 50%;
+    overflow: hidden;
+    border: var(--photo-border) solid rgba(255,255,255,0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
 }
 
 .profile-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* En-tête profil */
-.profile-header {
-  text-align: center;
-  margin-bottom: var(--section-margin);
+.profile:has(.profile-photo) h1 {
+    margin-top: calc(var(--section-margin) / 2);
 }
 
-.profile-name {
-  font-size: var(--font-title);
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: white;
+.profile h1 {
+    font-size: var(--font-title);
+    margin-bottom: 5px;
+    text-align: center;
+    color: white;
 }
 
-.profile-title {
-  font-size: var(--font-subtitle);
-  color: var(--accent);
-  font-weight: 400;
+.profile .accent {
+    color: var(--accent);
 }
 
-/* Sections sidebar */
-.sidebar-section {
-  margin-bottom: var(--section-margin);
+.job-title {
+    font-size: var(--font-subtitle);
+    color: rgba(255,255,255,0.85);
+    margin-bottom: var(--section-margin);
+    text-align: center;
+    font-weight: 400;
 }
 
-.sidebar-section:last-child {
-  margin-bottom: 0;
+.sidebar h2 {
+    font-size: var(--font-section);
+    text-transform: uppercase;
+    margin: var(--section-margin) 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+    position: relative;
 }
 
-.sidebar-section h2 {
-  font-size: var(--font-section);
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: white;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--accent);
+.sidebar h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
 }
 
-/* Listes */
 .contact-list,
 .skills-list,
 .languages-list {
-  list-style: none;
+    list-style: none;
 }
 
-.contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  font-size: var(--font-body);
+.languages-list li,
+.contact-list li,
+.skills-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-size: var(--font-body);
 }
 
-.contact-list i {
-  color: var(--accent);
-  width: 16px;
-  text-align: center;
+.contact-list i,
+.skills-list i {
+    margin-right: 12px;
+    width: var(--icon-size);
+    color: var(--accent);
+    text-align: center;
+    font-size: calc(var(--font-body) + 2px);
 }
 
-/* Compétences */
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.skill-bar {
+    height: 6px;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    margin-top: 5px;
+    overflow: hidden;
 }
 
-.skill-tag {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: var(--font-small);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.skill-level {
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: 3px;
 }
 
-/* Langues */
-.language-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: var(--font-body);
+.language-proficiency {
+    display: flex;
+    margin-top: 5px;
 }
 
-.language-level {
-  display: flex;
-  gap: 4px;
-}
-/*
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background-color: rgba(255,255,255,0.2);
 }
-*/
+
 .dot.filled {
-  background: var(--accent);
+    background-color: var(--accent);
 }
 
-/* ============================= 📄 MAIN CONTENT ============================= */
+/* ============================= 📝 MAIN CONTENT (Right) ============================= */
 .main-content {
-  padding: var(--padding);
-  background: white;
+    width: 65%;
+    padding: var(--padding);
+    background: var(--card-bg);
 }
 
-/* Sections */
-.content-section {
-  margin-bottom: var(--section-margin);
+.main-content h2 {
+    color: var(--primary);
+    font-size: var(--font-section);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--light);
+    position: relative;
 }
 
-.content-section:last-child {
-  margin-bottom: 0;
+.main-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
 }
 
-.content-section h2 {
-  font-size: var(--font-section);
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--border);
+.main-content h2 i {
+    margin-right: 12px;
+    color: var(--accent);
 }
 
-/* Profil */
-.profile-text {
-  font-size: var(--font-body);
-  color: var(--text);
-  line-height: var(--line-height);
+.section-card {
+    background: var(--light);
+    border-radius: calc(var(--border-radius) - 4px);
+    padding: var(--card-padding);
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
 }
 
-/* Expérience */
-.experience-item {
-  margin-bottom: 24px;
+.about-section p {
+    margin-bottom: 10px;
+    font-size: var(--font-body);
 }
 
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.experience-title {
-  font-size: var(--font-subsection);
-  font-weight: 600;
-  color: var(--text);
-}
-
-.experience-date {
-  color: var(--primary);
-  font-weight: 500;
-  font-size: var(--font-small);
-  background: var(--light);
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
-.experience-company {
-  font-size: var(--font-body);
-  color: var(--text-light);
-  font-style: italic;
-  margin-bottom: 8px;
-}
-
-.experience-description {
-  font-size: var(--font-body);
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-/* Réalisations */
-.achievements {
-  background: var(--light);
-  padding: 12px 16px;
-  border-left: 3px solid var(--accent);
-  margin-top: 12px;
-  border-radius: 0 4px 4px 0;
-}
-
-.achievements strong {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* Formation */
+.experience-item,
 .education-item {
-  margin-bottom: 20px;
+    margin-bottom: var(--section-margin);
+    font-size: var(--font-body);
+    position: relative;
+    padding-left: 20px;
 }
 
-.education-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 6px;
-  flex-wrap: wrap;
-  gap: 10px;
+.experience-item::before,
+.education-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
 }
 
-.education-title {
-  font-size: var(--font-subsection);
-  font-weight: 600;
-  color: var(--text);
+.experience-header,
+.education-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
 
+.experience-header h3,
+.education-item h3 {
+    font-size: var(--font-subsection);
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.experience-date,
 .education-date {
-  color: var(--text-light);
-  font-size: var(--font-small);
+    color: var(--text-light);
+    font-size: var(--font-small);
 }
 
-.education-school {
-  font-size: var(--font-body);
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
+.experience-company,
 .education-location {
-  font-size: var(--font-small);
-  color: var(--text-light);
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    font-size: var(--font-small);
+}
+
+.experience-description p {
+    margin-bottom: 5px;
+    font-size: var(--font-body);
+}
+
+.achievements {
+    background-color: rgba(76, 181, 174, 0.1);
+    padding: 10px 15px;
+    border-left: 3px solid var(--accent);
+    margin-top: 10px;
+    border-radius: 0 4px 4px 0;
+}
+
+.achievements h4 {
+    margin-bottom: 5px;
+    color: var(--secondary);
+    font-size: var(--font-small);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================= 🎛️ COMPRESSION CONTROLS ============================= */
+.compression-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+}
+
+.compression-controls button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background: #f0f2f5;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.compression-controls button.active {
+    background: var(--primary);
+    color: white;
 }
 
 /* ============================= 📱 RESPONSIVE ============================= */
-@media (max-width: 900px) {
-  .cv-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .experience-header,
-  .education-header {
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .experience-date {
-    align-self: flex-start;
-  }
-}
-
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-  
-  .cv-container {
-    margin: 10px auto;
-  }
-  
-  .sidebar,
-  .main-content {
-    padding: 24px;
-  }
+@media (max-width: 768px) {
+    .cv-container {
+        flex-direction: column;
+    }
+    
+    .sidebar,
+    .main-content {
+        width: 100%;
+    }
+    
+    .compression-controls {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: center;
+    }
 }
 
 /* ============================= 🖨️ PRINT OPTIMIZATION ============================= */
 @media print {
-  body {
-    background: white !important;
-    padding: 0;
-  }
-  
-  .cv-container {
-    box-shadow: none;
-    border: none;
-    margin: 0;
-  }
-  
-  .skill-tag {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-}
+    body {
+        zoom: 0.9;
+        background: white;
+        padding: 0;
+    }
+    
+    .cv-container {
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    .profile-photo {
+        border: 2px solid var(--accent) !important;
+    }
+    
+    .sidebar {
+        background: var(--primary) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .skill-level, .dot.filled {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 
-/* ============================= 🎨 STATES ============================= */
-@media (hover: hover) {
-  .skill-tag:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-  }
+    .compression-controls {
+        display: none;
+    }
+}
+```
+
+J'ai adapté le CSS pour qu'il corresponde exactement à vos nouvelles variables de compression. Les principaux changements incluent :
+
+1. Remplacement des variables de police :
+   · --font-section-title → --font-section
+   · --font-text → --font-body
+   · --font-date → --font-small
+2. Ajustement de toutes les propriétés qui utilisaient ces variables pour correspondre au nouveau schéma de compression
+3. Suppression des valeurs redondantes comme --photo-margin qui est maintenant géré directement dans le sélecteur .profile-photo
+4. Conservation de toutes les fonctionnalités et du design original tout en respectant vos nouvelles échelles de compression
