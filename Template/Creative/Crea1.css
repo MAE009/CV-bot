@@ -1,0 +1,516 @@
+/* ============================= 🎨 ROOT VARIABLES ============================= */
+:root {
+    --primary: #FF6B6B;
+    --secondary: #4ECDC4;
+    --accent: #FFE66D;
+    --dark: #1A1A2E;
+    --light: #F7F7F7;
+    --text: #333333;
+    --text-light: #6B7280;
+    --card-bg: #FFFFFF;
+    --sidebar-bg: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+    --tag-bg: rgba(78, 205, 196, 0.15);
+}
+
+/* ============================= 🔧 COMPRESSION MODES ============================= */
+body.normal {
+    --font-title: 26px;
+    --font-subtitle: 18px;
+    --font-section: 20px;
+    --font-subsection: 17px;
+    --font-body: 15px;
+    --font-small: 13px;
+    --padding: 40px;
+    --section-margin: 30px;
+    --line-height: 1.6;
+    --photo-size: 120px;
+    --photo-border: 4px;
+    --border-radius: 16px;
+    --icon-size: 20px;
+    --tag-padding: 8px 14px;
+}
+
+body.compress {
+    --font-title: 23px;
+    --font-subtitle: 16px;
+    --font-section: 18px;
+    --font-subsection: 15px;
+    --font-body: 14px;
+    --font-small: 12px;
+    --padding: 30px;
+    --section-margin: 24px;
+    --line-height: 1.5;
+    --photo-size: 100px;
+    --photo-border: 3px;
+    --border-radius: 12px;
+    --icon-size: 18px;
+    --tag-padding: 6px 12px;
+}
+
+body.compress-plus {
+    --font-title: 21px;
+    --font-subtitle: 15px;
+    --font-section: 16px;
+    --font-subsection: 14px;
+    --font-body: 13px;
+    --font-small: 11px;
+    --padding: 24px;
+    --section-margin: 20px;
+    --line-height: 1.4;
+    --photo-size: 90px;
+    --photo-border: 2px;
+    --border-radius: 10px;
+    --icon-size: 16px;
+    --tag-padding: 5px 10px;
+}
+
+/* ============================= ♻ RESET & BASE ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: var(--line-height);
+    color: var(--text);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+/* ============================= 🧱 CV CONTAINER ============================= */
+.cv-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+.cv-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 35%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--secondary), transparent);
+    opacity: 0.3;
+}
+
+/* ============================= 🧨 SIDEBAR (Left) ============================= */
+.sidebar {
+    width: 35%;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: var(--padding);
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+}
+
+/* ============================= 📸 PROFILE SECTION ============================= */
+.profile {
+    text-align: center;
+    margin-bottom: var(--section-margin);
+    position: relative;
+}
+
+.profile::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--secondary);
+    border-radius: 2px;
+}
+
+.profile-photo {
+    width: var(--photo-size);
+    height: var(--photo-size);
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: var(--photo-border) solid var(--secondary);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile h1 {
+    font-size: var(--font-title);
+    margin-bottom: 10px;
+    color: white;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+}
+
+.profile h1::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.profile:hover h1::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.job-title {
+    font-size: var(--font-subtitle);
+    color: var(--secondary);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ============================= SIDEBAR SECTIONS ============================= */
+.sidebar-section {
+    margin-bottom: var(--section-margin);
+    position: relative;
+}
+
+.sidebar-section h2 {
+    font-size: var(--font-section);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    letter-spacing: 2px;
+    position: relative;
+    font-family: 'Righteous', cursive;
+    color: var(--accent);
+}
+
+.sidebar-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--secondary);
+}
+
+.contact-list {
+    list-style: none;
+}
+
+.contact-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-size: var(--font-body);
+    transition: transform 0.2s ease;
+}
+
+.contact-list li:hover {
+    transform: translateX(5px);
+}
+
+.contact-list i {
+    margin-right: 12px;
+    width: var(--icon-size);
+    color: var(--secondary);
+    text-align: center;
+    font-size: calc(var(--font-body) + 2px);
+}
+
+/* ============================= SKILLS STYLES ============================= */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background: var(--tag-bg);
+    color: var(--secondary);
+    padding: var(--tag-padding);
+    border-radius: 30px;
+    font-size: var(--font-small);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.skill-tag:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+/* ============================= LANGUAGES STYLES ============================= */
+.language-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: var(--font-body);
+}
+
+.language-level {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.2);
+    transition: background-color 0.3s ease;
+}
+
+.dot.filled {
+    background-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+}
+
+/* ============================= 📝 MAIN CONTENT (Right) ============================= */
+.main-content {
+    width: 65%;
+    padding: var(--padding);
+    background: var(--card-bg);
+    position: relative;
+}
+
+.section {
+    margin-bottom: var(--section-margin);
+    position: relative;
+}
+
+.section h2 {
+    color: var(--dark);
+    font-size: var(--font-section);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--light);
+    position: relative;
+    font-family: 'Righteous', cursive;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--primary);
+}
+
+.profile-text {
+    font-size: var(--font-body);
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* ============================= TIMELINE STYLES ============================= */
+.timeline-item {
+    margin-bottom: var(--section-margin);
+    padding-left: 20px;
+    border-left: 3px solid var(--primary);
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.timeline-header h3 {
+    font-size: var(--font-subsection);
+    color: var(--dark);
+    margin-bottom: 5px;
+}
+
+.timeline-date {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: var(--font-small);
+}
+
+.timeline-company {
+    font-style: italic;
+    color: var(--secondary);
+    margin-bottom: 8px;
+    font-size: var(--font-body);
+    font-weight: 600;
+}
+
+.timeline-description p {
+    margin-bottom: 8px;
+    font-size: var(--font-body);
+}
+
+.timeline-location {
+    color: var(--text-light);
+    font-size: var(--font-small);
+    font-style: italic;
+}
+
+.achievements {
+    background-color: rgba(255, 107, 107, 0.08);
+    padding: 12px 15px;
+    border-left: 3px solid var(--primary);
+    margin-top: 10px;
+    border-radius: 0 6px 6px 0;
+    font-size: var(--font-body);
+}
+
+.achievements strong {
+    color: var(--primary);
+}
+
+/* ============================= 🎛️ COMPRESSION CONTROLS ============================= */
+.compression-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+}
+
+.compression-controls button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background: #f0f2f5;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    font-family: 'Raleway', sans-serif;
+}
+
+.compression-controls button.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============================= 📱 RESPONSIVE ============================= */
+@media (max-width: 768px) {
+    .cv-container {
+        flex-direction: column;
+    }
+    
+    .cv-container::before {
+        display: none;
+    }
+    
+    .sidebar,
+    .main-content {
+        width: 100%;
+    }
+    
+    .timeline-header {
+        flex-direction: column;
+    }
+    
+    .compression-controls {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: center;
+    }
+}
+
+/* ============================= 🖨️ PRINT OPTIMIZATION ============================= */
+@media print {
+    body {
+        zoom: 0.9;
+        background: white;
+        padding: 0;
+    }
+    
+    .cv-container {
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    .cv-container::before {
+        display: none;
+    }
+    
+    .sidebar {
+        background: var(--dark) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .compression-controls {
+        display: none;
+    }
+}
+
+/* ============================= ANIMATIONS ============================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.timeline-item {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
