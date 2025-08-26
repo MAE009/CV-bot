@@ -1,15 +1,17 @@
 /* ============================= 🎨 ROOT VARIABLES ============================= */
 :root {
-    --primary: #FF6B6B;
-    --secondary: #4ECDC4;
-    --accent: #FFE66D;
-    --dark: #1A1A2E;
-    --light: #F7F7F7;
-    --text: #333333;
-    --text-light: #6B7280;
+    --primary: #FF5E5B;
+    --secondary: #00CECB;
+    --accent: #FFED66;
+    --dark: #2D3047;
+    --light: #F9F9F9;
+    --text: #2D3047;
+    --text-light: #5A5D7A;
     --card-bg: #FFFFFF;
-    --sidebar-bg: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
-    --tag-bg: rgba(78, 205, 196, 0.15);
+    --sidebar-bg: linear-gradient(135deg, #2D3047 0%, #1B1D2E 100%);
+    --deco-color-1: #FF5E5B;
+    --deco-color-2: #00CECB;
+    --deco-color-3: #FFED66;
 }
 
 /* ============================= 🔧 COMPRESSION MODES ============================= */
@@ -26,8 +28,9 @@ body.normal {
     --photo-size: 120px;
     --photo-border: 4px;
     --border-radius: 16px;
+    --card-padding: 25px;
     --icon-size: 20px;
-    --tag-padding: 8px 14px;
+    --deco-size: 80px;
 }
 
 body.compress {
@@ -43,8 +46,9 @@ body.compress {
     --photo-size: 100px;
     --photo-border: 3px;
     --border-radius: 12px;
+    --card-padding: 20px;
     --icon-size: 18px;
-    --tag-padding: 6px 12px;
+    --deco-size: 60px;
 }
 
 body.compress-plus {
@@ -60,8 +64,9 @@ body.compress-plus {
     --photo-size: 90px;
     --photo-border: 2px;
     --border-radius: 10px;
+    --card-padding: 15px;
     --icon-size: 16px;
-    --tag-padding: 5px 10px;
+    --deco-size: 50px;
 }
 
 /* ============================= ♻ RESET & BASE ============================= */
@@ -75,12 +80,39 @@ body {
     font-family: 'Raleway', sans-serif;
     line-height: var(--line-height);
     color: var(--text);
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-color: #F0F2F5;
     padding: 20px;
-    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
-h1, h2, h3 {
+body::before {
+    content: "";
+    position: fixed;
+    top: -50px;
+    right: -50px;
+    width: var(--deco-size);
+    height: var(--deco-size);
+    background-color: var(--deco-color-1);
+    border-radius: 50%;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    bottom: -30px;
+    left: -30px;
+    width: var(--deco-size);
+    height: var(--deco-size);
+    background-color: var(--deco-color-2);
+    border-radius: 20% 80% 30% 70%/70% 30% 70% 30%;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
@@ -98,14 +130,13 @@ h1, h2, h3 {
 }
 
 .cv-container::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
-    left: 35%;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--secondary), transparent);
-    opacity: 0.3;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--deco-color-1), var(--deco-color-2), var(--deco-color-3));
 }
 
 /* ============================= 🧨 SIDEBAR (Left) ============================= */
@@ -119,16 +150,19 @@ h1, h2, h3 {
 }
 
 .sidebar::after {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+    bottom: -20px;
+    left: -20px;
+    width: 80px;
+    height: 80px;
+    background-color: var(--deco-color-3);
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: -1;
 }
 
-/* ============================= 📸 PROFILE SECTION ============================= */
+/* ============================= 📸 PHOTO DE PROFIL ============================= */
 .profile {
     text-align: center;
     margin-bottom: var(--section-margin);
@@ -136,15 +170,15 @@ h1, h2, h3 {
 }
 
 .profile::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background: var(--secondary);
-    border-radius: 2px;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--deco-color-1);
+    border-radius: 50%;
+    opacity: 0.5;
 }
 
 .profile-photo {
@@ -153,9 +187,14 @@ h1, h2, h3 {
     margin: 0 auto 20px;
     border-radius: 50%;
     overflow: hidden;
-    border: var(--photo-border) solid var(--secondary);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    position: relative;
+    border: var(--photo-border) solid var(--deco-color-1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: rotate(2deg);
 }
 
 .profile-photo img {
@@ -174,28 +213,25 @@ h1, h2, h3 {
 }
 
 .profile h1::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -5px;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-}
-
-.profile:hover h1::after {
-    transform: scaleX(1);
-    transform-origin: left;
+    height: 3px;
+    background: var(--deco-color-1);
+    border-radius: 2px;
 }
 
 .job-title {
     font-size: var(--font-subtitle);
-    color: var(--secondary);
+    color: var(--deco-color-3);
     font-weight: 600;
-    letter-spacing: 1px;
+    padding: 8px 15px;
+    background: rgba(255, 237, 102, 0.15);
+    border-radius: 30px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 /* ============================= SIDEBAR SECTIONS ============================= */
@@ -209,21 +245,20 @@ h1, h2, h3 {
     text-transform: uppercase;
     margin-bottom: 15px;
     padding-bottom: 8px;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
     letter-spacing: 2px;
     position: relative;
     font-family: 'Righteous', cursive;
-    color: var(--accent);
 }
 
 .sidebar-section h2::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     left: 0;
     width: 40px;
     height: 2px;
-    background: var(--secondary);
+    background: var(--deco-color-1);
 }
 
 .contact-list {
@@ -235,22 +270,17 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     font-size: var(--font-body);
-    transition: transform 0.2s ease;
-}
-
-.contact-list li:hover {
-    transform: translateX(5px);
 }
 
 .contact-list i {
     margin-right: 12px;
     width: var(--icon-size);
-    color: var(--secondary);
+    color: var(--deco-color-1);
     text-align: center;
     font-size: calc(var(--font-body) + 2px);
 }
 
-/* ============================= SKILLS STYLES ============================= */
+/* ============================= COMPÉTENCES STYLISÉES ============================= */
 .skills-list {
     display: flex;
     flex-wrap: wrap;
@@ -258,29 +288,35 @@ h1, h2, h3 {
 }
 
 .skill-tag {
-    background: var(--tag-bg);
-    color: var(--secondary);
-    padding: var(--tag-padding);
-    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: var(--font-small);
-    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-    border: 1px solid transparent;
 }
 
 .skill-tag:hover {
-    background: var(--secondary);
-    color: white;
+    background: var(--deco-color-1);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* ============================= LANGUAGES STYLES ============================= */
+/* ============================= LANGUES ============================= */
+.languages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .language-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+}
+
+.language-item span {
     font-size: var(--font-body);
 }
 
@@ -294,12 +330,10 @@ h1, h2, h3 {
     height: 10px;
     border-radius: 50%;
     background-color: rgba(255,255,255,0.2);
-    transition: background-color 0.3s ease;
 }
 
 .dot.filled {
-    background-color: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
+    background-color: var(--deco-color-1);
 }
 
 /* ============================= 📝 MAIN CONTENT (Right) ============================= */
@@ -310,84 +344,102 @@ h1, h2, h3 {
     position: relative;
 }
 
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--deco-color-2);
+    border-radius: 10px;
+    opacity: 0.1;
+    z-index: 0;
+}
+
 .section {
     margin-bottom: var(--section-margin);
     position: relative;
+    z-index: 1;
 }
 
 .section h2 {
     color: var(--dark);
     font-size: var(--font-section);
-    margin-bottom: 15px;
-    padding-bottom: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 2px solid var(--light);
     position: relative;
     font-family: 'Righteous', cursive;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .section h2::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     left: 0;
-    width: 40px;
+    width: 60px;
     height: 2px;
-    background: var(--primary);
+    background: var(--deco-color-1);
 }
 
 .profile-text {
     font-size: var(--font-body);
     line-height: 1.7;
-    text-align: justify;
+    padding: 15px;
+    background: rgba(255, 237, 102, 0.1);
+    border-left: 4px solid var(--deco-color-3);
+    border-radius: 0 8px 8px 0;
 }
 
-/* ============================= TIMELINE STYLES ============================= */
+/* ============================= TIMELINE STYLING ============================= */
 .timeline-item {
     margin-bottom: var(--section-margin);
-    padding-left: 20px;
-    border-left: 3px solid var(--primary);
+    padding-left: 25px;
+    border-left: 3px solid var(--deco-color-2);
     position: relative;
 }
 
 .timeline-item::before {
-    content: '';
+    content: "";
     position: absolute;
-    left: -8px;
-    top: 0;
-    width: 14px;
-    height: 14px;
+    left: -10px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: var(--primary);
-    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+    background: var(--deco-color-2);
 }
 
 .timeline-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 5px;
-    flex-wrap: wrap;
 }
 
 .timeline-header h3 {
     font-size: var(--font-subsection);
+    font-weight: 600;
     color: var(--dark);
-    margin-bottom: 5px;
+    margin-right: 15px;
 }
 
 .timeline-date {
-    color: var(--primary);
+    color: var(--deco-color-1);
     font-weight: 600;
     font-size: var(--font-small);
+    white-space: nowrap;
 }
 
 .timeline-company {
     font-style: italic;
-    color: var(--secondary);
+    color: var(--text-light);
     margin-bottom: 8px;
-    font-size: var(--font-body);
-    font-weight: 600;
+    font-size: var(--font-small);
+    font-weight: 500;
 }
 
 .timeline-description p {
@@ -398,20 +450,20 @@ h1, h2, h3 {
 .timeline-location {
     color: var(--text-light);
     font-size: var(--font-small);
-    font-style: italic;
 }
 
 .achievements {
-    background-color: rgba(255, 107, 107, 0.08);
+    background-color: rgba(0, 206, 203, 0.1);
     padding: 12px 15px;
-    border-left: 3px solid var(--primary);
+    border-left: 3px solid var(--deco-color-2);
     margin-top: 10px;
-    border-radius: 0 6px 6px 0;
-    font-size: var(--font-body);
+    border-radius: 0 8px 8px 0;
+    font-size: var(--font-small);
 }
 
 .achievements strong {
-    color: var(--primary);
+    color: var(--deco-color-2);
+    font-weight: 600;
 }
 
 /* ============================= 🎛️ COMPRESSION CONTROLS ============================= */
@@ -440,18 +492,14 @@ h1, h2, h3 {
 }
 
 .compression-controls button.active {
-    background: var(--primary);
+    background: var(--deco-color-1);
     color: white;
 }
 
 /* ============================= 📱 RESPONSIVE ============================= */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .cv-container {
         flex-direction: column;
-    }
-    
-    .cv-container::before {
-        display: none;
     }
     
     .sidebar,
@@ -463,11 +511,19 @@ h1, h2, h3 {
         flex-direction: column;
     }
     
+    .timeline-date {
+        margin-top: 5px;
+    }
+    
     .compression-controls {
         bottom: 10px;
         right: 10px;
         left: 10px;
         justify-content: center;
+    }
+    
+    .profile::after {
+        display: none;
     }
 }
 
@@ -485,8 +541,8 @@ h1, h2, h3 {
         max-width: 100%;
     }
     
-    .cv-container::before {
-        display: none;
+    .profile-photo {
+        border: 2px solid var(--deco-color-1) !important;
     }
     
     .sidebar {
@@ -498,19 +554,8 @@ h1, h2, h3 {
     .compression-controls {
         display: none;
     }
-}
-
-/* ============================= ANIMATIONS ============================= */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.timeline-item {
-    animation: fadeIn 0.5s ease forwards;
-}
-
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.2s; }
-.timeline-item:nth-child(3) { animation-delay: 0.3s; }
-.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    
+    body::before, body::after, .cv-container::before, .sidebar::after, .main-content::before {
+        display: none;
+    }
+    }
