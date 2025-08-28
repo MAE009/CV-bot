@@ -227,3 +227,82 @@ test_data = {
         {"nom": "Anglais (Courant - TOEFL 950)"}
     ]
 }
+
+
+test_data_maman = {        
+    "infos": {        
+        "nom": "MAKOSSO PAMBOU",        
+        "prenom": "Edith Chantal",        
+        "poste": "Agent de service cantine scolaire",        
+        "ville": "Congo, Siafoumou",        
+        "tel": "+242 064118105",        
+        "email": "",   # Pas indiqué → tu peux laisser vide ou ajouter plus tard        
+        "autre": "",   # Par exemple WhatsApp si tu veux        
+        "resume": (        
+            "Expérimentée dans le service en cantine scolaire et la préparation des repas collectifs. "
+            "Sérieuse, organisée et attentive au respect des règles d’hygiène, avec un bon relationnel "
+            "auprès des enfants et de l’équipe."        
+        )        
+    },        
+
+    "experiences": [        
+        {        
+            "poste": "Cantinière",        
+            "entreprise": "Complexe scolaire La Croyance",        
+            "date": "Octobre 2012 - Juin 2013",        
+            "description": "Service des repas et encadrement des enfants en cantine.",        
+            "realisations": (        
+                "Assurer une distribution fluide et respectueuse des règles d’hygiène."        
+            )        
+        },        
+        {        
+            "poste": "Gérante",        
+            "entreprise": "Son propre restaurant",        
+            "date": "2016 - 2019",        
+            "description": "Préparation et vente de repas variés à une clientèle locale.",        
+            "realisations": (        
+                "Mise en place de plats traditionnels (Bissa, yaourt, gâteaux) appréciés par les clients."        
+            )        
+        },        
+        {        
+            "poste": "Cantinière",        
+            "entreprise": "École Fanoe",        
+            "date": "Septembre 2009 - Mars 2011",        
+            "description": "Préparation et service des repas scolaires.",        
+            "realisations": (        
+                "Soutien à la discipline et au bon déroulement des repas des enfants."        
+            )        
+        }        
+    ],        
+
+    "formations": [        
+        {        
+            "diplome": "BTS en Secrétariat",        
+            "etablissement": "",        
+            "date_debut": "",        
+            "date_fin": "",        
+            "lieu": "Congo"        
+        },        
+        {        
+            "diplome": "Baccalauréat",        
+            "etablissement": "",        
+            "date_debut": "",        
+            "date_fin": "",        
+            "lieu": "Congo"        
+        }        
+    ],        
+
+    "competences": [        
+        {"comp": "Service en cantine 🍽️"},        
+        {"comp": "Préparation des repas 👩‍🍳"},        
+        {"comp": "Hygiène et sécurité HACCP 🧼"},        
+        {"comp": "Travail en équipe 🤝"},        
+        {"comp": "Relationnel avec enfants 🏫"},        
+        {"comp": "Préparation Bissa, yaourt et gâteaux 🎂"}        
+    ],        
+
+    "langues": [        
+        {"nom": "Français (langue maternelle)"}        
+    ],
+    "path_image" : ""
+}
