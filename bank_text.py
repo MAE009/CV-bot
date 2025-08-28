@@ -252,7 +252,7 @@ test_data_maman = {
             "date": "2016 - 2019",        
             "description": "Préparation et vente de repas variés à une clientèle locale.",        
             "realisations": (        
-                " Restauration rapide "        
+                "Restauration rapide"        
             )        
         },
         {        
@@ -293,12 +293,12 @@ test_data_maman = {
     ],        
 
     "competences": [        
-        {"comp": "Service en cantine 🍽️"},        
-        {"comp": "Préparation des repas 👩‍🍳"},        
-        {"comp": "Hygiène et sécurité HACCP 🧼"},        
-        {"comp": "Travail en équipe 🤝"},        
-        {"comp": "Relationnel avec enfants 🏫"},        
-        {"comp": "Préparation Bissa, yaourt et gâteaux 🎂"}        
+        {"comp": "Service en cantine,"},        
+        {"comp": "Préparation des repas,"},        
+        {"comp": "Hygiène,"},        
+        {"comp": "Travail en équipe,"},        
+        {"comp": "Relationnel avec enfants,"},        
+        {"comp": "Préparation Bissa, yaourt et gâteaux"}        
     ],        
 
     "langues": [        
