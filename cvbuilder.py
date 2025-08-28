@@ -188,8 +188,12 @@ class CVBuilder:
     def  test_modern_cv_generator(self, cv_type, template_file):  
         """Génère un CV moderne et son image LinkedIn"""  
         try:  
-            data = test_data  
+            data = test_data_maman  
             template_dir = f'Template/{cv_type}'
+            with open(data['photo_path'], "rb") as f:
+               img_data = f.read()
+            photo_b64 = "data:image/jpeg;base64," + base64.b64encode(img_data).decode()
+        
             
             # 1. Préparation du template
             env = Environment(
@@ -228,7 +232,8 @@ class CVBuilder:
                 "experiences": data["experiences"],  
                 "formations": data["formations"],  
                 "competences": data["competences"],  
-                "langues": data["langues"],  
+                "langues": data["langues"],
+                "photo_path": photo_b64,
                 "content_score": content_score,  
                 "generation_date": datetime.now().strftime("%Y-%m-%d")  
             }  
