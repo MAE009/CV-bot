@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lettre de Motivation - MAKOSSO PAMBOU Edith Chantal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================= 🎨 ROOT VARIABLES ============================= */
+        :root {
+            --primary: #6ab04c;      /* Vert pastel */
+            --secondary: #f39c12;    /* Orange clair */
+            --accent: #e67e22;       /* Orange plus soutenu */
+            --light: #f9f9f9;        /* Blanc cassé */
+            --dark: #2d3436;         /* Texte foncé */
+            --text: #2d3436;
+            --text-light: #636e72;
+            --card-bg: #ffffff;
+        }
+
+        /* ============================= ♻ RESET & BASE ============================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f5f6f7;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        /* ============================= 🧱 LETTRE CONTAINER ============================= */
+        .lettre-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+        }
+
+        /* ============================= 📝 EN-TÊTE ============================= */
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .nom {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--text-light);
+        }
+
+        .date-lieu {
+            text-align: right;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* ============================= 📧 DESTINATAIRE ============================= */
+        .destinataire {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: rgba(106, 180, 76, 0.05);
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+        }
+
+        .destinataire h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .destinataire p {
+            margin-bottom: 3px;
+            font-size: 15px;
+        }
+
+        /* ============================= 🎯 OBJET ============================= */
+        .objet {
+            margin-bottom: 25px;
+        }
+
+        .objet h3 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .objet p {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        /* ============================= 📄 CORPS DE LA LETTRE ============================= */
+        .corps-lettre {
+            margin-bottom: 30px;
+        }
+
+        .corps-lettre p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ============================= 👋 FORMULE DE POLITESSE ============================= */
+        .formule-politesse {
+            margin-top: 40px;
+            text-align: right;
+        }
+
+        .formule-politesse p {
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ============================= 📎 PIÈCES JOINTES ============================= */
+        .pieces-jointes {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--text-light);
+        }
+
+        .pieces-jointes h4 {
+            font-size: 15px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .pieces-jointes ul {
+            list-style-type: none;
+            padding-left: 5px;
+        }
+
+        .pieces-jointes li {
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pieces-jointes li:before {
+            content: "·";
+            margin-right: 10px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* ============================= 📱 RESPONSIVE ============================= */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .lettre-container {
+                padding: 25px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .date-lieu {
+                text-align: left;
+            }
+        }
+
+        /* ============================= 🖨️ PRINT OPTIMIZATION ============================= */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .lettre-container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lettre-container">
+        <!-- En-tête -->
+        <div class="header">
+            <div class="nom">MAKOSSO PAMBOU Edith Chantal</div>
+            <div class="contact-info">
+                <div>Tel: +242 064118105</div>
+                <div>Pointe-Noire, Siafoumou</div>
+            </div>
+        </div>
+
+        <!-- Date et lieu -->
+        <div class="date-lieu">
+            Pointe-Noire, le <span id="current-date"></span> 2025
+        </div>
+
+        <!-- Destinataire -->
+        <div class="destinataire">
+            <h3>À l'attention du Responsable des Ressources Humaines</h3>
+            <p>Keads School</p>
+            <p>Service de Restauration Scolaire</p>
+            <p>Pointe-Noire</p>
+        </div>
+
+        <!-- Objet -->
+        <div class="objet">
+            <h3>Objet :</h3>
+            <p>Candidature au poste d'Agent de service cantine scolaire</p>
+        </div>
+
+        <!-- Corps de la lettre -->
+        <div class="corps-lettre">
+            <p>Madame, Monsieur,</p>
+            
+            <p>Actuellement disponible et forte de plusieurs années d'expérience dans le service en cantine scolaire, je me permets de vous proposer ma candidature pour un poste au sein de votre service de restauration.</p>
+            
+            <p>Expérimentée dans la préparation de repas collectifs et le service en milieu scolaire, j'ai développé au cours de mes différentes expériences professionnelles (Complexe scolaire La Croyance, École Fanoe) une expertise solide dans l'encadrement des enfants durant le temps de repas et le respect strict des normes d'hygiène alimentaire.</p>
+            
+            <p>Mes compétences en préparation de plats traditionnels (Bissa, yaourt, gâteaux) et mon aptitude à garantir un service fluide et organisé pourraient être un atout pour votre établissement réputé. Mon sens du relationnel avec les enfants et ma capacité à travailler en équipe complètent ce profil opérationnel.</p>
+            
+            <p>Intégrer Keads School représenterait pour moi une opportunité précieuse de mettre mes compétences au service d'un établissement de qualité et de participer au bien-être des élèves durant leurs repas.</p>
+            
+            <p>Je reste à votre entière disposition pour vous exposer plus en détail ma motivation lors d'un entretien à votre convenance.</p>
+        </div>
+
+        <!-- Formule de politesse -->
+        <div class="formule-politesse">
+            <p>Veuillez agréer, Madame, Monsieur, l'expression de mes salutations distinguées.</p>
+            <div class="signature">Makosso Pambou Edith Chantal</div>
+        </div>
+
+        <!-- Pièces jointes -->
+        <div class="pieces-jointes">
+            <h4>Pièces jointes :</h4>
+            <ul>
+                <li>Curriculum Vitae</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Ajouter la date actuelle
+        const now = new Date();
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        const formattedDate = now.toLocaleDateString('fr-FR', options);
+        document.getElementById('current-date').textContent = formattedDate;
+    </script>
+</body>
+</html>
