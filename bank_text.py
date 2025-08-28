@@ -236,25 +236,16 @@ test_data_maman = {
         "poste": "Agent de service cantine scolaire",        
         "ville": "POINTE-NOIRE, Siafoumou",        
         "tel": "+242 064118105",        
-        "email": "❌ Non fourni",   # Pas indiqué → tu peux laisser vide ou ajouter plus tard        
-        "autre": "❌ Non fourni",   # Par exemple WhatsApp si tu veux        
+        "email": "❌ Non fourni",        
+        "autre": "❌ Non fourni",        
         "resume": (        
             "Expérimentée dans le service en cantine scolaire et la préparation des repas collectifs. "
-            "Sérieuse, organisée et attentive au respect des règles d’hygiène, avec un bon relationnel "
-            "auprès des enfants et de l’équipe."        
+            "Sérieuse, organisée et attentive au respect des règles d'hygiène, avec un bon relationnel "
+            "auprès des enfants et de l'équipe."        
         )        
     },        
 
     "experiences": [        
-        {        
-            "poste": "Cantinière",        
-            "entreprise": "Complexe scolaire La Croyance",        
-            "date": "Octobre 2012 - Juin 2013",        
-            "description": "Service des repas et encadrement des enfants en cantine et Mise en place de plats traditionnels (Bissa, yaourt, gâteaux) appréciés par les enfants.",        
-            "realisations": (        
-                "Assurer une distribution fluide et respectueuse des règles d’hygiène."        
-            )        
-        },        
         {        
             "poste": "Gérante",        
             "entreprise": "Mon restaurant local",        
@@ -262,6 +253,15 @@ test_data_maman = {
             "description": "Préparation et vente de repas variés à une clientèle locale.",        
             "realisations": (        
                 " Restauration rapide "        
+            )        
+        },
+        {        
+            "poste": "Cantinière",        
+            "entreprise": "Complexe scolaire La Croyance",        
+            "date": "Octobre 2012 - Juin 2013",        
+            "description": "Service des repas et encadrement des enfants en cantine et Mise en place de plats traditionnels (Bissa, yaourt, gâteaux) appréciés par les enfants.",        
+            "realisations": (        
+                "Assurer une distribution fluide et respectueuse des règles d'hygiène."        
             )        
         },        
         {        
