@@ -234,10 +234,10 @@ test_data_maman = {
         "nom": "MAKOSSO PAMBOU",        
         "prenom": "Edith Chantal",        
         "poste": "Agent de service cantine scolaire",        
-        "ville": "Congo, Siafoumou",        
+        "ville": "POINTE-NOIRE, Siafoumou",        
         "tel": "+242 064118105",        
-        "email": "",   # Pas indiqué → tu peux laisser vide ou ajouter plus tard        
-        "autre": "",   # Par exemple WhatsApp si tu veux        
+        "email": "❌ Non fourni",   # Pas indiqué → tu peux laisser vide ou ajouter plus tard        
+        "autre": "❌ Non fourni",   # Par exemple WhatsApp si tu veux        
         "resume": (        
             "Expérimentée dans le service en cantine scolaire et la préparation des repas collectifs. "
             "Sérieuse, organisée et attentive au respect des règles d’hygiène, avec un bon relationnel "
@@ -250,18 +250,18 @@ test_data_maman = {
             "poste": "Cantinière",        
             "entreprise": "Complexe scolaire La Croyance",        
             "date": "Octobre 2012 - Juin 2013",        
-            "description": "Service des repas et encadrement des enfants en cantine.",        
+            "description": "Service des repas et encadrement des enfants en cantine et Mise en place de plats traditionnels (Bissa, yaourt, gâteaux) appréciés par les enfants.",        
             "realisations": (        
                 "Assurer une distribution fluide et respectueuse des règles d’hygiène."        
             )        
         },        
         {        
             "poste": "Gérante",        
-            "entreprise": "Son propre restaurant",        
+            "entreprise": "Mon restaurant local",        
             "date": "2016 - 2019",        
             "description": "Préparation et vente de repas variés à une clientèle locale.",        
             "realisations": (        
-                "Mise en place de plats traditionnels (Bissa, yaourt, gâteaux) appréciés par les clients."        
+                " Restauration rapide "        
             )        
         },        
         {        
@@ -278,16 +278,16 @@ test_data_maman = {
     "formations": [        
         {        
             "diplome": "BTS en Secrétariat",        
-            "etablissement": "",        
-            "date_debut": "",        
-            "date_fin": "",        
+            "etablissement": "ESC",        
+            "date_debut": "2001",        
+            "date_fin": "2003",        
             "lieu": "Congo"        
         },        
         {        
             "diplome": "Baccalauréat",        
-            "etablissement": "",        
-            "date_debut": "",        
-            "date_fin": "",        
+            "etablissement": "Poaty Bernard",        
+            "date_debut": "1999",        
+            "date_fin": "2001",        
             "lieu": "Congo"        
         }        
     ],        
