@@ -304,5 +304,5 @@ test_data_maman = {
     "langues": [        
         {"nom": "Français (langue maternelle)"}        
     ],
-    "photo_path" : ""
+    "photo_path" : "Assets/1756384517199.jpg"
 }
