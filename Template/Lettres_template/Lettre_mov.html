@@ -4,213 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lettre de Motivation - MAKOSSO PAMBOU Edith Chantal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* ============================= 🎨 ROOT VARIABLES ============================= */
         :root {
-            --primary: #6ab04c;      /* Vert pastel */
-            --secondary: #f39c12;    /* Orange clair */
-            --accent: #e67e22;       /* Orange plus soutenu */
-            --light: #f9f9f9;        /* Blanc cassé */
-            --dark: #2d3436;         /* Texte foncé */
+            --primary: #6ab04c;
+            --secondary: #f39c12;
+            --light: #f9f9f9;
             --text: #2d3436;
             --text-light: #636e72;
-            --card-bg: #ffffff;
         }
 
-        /* ============================= ♻ RESET & BASE ============================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ============================= ♻ BASE ============================= */
         body {
             font-family: 'Raleway', sans-serif;
-            line-height: 1.6;
+            line-height: 1.4;
+            font-size: 13px;
             color: var(--text);
-            background-color: #f5f6f7;
-            padding: 20px;
+            background: white;
+            padding: 10px;
+            margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-
-        /* ============================= 🧱 LETTRE CONTAINER ============================= */
         .lettre-container {
             max-width: 800px;
             width: 100%;
-            background: var(--card-bg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-radius: 12px;
-            padding: 40px;
-            position: relative;
+            background: white;
+            padding: 20px;
         }
 
         /* ============================= 📝 EN-TÊTE ============================= */
         .header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--primary);
         }
-
+        
         .nom {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
-
+        
         .contact-info {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 10px;
-            font-size: 15px;
+            gap: 10px;
+            font-size: 12px;
             color: var(--text-light);
         }
 
+        /* ============================= DATE ============================= */
         .date-lieu {
-            text-align: right;
-            font-style: italic;
+            font-size: 12px;
+            margin: 10px 0 15px;
             color: var(--text-light);
-            margin-bottom: 30px;
+            text-align: right;
         }
 
-        /* ============================= 📧 DESTINATAIRE ============================= */
+        /* ============================= DESTINATAIRE ============================= */
         .destinataire {
-            margin-bottom: 30px;
-            padding: 15px;
-            background-color: rgba(106, 180, 76, 0.05);
-            border-left: 4px solid var(--primary);
-            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(106,180,76,0.05);
+            border-left: 3px solid var(--primary);
         }
-
+        
         .destinataire h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: var(--dark);
+            font-size: 13px;
+            margin-bottom: 2px;
         }
-
+        
         .destinataire p {
-            margin-bottom: 3px;
-            font-size: 15px;
+            font-size: 12px;
+            margin-bottom: 2px;
         }
 
-        /* ============================= 🎯 OBJET ============================= */
+        /* ============================= OBJET ============================= */
         .objet {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
-
+        
         .objet h3 {
-            font-size: 16px;
+            font-size: 13px;
             color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
-
+        
         .objet p {
             font-weight: 500;
-            font-size: 16px;
+            font-size: 13px;
         }
 
-        /* ============================= 📄 CORPS DE LA LETTRE ============================= */
-        .corps-lettre {
-            margin-bottom: 30px;
-        }
-
+        /* ============================= CORPS DE LETTRE ============================= */
         .corps-lettre p {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-align: justify;
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 13px;
+            line-height: 1.4;
         }
 
-        /* ============================= 👋 FORMULE DE POLITESSE ============================= */
+        /* ============================= FORMULE ============================= */
         .formule-politesse {
-            margin-top: 40px;
+            margin-top: 20px;
+            font-size: 13px;
             text-align: right;
         }
-
-        .formule-politesse p {
-            margin-bottom: 5px;
-            font-size: 15px;
-        }
-
+        
         .signature {
-            margin-top: 30px;
+            margin-top: 15px;
             font-weight: 600;
             color: var(--primary);
         }
 
-        /* ============================= 📎 PIÈCES JOINTES ============================= */
+        /* ============================= PIÈCES JOINTES ============================= */
         .pieces-jointes {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 10px;
             border-top: 1px dashed var(--text-light);
         }
-
+        
         .pieces-jointes h4 {
-            font-size: 15px;
+            font-size: 12px;
+            margin-bottom: 5px;
             color: var(--primary);
-            margin-bottom: 10px;
         }
-
+        
         .pieces-jointes ul {
             list-style-type: none;
-            padding-left: 5px;
+            padding-left: 0;
         }
-
+        
         .pieces-jointes li {
-            margin-bottom: 5px;
-            font-size: 14px;
+            font-size: 12px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
         }
-
+        
         .pieces-jointes li:before {
             content: "·";
-            margin-right: 10px;
+            margin-right: 8px;
             font-weight: bold;
             color: var(--secondary);
         }
 
-        /* ============================= 📱 RESPONSIVE ============================= */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .lettre-container {
-                padding: 25px;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .date-lieu {
-                text-align: left;
-            }
-        }
-
-        /* ============================= 🖨️ PRINT OPTIMIZATION ============================= */
+        /* ============================= PRINT ============================= */
         @media print {
             body {
-                background: white;
+                margin: 0;
                 padding: 0;
             }
             
             .lettre-container {
                 box-shadow: none;
-                padding: 0;
+                padding: 15px;
+                font-size: 12px;
                 max-width: 100%;
+            }
+            
+            @page {
+                margin: 0.5cm;
             }
         }
     </style>
@@ -283,4 +240,4 @@
         document.getElementById('current-date').textContent = formattedDate;
     </script>
 </body>
-</html>
+    </html>
