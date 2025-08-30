@@ -43,35 +43,35 @@ async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):    
     query = update.callback_query    
     await query.answer()    
-    
+
     try:    
-        action, value = query.data.split("|")    
-    
+        parts = query.data.split("|")    
+        action = parts[0]    
+
         if action == "category":    
-            # On montre uniquement les templates de cette catégorie
-            category = value    
+            category = parts[1]    
             keyboard = []    
             for template in templates[category]:    
                 button_text = template    
                 callback_data = f"template|{category}|{template}"    
                 keyboard.append([InlineKeyboardButton(button_text, callback_data=callback_data)])    
-    
+
             reply_markup = InlineKeyboardMarkup(keyboard)    
             await query.edit_message_text(    
                 text=f"📂 Catégorie **{category}** : choisis un template",    
                 reply_markup=reply_markup    
             )    
-    
+
         elif action == "template":    
-            # Ici, on génère le CV    
-            cv_type, template_file = value, query.data.split("|")[2]    
+            category = parts[1]    
+            template_file = parts[2]    
             session = get_session(query.from_user.id)    
-    
-            await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")    
-    
+
+            await query.edit_message_text(f"⚙️ Génération du CV {category} ({template_file})...")    
+
             # Génération des fichiers    
-            pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)    
-    
+            pdf_path, image_path = session.test_modern_cv_generator(category, template_file)    
+
             # Envoi du PDF    
             with open(pdf_path, "rb") as pdf_file:    
                 await context.bot.send_document(    
@@ -79,7 +79,7 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     document=InputFile(pdf_file),    
                     caption="📄 Ton CV prêt à imprimer/envoyer"    
                 )    
-    
+
             # Envoi de l'image LinkedIn    
             with open(image_path, "rb") as img_file:    
                 await context.bot.send_photo(    
@@ -87,13 +87,13 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     photo=InputFile(img_file),    
                     caption="✨ Version optimisée pour LinkedIn"    
                 )    
-    
+
     except Exception as e:    
         await context.bot.send_message(    
             chat_id=query.message.chat.id,    
             text=f"❌ Erreur: {str(e)}"    
         )    
-        print(f"Erreur callback: {str(e)}")    
+        print(f"Erreur callback: {str(e)}") 
 
 
 def setup_models_handlers(app):    
