@@ -17,65 +17,85 @@ from utils.helpers import *
 
 
 # Exemple de structure de templates
-templates = {
-    "ATS": ["ats", "ats_classique", "ats_moderne", "ats_minimaliste"],
-    "Moderne": ["moderne1", "moderne2", "moderne3"],
-    "Créatif": ["creatif1", "creatif2", "creatif3"]
-}
+# Exemple de structure de templates    
+templates = {    
+    "ATS": ["ats", "ats_classique", "ats_moderne", "ats_minimaliste"],    
+    "Moderne": ["moderne1", "moderne2", "moderne3"],    
+    "Créatif": ["creatif1", "creatif2", "creatif3"]    
+}    
 
-async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = []
-    for category, template_list in templates.items():
-        # Crée un bouton par template
-        for template in template_list:
-            button_text = f"{category} - {template}"
-            callback_data = f"{category}|{template}"
-            keyboard.append([InlineKeyboardButton(button_text, callback_data=callback_data)])
+# Étape 1 - Voir les catégories
+async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):    
+    keyboard = [    
+        [InlineKeyboardButton("📄 ATS", callback_data="category|ATS")],    
+        [InlineKeyboardButton("🧩 Moderne", callback_data="category|Moderne")],    
+        [InlineKeyboardButton("🎨 Créatif", callback_data="category|Créatif")]    
+    ]    
+    reply_markup = InlineKeyboardMarkup(keyboard)    
     
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text(
-        "📌 Choisis un modèle de CV à générer :",
-        reply_markup=reply_markup
-    )
+    await update.message.reply_text(    
+        "📌 Choisis une catégorie de modèles :",    
+        reply_markup=reply_markup    
+    )    
 
-async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
 
-    try:
-        cv_type, template_file = query.data.split("|")
-        session = get_session(query.from_user.id)
+# Étape 2 - Callback : si catégorie choisie, montrer les templates
+async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):    
+    query = update.callback_query    
+    await query.answer()    
+    
+    try:    
+        action, value = query.data.split("|")    
+    
+        if action == "category":    
+            # On montre uniquement les templates de cette catégorie
+            category = value    
+            keyboard = []    
+            for template in templates[category]:    
+                button_text = template    
+                callback_data = f"template|{category}|{template}"    
+                keyboard.append([InlineKeyboardButton(button_text, callback_data=callback_data)])    
+    
+            reply_markup = InlineKeyboardMarkup(keyboard)    
+            await query.edit_message_text(    
+                text=f"📂 Catégorie **{category}** : choisis un template",    
+                reply_markup=reply_markup    
+            )    
+    
+        elif action == "template":    
+            # Ici, on génère le CV    
+            cv_type, template_file = value, query.data.split("|")[2]    
+            session = get_session(query.from_user.id)    
+    
+            await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")    
+    
+            # Génération des fichiers    
+            pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)    
+    
+            # Envoi du PDF    
+            with open(pdf_path, "rb") as pdf_file:    
+                await context.bot.send_document(    
+                    chat_id=query.message.chat.id,    
+                    document=InputFile(pdf_file),    
+                    caption="📄 Ton CV prêt à imprimer/envoyer"    
+                )    
+    
+            # Envoi de l'image LinkedIn    
+            with open(image_path, "rb") as img_file:    
+                await context.bot.send_photo(    
+                    chat_id=query.message.chat.id,    
+                    photo=InputFile(img_file),    
+                    caption="✨ Version optimisée pour LinkedIn"    
+                )    
+    
+    except Exception as e:    
+        await context.bot.send_message(    
+            chat_id=query.message.chat.id,    
+            text=f"❌ Erreur: {str(e)}"    
+        )    
+        print(f"Erreur callback: {str(e)}")    
 
-        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
 
-        # Génération des fichiers
-        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
-
-        # Envoi du PDF
-        with open(pdf_path, "rb") as pdf_file:
-            await context.bot.send_document(
-                chat_id=query.message.chat.id,
-                document=InputFile(pdf_file),
-                caption="📄 Ton CV prêt à imprimer/envoyer"
-            )
-
-        # Envoi de l'image LinkedIn
-        with open(image_path, "rb") as img_file:
-            await context.bot.send_photo(
-                chat_id=query.message.chat.id,
-                photo=InputFile(img_file),
-                caption="✨ Version optimisée pour LinkedIn"
-            )
-
-    except Exception as e:
-        await context.bot.send_message(
-            chat_id=query.message.chat.id,
-            text=f"❌ Erreur: {str(e)}"
-        )
-        print(f"Erreur callback: {str(e)}")
-        
-
-def setup_models_handlers(app):
-    app.add_handler(CommandHandler("voir_modeles", see_modele))
+def setup_models_handlers(app):    
+    app.add_handler(CommandHandler("voir_modeles", see_modele))    
     app.add_handler(CallbackQueryHandler(modele_callback))
-    
