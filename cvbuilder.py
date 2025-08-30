@@ -247,30 +247,19 @@ class CVBuilder:
             }
 
             # 6️⃣ Génération du HTML
-            html_content = template.render(context)
-            safe_name = data["infos"]["nom"].lower().replace(" ", "_")
-            html_temp_path = os.path.join(self.output_dir, f"temp_{safe_name}.html")
-            with open(html_temp_path, "w", encoding="utf-8") as f:
-                f.write(html_content)
+            html = template.render(context)  
 
-            # 7️⃣ Génération du PDF
-            pdf_path = os.path.join(self.output_dir, f"{safe_name}_{cv_type}.pdf")
-            HTML(string=html_content, base_url=template_dir).write_pdf(
-                pdf_path,
-                stylesheets=[CSS(string='@page { size: A4; margin: 1cm; }')]
-            )
+            nom = data['nom'].replace(" ", "_").lower()  
+            nom_fichier = f"{nom}_CV_{cv_type}.pdf"  
 
-            # 8️⃣ Génération image LinkedIn
-            css_path = os.path.join(template_dir, f"{template_file}.css")
-            linkedin_image_path = html_to_linkedin_image(
-                html_path=html_temp_path,
-                css_path=css_path
-            )
+            dossier = "generated_cv"  
+            os.makedirs(dossier, exist_ok=True)  
+            chemin_complet = os.path.join(dossier, nom_fichier)  
 
-            # 9️⃣ Nettoyage du HTML temporaire
-            os.remove(html_temp_path)
+            HTML(string=html, base_url=f'Template/{cv_type}').write_pdf(chemin_complet)  
 
-            return pdf_path, linkedin_image_path
+            return chemin_complet  
+            
 
         except Exception as e:
             print(f"❌ Erreur CV generation: {str(e)}")
