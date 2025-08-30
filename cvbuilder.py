@@ -221,7 +221,7 @@ class CVBuilder:
 
             if content_score > 20:  
                 body_class = "compress-plus"  
-            elif content_score > 14:  
+            elif 14 < content_score <= 20:  
                 body_class = "compress"  
             else:  
                 body_class = "normal"  
