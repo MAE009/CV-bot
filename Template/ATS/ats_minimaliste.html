@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CV {{ infos.prenom }} {{ infos.nom }} | {{ infos.poste }}</title>
+  <link rel="stylesheet" href="ats_minimaliste.css">
+</head>
+<body class="{{ body_class }}">
+  <div class="cv-container">
+    <header>
+      <h1>{{ infos.prenom }} {{ infos.nom }}</h1>
+      <p class="job-title">{{ infos.poste }}</p>
+      <div class="contact-info">
+        <span>{{ infos.ville }}</span> • 
+        <span>{{ infos.tel }}</span> • 
+        <a href="mailto:{{ infos.email }}">{{ infos.email }}</a>
+        {% if infos.autre != "❌ Non fourni" %}
+          • <a href="{{ infos.autre }}">Profil en ligne</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <section class="summary">
+      <h2>Profil</h2>
+      <p>{{ infos.resume }}</p>
+    </section>
+
+    <div class="two-columns">
+      <div class="column">
+        <section>
+          <h2>Expérience</h2>
+          {% for exp in experiences %}
+          <div class="experience">
+            <div class="experience-header">
+              <h3>{{ exp.poste }}</h3>
+              <span class="date">{{ exp.date }}</span>
+            </div>
+            <div class="company">{{ exp.entreprise }}</div>
+            <p>{{ exp.description }}</p>
+            {% if exp.realisations %}
+            <div class="achievements">
+              <strong>Réalisations :</strong> {{ exp.realisations }}
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </section>
+      </div>
+
+      <div class="column">
+        <section>
+          <h2>Formation</h2>
+          {% for edu in formations %}
+          <div class="education">
+            <h3>{{ edu.diplome }}</h3>
+            <div class="school">{{ edu.etablissement }}</div>
+            <div class="date">{{ edu.date_debut }} - {{ edu.date_fin }}</div>
+            <div class="location">{{ edu.lieu }}</div>
+          </div>
+          {% endfor %}
+        </section>
+
+        <section>
+          <h2>Compétences</h2>
+          <ul class="skills">
+            {% for skill in competences %}
+            <li>{{ skill.comp }}</li>
+            {% endfor %}
+          </ul>
+        </section>
+
+        <section>
+          <h2>Langues</h2>
+          <ul class="languages">
+            {% for lang in langues %}
+            <li>{{ lang.nom }} <span class="level">({{ lang.niveau }})</span></li>
+            {% endfor %}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
