@@ -198,12 +198,8 @@ class CVBuilder:
                 img_data = f.read()
             photo_b64 = "data:image/jpeg;base64," + base64.b64encode(img_data).decode()
 
-            # 2️⃣ Préparation du template
-            template_dir = os.path.join(self.template_base_dir, cv_type)
-            env = Environment(
-                loader=FileSystemLoader(template_dir),
-                autoescape=select_autoescape(['html', 'xml'])
-            )
+            env = Environment(loader=FileSystemLoader(f'Template/{cv_type}'))  
+        
             template = env.get_template(f'{template_file}.html')
 
             # 3️⃣ Calcul du content_score
