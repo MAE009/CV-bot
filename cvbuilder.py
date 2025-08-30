@@ -249,8 +249,8 @@ class CVBuilder:
             # 6️⃣ Génération du HTML
             html = template.render(context)  
 
-            nom = data['info']['nom'].replace(" ", "_").lower()  
-            nom_fichier = f"{data['info']['nom']}_CV_{cv_type}.pdf"  
+            nom = data['infos']['nom'].replace(" ", "_").lower()  
+            nom_fichier = f"{data['infos']['nom']}_CV_{cv_type}.pdf"  
 
             dossier = "generated_cv"  
             os.makedirs(dossier, exist_ok=True)  
