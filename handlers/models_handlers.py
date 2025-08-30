@@ -15,18 +15,28 @@ from utils.helpers import *
 
 
 
-async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("📄 Simple ATS", callback_data="ATS|ats")],
-        [InlineKeyboardButton("🧩 Moderne", callback_data="Lettres_template|Lettre_mov")],
-        [InlineKeyboardButton("🎨 Créatif", callback_data="Creative|Crea1")]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
 
+# Exemple de structure de templates
+templates = {
+    "ATS": ["ats", "ats_classique", "ats_moderne", "ats_minimaliste"],
+    "Moderne": ["moderne1", "moderne2", "moderne3"],
+    "Créatif": ["creatif1", "creatif2", "creatif3"]
+}
+
+async def see_modele(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = []
+    for category, template_list in templates.items():
+        # Crée un bouton par template
+        for template in template_list:
+            button_text = f"{category} - {template}"
+            callback_data = f"{category}|{template}"
+            keyboard.append([InlineKeyboardButton(button_text, callback_data=callback_data)])
+    
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
         "📌 Choisis un modèle de CV à générer :",
         reply_markup=reply_markup
-)
+    )
 
 async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
