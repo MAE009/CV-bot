@@ -1,45 +1,63 @@
 /* ========== VARIABLES ========== */
+/* Niveau 1: Normal (content_score ≤ 12) */
 body.normal {
   --font-title: 26px;
   --font-subtitle: 18px;
-  --font-section-title: 18px;
-  --font-subsection: 16px;
-  --font-date: 14px;
-  --font-text: 14px;
-  --font-small: 12px;
-  --padding: 30px;
-  --section-margin: 25px;
+  --font-section: 20px;
+  --font-subsection: 17px;
+  --font-body: 15px;
+  --font-small: 13px;
+  --padding: 40px;
+  --section-margin: 30px;
   --line-height: 1.6;
-  --primary-color: #2c3e50;
-  --secondary-color: #7f8c8d;
-  --accent-color: #3498db;
+  --photo-size: 120px;
+  --spacing: 1.2;
 }
 
+/* Niveau 2: Compact (12 < content_score ≤ 18) */
+body.compact {
+  --font-title: 24px;
+  --font-subtitle: 17px;
+  --font-section: 19px;
+  --font-subsection: 16px;
+  --font-body: 14px;
+  --font-small: 12px;
+  --padding: 32px;
+  --section-margin: 24px;
+  --line-height: 1.5;
+  --photo-size: 100px;
+  --spacing: 1.1;
+}
+
+/* Niveau 3: Compress (18 < content_score ≤ 25) */
 body.compress {
   --font-title: 22px;
   --font-subtitle: 16px;
-  --font-section-title: 16px;
-  --font-subsection: 14px;
-  --font-date: 12px;
-  --font-text: 12px;
+  --font-section: 18px;
+  --font-subsection: 15px;
+  --font-body: 13px;
   --font-small: 11px;
-  --padding: 22px;
+  --padding: 24px;
   --section-margin: 18px;
   --line-height: 1.4;
+  --photo-size: 90px;
+  --spacing: 1.0;
 }
 
+/* Niveau 4: Compress Plus (content_score > 25) */
 body.compress-plus {
   --font-title: 20px;
   --font-subtitle: 14px;
-  --font-section-title: 14px;
+  --font-section: 16px;
   --font-subsection: 13px;
-  --font-date: 11px;
-  --font-text: 11px;
+  --font-body: 12px;
   --font-small: 10px;
   --padding: 16px;
   --section-margin: 12px;
   --line-height: 1.3;
-}
+  --photo-size: 80px;
+  --spacing: 0.9;
+  }
 
 /* ========== BASE STYLES ========== */
 body {
