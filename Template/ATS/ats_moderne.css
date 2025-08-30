@@ -1,0 +1,282 @@
+/* ============================= 🎨 VARIABLES ============================= */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #7f8c8d;
+  --accent-color: #3498db;
+  --light-gray: #f8f9fa;
+  --border-color: #e9ecef;
+}
+
+body.normal {
+  --font-title: 26px;
+  --font-subtitle: 18px;
+  --font-section-title: 18px;
+  --font-subsection: 16px;
+  --font-date: 14px;
+  --font-text: 14px;
+  --font-small: 12px;
+  --padding: 30px;
+  --section-margin: 25px;
+  --line-height: 1.6;
+}
+
+body.compress {
+  --font-title: 22px;
+  --font-subtitle: 16px;
+  --font-section-title: 16px;
+  --font-subsection: 14px;
+  --font-date: 12px;
+  --font-text: 12px;
+  --font-small: 11px;
+  --padding: 22px;
+  --section-margin: 18px;
+  --line-height: 1.4;
+}
+
+body.compress-plus {
+  --font-title: 20px;
+  --font-subtitle: 14px;
+  --font-section-title: 14px;
+  --font-subsection: 13px;
+  --font-date: 11px;
+  --font-text: 11px;
+  --font-small: 10px;
+  --padding: 16px;
+  --section-margin: 12px;
+  --line-height: 1.3;
+}
+
+/* ============================= ♻ BASE ============================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  line-height: var(--line-height);
+  color: #333;
+  background: white;
+  padding: var(--padding);
+}
+
+.cv-container {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* ============================= 📝 EN-TÊTE ============================= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--section-margin);
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+h1 {
+  font-size: var(--font-title);
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.accent {
+  color: var(--accent-color);
+}
+
+.job-title {
+  font-size: var(--font-subtitle);
+  color: var(--secondary-color);
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.contact-info {
+  text-align: right;
+  font-size: var(--font-text);
+}
+
+.contact-info div {
+  margin-bottom: 5px;
+  color: var(--secondary-color);
+}
+
+.contact-info a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* ============================= STRUCTURE ============================= */
+.content {
+  display: flex;
+  gap: 30px;
+}
+
+.main-content {
+  flex: 2;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+/* ============================= SECTIONS ============================= */
+section {
+  margin-bottom: var(--section-margin);
+}
+
+h2 {
+  font-size: var(--font-section-title);
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+h3 {
+  font-size: var(--font-subsection);
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: var(--font-text);
+  margin-bottom: 10px;
+}
+
+/* ============================= 💼 EXPÉRIENCE ============================= */
+.experience {
+  margin-bottom: 20px;
+  padding-left: 15px;
+  border-left: 3px solid var(--light-gray);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-size: var(--font-date);
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+.company {
+  font-size: var(--font-text);
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.achievements {
+  background-color: var(--light-gray);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: var(--font-small);
+}
+
+/* ============================= 🎓 FORMATION ============================= */
+.education {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+}
+
+.school {
+  font-size: var(--font-text);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.location {
+  font-size: var(--font-small);
+  color: var(--secondary-color);
+}
+
+/* ============================= ⚙️ COMPÉTENCES ============================= */
+.skills {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skills li {
+  background-color: var(--light-gray);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: var(--font-small);
+}
+
+/* ============================= 🌍 LANGUES ============================= */
+.languages {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.languages li {
+  margin-bottom: 8px;
+  font-size: var(--font-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+.level {
+  font-size: var(--font-small);
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+/* ============================= 📱 RESPONSIVE ============================= */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contact-info {
+    text-align: left;
+  }
+  
+  .content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  body {
+    padding: 15px;
+  }
+}
+
+/* ============================= 🖨️ IMPRESSION ============================= */
+@media print {
+  body {
+    padding: 0;
+    background: white;
+  }
+  
+  .cv-container {
+    max-width: 100%;
+  }
+  
+  .content {
+    display: block;
+  }
+  
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+  }
