@@ -2,7 +2,7 @@ import os
 import imgkit
 from datetime import datetime
 
-def html_to_linkedin_image(html_path, css_path=None, output_folder="linkedin_images", target_size=(1200, 627)):
+def html_to_linkedin_image(html_path, css_path=None, output_folder="linkedin_images", target_size=(627, 1200)):
     """Convertit un HTML en image optimisée pour LinkedIn"""
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
