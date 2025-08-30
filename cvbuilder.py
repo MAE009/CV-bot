@@ -187,7 +187,7 @@ class CVBuilder:
 
     
 
-    def test_modern_cv_generator(self, cv_type, template_file, data):
+    def test_modern_cv_generator(self, cv_type, template_file):
         """
         Génère un CV moderne et son image LinkedIn
         """
