@@ -114,6 +114,6 @@ async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
 
 def setup_models_handlers(app):
-    app.add_handler(CommandHandler("voir_modeles", mone))
+    app.add_handler(CommandHandler("voir_modeles", see_modele))
         
     app.add_handler(CallbackQueryHandler(modele_callback))
