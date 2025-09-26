@@ -44,7 +44,7 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     try:      
-        cv_type, template_file = query.data.split("|", 2)      
+        cv_type, template_file = query.data.split("|", 1)     
         session = get_session(query.from_user.id)      
 
         await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")      
