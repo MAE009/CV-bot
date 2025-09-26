@@ -44,7 +44,7 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     try:
-        await update.message.reply_text(f"DEBUG query.data = {query.data}")  # 🔍 Debug
+        await query.edit_message_text(f"DEBUG query.data = {query.data}")  # 🔍 Debug
 
         parts = query.data.split("|")
         cv_type = parts[0]
