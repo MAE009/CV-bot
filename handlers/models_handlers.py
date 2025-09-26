@@ -46,10 +46,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         print("DEBUG query.data =", query.data)  # 🔍 Debug
 
-        parts = query.data.split("|", 1)
+        parts = query.data.split("|")
         cv_type = parts[0]
-        template_file = parts[1] if len(parts) > 1 else None
-
+        template_file = "|".join(parts[1:]) if len(parts) > 1 else None
         if not template_file:
             await query.edit_message_text("❌ Erreur: aucun template trouvé dans le callback_data")
             return
