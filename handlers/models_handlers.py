@@ -83,6 +83,32 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         print(f"Erreur callback: {str(e)}")
 
+
+async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        session = get_session(query.from_user.id)
+
+        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
+            
+        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+
+        # Envoi du PDF
+        with open(pdf_path, "rb") as pdf_file:
+            await context.bot.send_document(
+                chat_id=query.message.chat.id,
+                document=InputFile(pdf_file),
+                caption="📄 Ton CV prêt à imprimer/envoyer"
+            )
+
+        # Envoi de l'image LinkedIn
+        with open(image_path, "rb") as img_file:
+            await context.bot.send_photo(
+                chat_id=query.message.chat.id,
+                photo=InputFile(img_file),
+                caption="✨ Version optimisée pour LinkedIn"
+        )
+        
+    
+
 def setup_models_handlers(app):
-    app.add_handler(CommandHandler("voir_modeles", see_modele))
+    app.add_handler(CommandHandler("voir_modeles", mone))
     app.add_handler(CallbackQueryHandler(modele_callback))
