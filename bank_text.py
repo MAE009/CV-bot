@@ -306,3 +306,62 @@ test_data_maman = {
     ],
     "photo_path" : "Assets/1756384517199.jpg"
 }
+
+test_data_duc = {        
+    "infos": {        
+        "nom": "MAKOSSO",        
+        "prenom": "Ducerne Dieu-merci",        
+        "poste": "Étudiant en génie industriel et maintenance",        
+        "ville": "Pointe-Noire, Congo Brazzaville",        
+        "tel": "+242 068620127",        
+        "email": "makossoducerne@gmail.com",        
+        "autre": "Lien LinkedIn : Oui",        
+        "resume": (        
+            "Étudiant motivé en génie industriel et maintenance, avec une expérience en milieu professionnel "
+            "acquise au sein de DGC Congo. Passionné par la maintenance corrective et préventive, "
+            "le suivi technique des équipements, et doté de bases solides en conception et analyse technique."
+        )        
+    },        
+
+    "experiences": [        
+        {        
+            "poste": "Stagiaire en génie industriel et maintenance",        
+            "entreprise": "DGC Congo",        
+            "date": "Octobre - Novembre 2025",        
+            "description": "Découverte et participation aux activités de maintenance corrective et préventive, suivi technique des équipements et apprentissage en milieu professionnel.",        
+            "realisations": (        
+                "Réalisation d’un projet tutoré portant sur l’étude de l’installation électrique d’un bâtiment à usage hôtelier R+1."        
+            )        
+        }        
+    ],        
+
+    "formations": [        
+        {        
+            "diplome": "Baccalauréat",        
+            "etablissement": "L’Alpha",        
+            "date_debut": "2022",        
+            "date_fin": "2023",        
+            "lieu": "Tchiali"        
+        },        
+        {        
+            "diplome": "BEPC",        
+            "etablissement": "L’Alpha",        
+            "date_debut": "2019",        
+            "date_fin": "2020",        
+            "lieu": "Tchiali"        
+        }        
+    ],        
+
+    "competences": [        
+        {"comp": "SolidWorks"},        
+        {"comp": "AMDEC"},        
+        {"comp": "Word"}        
+    ],        
+
+    "langues": [        
+        {"nom": "Français (natif)"},        
+        {"nom": "Anglais"}        
+    ],    
+
+    "photo_path" : "Assets/photo_profil.jpg"  # À remplacer par ton vrai chemin d'image
+}
