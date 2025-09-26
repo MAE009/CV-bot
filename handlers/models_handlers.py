@@ -85,30 +85,35 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        session = get_session(query.from_user.id)
+    # Récupérer la session avec l'id utilisateur
+    session = get_session(update.message.from_user.id)
 
-        await update.message.reply_text(f"⚙️ Génération du CV...")
-            
-        pdf_path, image_path = session.test_modern_cv_generator()
+    await update.message.reply_text("⚙️ Génération du CV...")
 
-        # Envoi du PDF
-        with open(pdf_path, "rb") as pdf_file:
-            await context.bot.send_document(
-                chat_id=query.message.chat.id,
-                document=InputFile(pdf_file),
-                caption="📄 Ton CV prêt à imprimer/envoyer"
-            )
+    # Ici tu forces un modèle par défaut, ex : Moderne/Mod1
+    pdf_path, image_path = session.test_modern_cv_generator("Moderne", "Mod1")
 
-        # Envoi de l'image LinkedIn
-        with open(image_path, "rb") as img_file:
-            await context.bot.send_photo(
-                chat_id=query.message.chat.id,
-                photo=InputFile(img_file),
-                caption="✨ Version optimisée pour LinkedIn"
+    # Envoi du PDF
+    with open(pdf_path, "rb") as pdf_file:
+        await context.bot.send_document(
+            chat_id=update.message.chat.id,
+            document=InputFile(pdf_file),
+            caption="📄 Ton CV prêt à imprimer/envoyer"
         )
-        
+
+    # Envoi de l'image LinkedIn
+    with open(image_path, "rb") as img_file:
+        await context.bot.send_photo(
+            chat_id=update.message.chat.id,
+            photo=InputFile(img_file),
+            caption="✨ Version optimisée pour LinkedIn"
+        )
+
+
+
     
 
 def setup_models_handlers(app):
     app.add_handler(CommandHandler("voir_modeles", mone))
+        
     app.add_handler(CallbackQueryHandler(modele_callback))
