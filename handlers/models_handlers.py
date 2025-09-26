@@ -58,7 +58,7 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
 
         # Génération des fichiers
-        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+        pdf_path = session.test_modern_cv_generator(cv_type, template_file)
 
         # Envoi du PDF
         with open(pdf_path, "rb") as pdf_file:
@@ -69,12 +69,12 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
         # Envoi de l'image LinkedIn
-        with open(image_path, "rb") as img_file:
-            await context.bot.send_photo(
-                chat_id=query.message.chat.id,
-                photo=InputFile(img_file),
-                caption="✨ Version optimisée pour LinkedIn"
-            )
+        #with open(image_path, "rb") as img_file:
+            #await context.bot.send_photo(
+                #chat_id=query.message.chat.id,
+               # photo=InputFile(img_file),
+               # caption="✨ Version optimisée pour LinkedIn"
+           # )
 
     except Exception as e:
         await context.bot.send_message(
@@ -143,8 +143,6 @@ async def simple_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Erreur simple_cv: {str(e)}")
 
 
-def setup_models_handlers(app):
-    app.add_handler(CommandHandler("moncv", simple_cv))
 
     
 
