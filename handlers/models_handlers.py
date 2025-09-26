@@ -87,9 +87,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
         session = get_session(query.from_user.id)
 
-        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
+        await update.message.reply_text(f"⚙️ Génération du CV...")
             
-        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+        pdf_path, image_path = session.test_modern_cv_generator()
 
         # Envoi du PDF
         with open(pdf_path, "rb") as pdf_file:
