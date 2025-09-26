@@ -20,7 +20,7 @@ from utils.helpers import *
 templates = {    
     "ATS": ["ats", "ats_classique", "ats_moderne", "ats_minimaliste"],    
     "Moderne": ["Mod1", "Mod2", "Mod3"],    
-    "Créatif": ["creatif1", "creatif2", "creatif3"]    
+    "Créatif": ["Crea1", "Crea2", "Crea3"]    
 }    
 
 # Étape 1 - Voir les catégories
