@@ -43,36 +43,45 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    try:      
-        cv_type, template_file = query.data.split("|", 1)     
-        session = get_session(query.from_user.id)      
+    try:
+        print("DEBUG query.data =", query.data)  # 🔍 Debug
 
-        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")      
+        parts = query.data.split("|", 1)
+        cv_type = parts[0]
+        template_file = parts[1] if len(parts) > 1 else None
 
-        # Génération des fichiers      
-        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)      
+        if not template_file:
+            await query.edit_message_text("❌ Erreur: aucun template trouvé dans le callback_data")
+            return
 
-        # Envoi du PDF      
-        with open(pdf_path, "rb") as pdf_file:      
-            await context.bot.send_document(      
-                chat_id=query.message.chat.id,      
-                document=InputFile(pdf_file),      
-                caption="📄 Ton CV prêt à imprimer/envoyer"      
-            )      
+        session = get_session(query.from_user.id)
 
-        # Envoi de l'image LinkedIn      
-        with open(image_path, "rb") as img_file:      
-            await context.bot.send_photo(      
-                chat_id=query.message.chat.id,      
-                photo=InputFile(img_file),      
-                caption="✨ Version optimisée pour LinkedIn"      
-            )      
+        await query.edit_message_text(f"⚙️ Génération du CV {cv_type}...")
 
-    except Exception as e:      
-        await context.bot.send_message(      
-            chat_id=query.message.chat.id,      
-            text=f"❌ Erreur: {str(e)}"      
-        )      
+        # Génération des fichiers
+        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+
+        # Envoi du PDF
+        with open(pdf_path, "rb") as pdf_file:
+            await context.bot.send_document(
+                chat_id=query.message.chat.id,
+                document=InputFile(pdf_file),
+                caption="📄 Ton CV prêt à imprimer/envoyer"
+            )
+
+        # Envoi de l'image LinkedIn
+        with open(image_path, "rb") as img_file:
+            await context.bot.send_photo(
+                chat_id=query.message.chat.id,
+                photo=InputFile(img_file),
+                caption="✨ Version optimisée pour LinkedIn"
+            )
+
+    except Exception as e:
+        await context.bot.send_message(
+            chat_id=query.message.chat.id,
+            text=f"❌ Erreur: {str(e)}"
+        )
         print(f"Erreur callback: {str(e)}")
 
 def setup_models_handlers(app):
