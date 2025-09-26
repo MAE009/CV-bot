@@ -120,7 +120,7 @@ async def simple_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"⚙️ Génération du CV {cv_type} ({template_file})...")
 
         # Génération des fichiers
-        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+        pdf_path = session.test_modern_cv_generator(cv_type, template_file)
 
         # Envoi du PDF
         with open(pdf_path, "rb") as pdf_file:
@@ -131,12 +131,12 @@ async def simple_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
 
         # Envoi de l'image LinkedIn
-        with open(image_path, "rb") as img_file:
-            await context.bot.send_photo(
-                chat_id=update.message.chat.id,
-                photo=InputFile(img_file),
-                caption="✨ Version optimisée pour LinkedIn"
-            )
+        #with open(image_path, "rb") as img_file:
+            #await context.bot.send_photo(
+               # chat_id=update.message.chat.id,
+                #photo=InputFile(img_file),
+                #caption="✨ Version optimisée pour LinkedIn"
+           # )
 
     except Exception as e:
         await update.message.reply_text(f"❌ Erreur: {str(e)}")
