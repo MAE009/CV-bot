@@ -115,7 +115,7 @@ async def simple_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         # Variables brutes bien séparées
         cv_type = "Moderne"
-        template_file = "Mod1"
+        template_file = "Mod"
 
         await update.message.reply_text(f"⚙️ Génération du CV {cv_type} ({template_file})...")
 
