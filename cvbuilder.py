@@ -187,11 +187,11 @@ class CVBuilder:
 
     
 
-    def test_modern_cv_generator(self, cv_type, template_file):
+    def test_modern_cv_generator(self, cv_type="Moderne", template_file="Mod1"):
         """
         Génère un CV moderne et son image LinkedIn
         """
-        data = test_data_maman
+        data = test_data_duc
         try:
             # 1️⃣ Préparation de la photo
             with open(data['photo_path'], "rb") as f:
