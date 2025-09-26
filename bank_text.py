@@ -363,5 +363,5 @@ test_data_duc = {
         {"nom": "Anglais"}        
     ],    
 
-    "photo_path" : "Assets/photo_profil.jpg"  # À remplacer par ton vrai chemin d'image
+    "photo_path" : "Assets/Ducerne.jpg"  # À remplacer par ton vrai chemin d'image
 }
