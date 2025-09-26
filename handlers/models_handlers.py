@@ -109,11 +109,48 @@ async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption="✨ Version optimisée pour LinkedIn"
         )
 
+async def simple_cv(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        session = get_session(update.message.from_user.id)
 
+        # Variables brutes bien séparées
+        cv_type = "Moderne"
+        template_file = "Mod1"
+
+        await update.message.reply_text(f"⚙️ Génération du CV {cv_type} ({template_file})...")
+
+        # Génération des fichiers
+        pdf_path, image_path = session.test_modern_cv_generator(cv_type, template_file)
+
+        # Envoi du PDF
+        with open(pdf_path, "rb") as pdf_file:
+            await context.bot.send_document(
+                chat_id=update.message.chat.id,
+                document=InputFile(pdf_file),
+                caption="📄 Ton CV prêt à imprimer/envoyer"
+            )
+
+        # Envoi de l'image LinkedIn
+        with open(image_path, "rb") as img_file:
+            await context.bot.send_photo(
+                chat_id=update.message.chat.id,
+                photo=InputFile(img_file),
+                caption="✨ Version optimisée pour LinkedIn"
+            )
+
+    except Exception as e:
+        await update.message.reply_text(f"❌ Erreur: {str(e)}")
+        print(f"Erreur simple_cv: {str(e)}")
+
+
+def setup_models_handlers(app):
+    app.add_handler(CommandHandler("moncv", simple_cv))
 
     
 
 def setup_models_handlers(app):
     app.add_handler(CommandHandler("voir_modeles", see_modele))
-        
+    app.add_handler(CommandHandler("moncv", simple_cv))
+
+    
     app.add_handler(CallbackQueryHandler(modele_callback))
