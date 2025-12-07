@@ -443,6 +443,6 @@ test_data_emmanuel = {
         {"nom": "Anglais (notions professionnelles)"}
     ],
 
-    "photo_path": None  # en attente
+    "photo_path": "Assets/Ducerne.jpg"  # en attente
 }
 
