@@ -191,7 +191,7 @@ class CVBuilder:
         """
         Génère un CV moderne et son image LinkedIn
         """
-        data = test_data_duc
+        data = test_data_emmanuel
         try:
             # 1️⃣ Préparation de la photo
             with open(data['photo_path'], "rb") as f:
