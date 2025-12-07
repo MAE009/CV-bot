@@ -18,7 +18,7 @@ from utils.helpers import *
 
 # Exemple de structure de templates
 templates = {    
-    "ATS": ["ats", "ats_classique", "ats_moderne", "ats_minimaliste"],    
+    "Moderne": ["Mod", "ats_classique", "ats_moderne", "ats_minimaliste"],    
     "Moderne": ["Mod", "Mod2", "Mod3"],    
     "Créatif": ["Crea1", "Crea2", "Crea3"]    
 }    
