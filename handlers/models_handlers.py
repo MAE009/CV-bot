@@ -76,14 +76,18 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                # caption="✨ Version optimisée pour LinkedIn"
            # )
 
-    except Exception as e:
-        error_type = type(e).__name__
-        error_msg = str(e) if str(e) else "[empty message]"
-        await context.bot.send_message(
-            chat_id=query.message.chat.id,
-            text=f"❌ Erreur ({error_type}): {error_msg}, callback: {query.data}"
-        )
-        print(f"Erreur callback: {error_type}: {error_msg}")
+    except Exception as original_error:
+        print(f"❌ Erreur ORIGINALE: {type(original_error).__name__}: {str(original_error)}")
+    
+        # Pour éviter la NameError sur traceback
+        try:
+            import traceback
+            print("Traceback complet:")
+            traceback.print_exc()
+        except:
+            pass
+    
+        raise original_error
 
 
 
