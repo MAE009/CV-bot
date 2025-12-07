@@ -262,5 +262,5 @@ class CVBuilder:
             
 
         except Exception as e:
-            print(f"❌ Erreur CV generation: {str(e)}")
+            print(f"❌ Erreur CV generation - Type: {type(e).__name__}, Message: {str(e)}, Traceback: {traceback.format_exc()}")
             raise
