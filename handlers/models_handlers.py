@@ -77,11 +77,17 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
            # )
 
     except Exception as e:
+        error_type = type(e).__name__
+        error_msg = str(e) if str(e) else "[empty message]"
         await context.bot.send_message(
             chat_id=query.message.chat.id,
-            text=f"❌ Erreur: {str(e)}, {query.data}"
+            text=f"❌ Erreur ({error_type}): {error_msg}, callback: {query.data}"
         )
-        print(f"Erreur callback: {str(e)}")
+        print(f"Erreur callback: {error_type}: {error_msg}")
+
+
+
+
 
 
 async def mone(update: Update, context: ContextTypes.DEFAULT_TYPE):
