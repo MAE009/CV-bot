@@ -365,3 +365,84 @@ test_data_duc = {
 
     "photo_path" : "Assets/Ducerne.jpg"  # À remplacer par ton vrai chemin d'image
 }
+
+
+
+
+
+test_data_emmanuel = {
+    "infos": {
+        "nom": "MAYALA",
+        "prenom": "Armand Emmanuel",  # à remplir
+        "poste": "Étudiant en Génie Industriel et Maintenance",
+        "ville": "Pointe-Noire, Congo Brazzaville",
+        "tel": "+242 065628783",  # en attente
+        "email": "emmanuelmayala40@gmail.com",  # si tu veux l’ajouter
+        "autre": "https://www.linkedin.com/in/emmanuel-mayala",
+        "resume": (
+            "Étudiant motivé en génie industriel et maintenance, passionné par le froid industriel, "
+            "l’électricité, la mécanique et l’optimisation des systèmes. "
+            "Actuellement en stage à la Congolaise de Congélation (LCC), où je participe aux interventions "
+            "de maintenance préventive et corrective sur les chambres froides, les groupes électrogènes, "
+            "les climatiseurs et les véhicules industriels. Je développe également des outils en VBA "
+            "pour automatiser et améliorer la gestion des rapports de maintenance."
+        )
+    },
+
+    "experiences": [
+        {
+            "poste": "Stagiaire Maintenance Industrielle",
+            "entreprise": "La Congolaise de Congélation (LCC)",
+            "date": "Octobre - Décembre 2025",
+            "description": (
+                "Participation aux activités de maintenance des équipements frigorifiques, "
+                "électriques et mécaniques ; réalisation d'interventions préventives et curatives ; "
+                "travail en hauteur, dépannages et diagnostics sur groupes électrogènes et circuits électriques."
+            ),
+            "realisations": (
+                "Développement d'une macro VBA pour consolider automatiquement les rapports journaliers ; "
+                "entretien de climatiseurs et chambres froides ; dépannage d’inverseurs, disjoncteurs et luminaires ; "
+                "vidange et entretien de groupes électrogènes Caterpillar ; interventions sur poids lourds et légers."
+            )
+        }
+
+    ],
+
+    "formations": [
+        {
+            "diplome": "Licence 2 — Génie Industriel et Maintenance",
+            "etablissement": "Université DGC Congo",
+            "date_debut": "2024",
+            "date_fin": "2025",
+            "lieu": "Pointe-Noire"
+        },
+        {
+            "diplome": "Baccalauréat",
+            "etablissement": "L’établissement que tu me donneras",
+            "date_debut": "année",
+            "date_fin": "année",
+            "lieu": "lieu"
+        }
+    ],
+
+    "competences": [
+        {"comp": "Maintenance Industrielle"},
+        {"comp": "Froid Industriel"},
+        {"comp": "Électricité Industrielle"},
+        {"comp": "Mécanique Automobile"},
+        {"comp": "Groupes électrogènes"},
+        {"comp": "VBA / Excel avancé"},
+        {"comp": "AMDEC"},
+        {"comp": "Gestion de stock"},
+        {"comp": "Automatisation de macros"},
+        {"comp": "Thermodynamique"}
+    ],
+
+    "langues": [
+        {"nom": "Français (natif)"},
+        {"nom": "Anglais (notions professionnelles)"}
+    ],
+
+    "photo_path": None  # en attente
+}
+
