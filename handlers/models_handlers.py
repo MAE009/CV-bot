@@ -77,15 +77,9 @@ async def modele_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
            # )
 
     except Exception as original_error:
-        print(f"❌ Erreur ORIGINALE: {type(original_error).__name__}: {str(original_error)}")
+        await update.message.reply_text(f"❌ Erreur ORIGINALE: {type(original_error).__name__}: {str(original_error)}")
     
-        # Pour éviter la NameError sur traceback
-        try:
-            import traceback
-            print("Traceback complet:")
-            traceback.print_exc()
-        except:
-            pass
+        
     
         raise original_error
 
