@@ -534,5 +534,5 @@ test_data_emmanuel = {
         {"nom": "Anglais (débutant)"}
     ],
 
-    "photo_path": None
+    "photo_path": "Assets/Ducerne.jpg"
 }
