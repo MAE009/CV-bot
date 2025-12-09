@@ -457,50 +457,41 @@ test_data_betina = {
         "ville": "Brazzaville, Congo",
         "tel": "+242 066585742",
         "email": "callmebeetina@gmail.com",
-        "autre": "https://www.linkedin.com/in/betina-exauc%C3%A9-bossota-bombaka-8ba706392",
+        "autre": "https://www.linkedin.com/in/betina-exaucé-bossota-bombaka-8ba706392",
         "resume": (
-            "Assistante commerciale rigoureuse et orientée résultats, avec une solide expérience en prospection, "
-            "gestion administrative, suivi commercial et relation client. À l'aise dans la communication, la coordination "
-            "et la gestion des priorités, j'assure un soutien efficace aux équipes commerciales tout en veillant à la satisfaction client. "
-            "Je maîtrise les techniques de vente, la gestion de portefeuille, les relances professionnelles et l'organisation administrative."
+            "Assistante commerciale dynamique et orientée performance, forte d'une expérience polyvalente en vente, "
+            "prospection, recouvrement et gestion administrative. Habituée à gérer un portefeuille clients, analyser les besoins "
+            "et assurer un suivi commercial complet, je contribue activement à la satisfaction client et à l’efficacité de l’équipe. "
+            "Maîtrise du reporting, des outils CRM, des relances professionnelles et de la coordination administrative."
         )
     },
 
     "experiences": [
         {
-            "poste": "Assistante de Direction (Intérim)",
+            "poste": "Assistante de Direction • Agent de Recouvrement • Assistante Commerciale & Marketing",
             "entreprise": "Société de Promotion Immobilière",
             "date": "Août - Décembre 2023",
-            "description": "Gestion des appels entrants, organisation des réunions et suivi des dossiers. Accueil, orientation et prise en charge des demandes clients. Support administratif à la direction et coordination interne.",
+            "description": (
+                "Support polyvalent auprès de la direction et du service commercial : gestion administrative, suivi des leads, "
+                "relances clients, accueil et orientation des visiteurs, coordination interne et participation aux actions marketing. "
+                "Appui dans la gestion des portefeuilles clients, traitement des dossiers et mise à jour du CRM."
+            ),
             "realisations": (
-                "Rédaction, mise en forme et gestion documentaire."
-            )
-        },
-        {
-            "poste": "Agent de Recouvrement",
-            "entreprise": "Société de Promotion Immobilière",
-            "date": "Août - Décembre 2023",
-            "description": "Gestion d'un portefeuille clients et suivi des créances. Relances téléphoniques et mails professionnels. Négociation d'échéanciers et gestion des litiges.",
-            "realisations": (
-                "Reporting précis et amélioration du taux de recouvrement."
-            )
-        },
-        {
-            "poste": "Assistante Commerciale & Marketing (Stage)",
-            "entreprise": "Société de Promotion Immobilière",
-            "date": "Août - Décembre 2023",
-            "description": "Prospection commerciale, qualification des contacts et suivi des leads. Préparation des offres commerciales et participation aux actions marketing. Suivi client, analyse des besoins et mise à jour du CRM.",
-            "realisations": (
-                "Support aux commerciaux : organisation, documentation, reporting."
+                "Amélioration du taux de recouvrement grâce à des relances structurées ; optimisation du suivi client via le CRM ; "
+                "préparation et mise en forme de documents administratifs et commerciaux ; organisation efficace des réunions. "
+                "Contribution notable à la fluidité des processus internes."
             )
         },
         {
             "poste": "Agent Commercial",
             "entreprise": "1er Bet",
-            "date": "",
-            "description": "Prospection terrain et présentation des offres. Acquisition de nouveaux clients et ventes directes. Argumentaires commerciaux et gestion des objections.",
+            "date": "Dates non précisées",
+            "description": (
+                "Prospection terrain, présentation des offres et argumentaire commercial. Acquisition de nouveaux clients, "
+                "démonstration des services, gestion des objections et fidélisation des utilisateurs."
+            ),
             "realisations": (
-                "Contribution à l'augmentation du chiffre d'affaires."
+                "Participation directe à la croissance du chiffre d’affaires grâce à la conversion de nouveaux clients."
             )
         }
     ],
@@ -508,7 +499,7 @@ test_data_betina = {
     "formations": [
         {
             "diplome": "Brevet de Technicien Supérieur",
-            "etablissement": "ESGAE (École Supérieure de Gestion et d'administration des Entreprises)",
+            "etablissement": "ESGAE (École Supérieure de Gestion et d'Administration des Entreprises)",
             "date_debut": "2021",
             "date_fin": "2023",
             "lieu": "Brazzaville"
@@ -516,27 +507,21 @@ test_data_betina = {
     ],
 
     "competences": [
-        {"comp": "Gestion administrative & commerciale"},
-        {"comp": "Prospection et qualification de leads"},
-        {"comp": "Suivi des clients & reporting"},
-        {"comp": "Recouvrement & relances professionnelles"},
-        {"comp": "Gestion d'agendas, réunions & appels entrants"},
-        {"comp": "Préparation de dossiers commerciaux"},
-        {"comp": "Communication professionnelle"},
-        {"comp": "Organisation, rigueur, sens du détail"},
-        {"comp": "Gestion des objections & support aux commerciaux"},
-        {"comp": "Service client & fidélisation"},
-        {"comp": "Pack Office (Word, Excel, PowerPoint)"},
-        {"comp": "Excel (niveau avancé)"},
+        {"comp": "Prospection, suivi commercial et qualification de leads"},
+        {"comp": "Gestion administrative & coordination interne"},
+        {"comp": "Recouvrement, relances et négociation d'échéanciers"},
+        {"comp": "Service client, écoute active & fidélisation"},
+        {"comp": "Reporting commercial & utilisation de CRM"},
+        {"comp": "Pack Office (Word, Excel avancé, PowerPoint)"},
         {"comp": "Google Workspace"},
-        {"comp": "CRM (logiciels de gestion client)"},
-        {"comp": "Outils de suivi & reporting"}
+        {"comp": "Organisation, rigueur & sens du détail"},
+        {"comp": "Communication professionnelle & gestion des objections"}
     ],
 
     "langues": [
-        {"nom": "Français (courant)"},
-        {"nom": "Lingala"},
-        {"nom": "Anglais (débutant)"}
+        {"nom": "Français : courant"},
+        {"nom": "Lingala : courant"},
+        {"nom": "Anglais : débutant"}
     ],
 
     "photo_path": "Assets/Ducerne.jpg"
