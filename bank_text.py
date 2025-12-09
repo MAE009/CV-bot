@@ -446,3 +446,98 @@ test_data_emmanuel = {
     "photo_path": "Assets/Ducerne.jpg"  # en attente
 }
 
+test_data_betina = {
+    "infos": {
+        "nom": "BOSSOTA BOMBAKA",
+        "prenom": "Betina Exaucé",
+        "poste": "Assistante commerciale junior",
+        "ville": "Brazzaville, Congo",
+        "tel": "+242 066585742",
+        "email": "callmebeetina@gmail.com",
+        "autre": "https://www.linkedin.com/in/betina-exauc%C3%A9-bossota-bombaka-8ba706392",
+        "resume": (
+            "Assistante commerciale rigoureuse et orientée résultats, avec une solide expérience en prospection, "
+            "gestion administrative, suivi commercial et relation client. À l'aise dans la communication, la coordination "
+            "et la gestion des priorités, j'assure un soutien efficace aux équipes commerciales tout en veillant à la satisfaction client. "
+            "Je maîtrise les techniques de vente, la gestion de portefeuille, les relances professionnelles et l'organisation administrative."
+        )
+    },
+
+    "experiences": [
+        {
+            "poste": "Assistante de Direction (Intérim)",
+            "entreprise": "Société de Promotion Immobilière",
+            "date": "Août - Décembre 2023",
+            "description": "Gestion des appels entrants, organisation des réunions et suivi des dossiers. Accueil, orientation et prise en charge des demandes clients. Support administratif à la direction et coordination interne.",
+            "realisations": (
+                "Rédaction, mise en forme et gestion documentaire."
+            )
+        },
+        {
+            "poste": "Agent de Recouvrement",
+            "entreprise": "Société de Promotion Immobilière",
+            "date": "Août - Décembre 2023",
+            "description": "Gestion d'un portefeuille clients et suivi des créances. Relances téléphoniques et mails professionnels. Négociation d'échéanciers et gestion des litiges.",
+            "realisations": (
+                "Reporting précis et amélioration du taux de recouvrement."
+            )
+        },
+        {
+            "poste": "Assistante Commerciale & Marketing (Stage)",
+            "entreprise": "Société de Promotion Immobilière",
+            "date": "Août - Décembre 2023",
+            "description": "Prospection commerciale, qualification des contacts et suivi des leads. Préparation des offres commerciales et participation aux actions marketing. Suivi client, analyse des besoins et mise à jour du CRM.",
+            "realisations": (
+                "Support aux commerciaux : organisation, documentation, reporting."
+            )
+        },
+        {
+            "poste": "Agent Commercial",
+            "entreprise": "1er Bet",
+            "date": "Non précisé",
+            "description": "Prospection terrain et présentation des offres. Acquisition de nouveaux clients et ventes directes. Argumentaires commerciaux et gestion des objections.",
+            "realisations": (
+                "Contribution à l'augmentation du chiffre d'affaires."
+            )
+        }
+    ],
+
+    "formations": [
+        {
+            "diplome": "Brevet de Technicien Supérieur",
+            "etablissement": "ESGAE (École Supérieure de Gestion et d'administration des Entreprises)",
+            "date_debut": "2021",
+            "date_fin": "2023",
+            "lieu": "Brazzaville"
+        }
+    ],
+
+    "competences": [
+        {"comp": "Gestion administrative & commerciale 📊"},
+        {"comp": "Prospection et qualification de leads 🔍"},
+        {"comp": "Suivi des clients & reporting 📈"},
+        {"comp": "Recouvrement & relances professionnelles 💼"},
+        {"comp": "Gestion d'agendas, réunions & appels entrants 📅"},
+        {"comp": "Préparation de dossiers commerciaux 📑"},
+        {"comp": "Communication professionnelle 💬"},
+        {"comp": "Organisation, rigueur, sens du détail ✅"},
+        {"comp": "Gestion des objections & support aux commerciaux 🤝"},
+        {"comp": "Service client & fidélisation 💎"}
+    ],
+
+    "langues": [
+        {"nom": "Français (courant) 🇫🇷"},
+        {"nom": "Lingala 🇨🇬"},
+        {"nom": "Anglais (débutant) 🇬🇧"}
+    ],
+    
+    "informatique": [
+        {"outil": "Pack Office 📁"},
+        {"outil": "Excel 📊"},
+        {"outil": "Google Workspace ☁️"},
+        {"outil": "CRM 💻"},
+        {"outil": "Outils de suivi & reporting 📈"}
+    ],
+    
+    "photo_path": None  # À remplacer par le chemin de la photo si disponible
+}
