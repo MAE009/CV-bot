@@ -370,7 +370,7 @@ test_data_duc = {
 
 
 
-test_data_emmanuel = {
+test_data_emmanuel1= {
     "infos": {
         "nom": "MAYALA",
         "prenom": "Armand Emmanuel",  # à remplir
@@ -449,7 +449,7 @@ test_data_emmanuel = {
 
 
 
-test_data_betina = {
+test_data_emmanuel = {
     "infos": {
         "nom": "BOSSOTA BOMBAKA",
         "prenom": "Betina Exaucé",
