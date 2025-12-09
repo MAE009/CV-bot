@@ -449,7 +449,7 @@ test_data_emmanuel1= {
 
 
 
-test_data_emmanuel = {
+test_data_betina = {
     "infos": {
         "nom": "BOSSOTA BOMBAKA",
         "prenom": "Betina Exaucé",
@@ -497,7 +497,7 @@ test_data_emmanuel = {
         {
             "poste": "Agent Commercial",
             "entreprise": "1er Bet",
-            "date": "Non précisé",
+            "date": "",
             "description": "Prospection terrain et présentation des offres. Acquisition de nouveaux clients et ventes directes. Argumentaires commerciaux et gestion des objections.",
             "realisations": (
                 "Contribution à l'augmentation du chiffre d'affaires."
@@ -525,7 +525,12 @@ test_data_emmanuel = {
         {"comp": "Communication professionnelle"},
         {"comp": "Organisation, rigueur, sens du détail"},
         {"comp": "Gestion des objections & support aux commerciaux"},
-        {"comp": "Service client & fidélisation"}
+        {"comp": "Service client & fidélisation"},
+        {"comp": "Pack Office (Word, Excel, PowerPoint)"},
+        {"comp": "Excel (niveau avancé)"},
+        {"comp": "Google Workspace"},
+        {"comp": "CRM (logiciels de gestion client)"},
+        {"comp": "Outils de suivi & reporting"}
     ],
 
     "langues": [
