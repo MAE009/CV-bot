@@ -530,14 +530,14 @@ test_data_betina = {
         {"nom": "Lingala 🇨🇬"},
         {"nom": "Anglais (débutant) 🇬🇧"}
     ],
-    
-    "informatique": [
-        {"outil": "Pack Office 📁"},
-        {"outil": "Excel 📊"},
-        {"outil": "Google Workspace ☁️"},
-        {"outil": "CRM 💻"},
-        {"outil": "Outils de suivi & reporting 📈"}
-    ],
+
+    #"informatique": [
+      #  {"outil": "Pack Office 📁"},
+     #   {"outil": "Excel 📊"},
+    #    {"outil": "Google Workspace ☁️"},
+    #    {"outil": "CRM 💻"},
+    #    {"outil": "Outils de suivi & reporting 📈"}
+  #  ],
     
     "photo_path": None  # À remplacer par le chemin de la photo si disponible
 }
