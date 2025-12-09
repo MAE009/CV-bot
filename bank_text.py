@@ -446,6 +446,9 @@ test_data_emmanuel = {
     "photo_path": "Assets/Ducerne.jpg"  # en attente
 }
 
+
+
+
 test_data_betina = {
     "infos": {
         "nom": "BOSSOTA BOMBAKA",
@@ -513,31 +516,23 @@ test_data_betina = {
     ],
 
     "competences": [
-        {"comp": "Gestion administrative & commerciale 📊"},
-        {"comp": "Prospection et qualification de leads 🔍"},
-        {"comp": "Suivi des clients & reporting 📈"},
-        {"comp": "Recouvrement & relances professionnelles 💼"},
-        {"comp": "Gestion d'agendas, réunions & appels entrants 📅"},
-        {"comp": "Préparation de dossiers commerciaux 📑"},
-        {"comp": "Communication professionnelle 💬"},
-        {"comp": "Organisation, rigueur, sens du détail ✅"},
-        {"comp": "Gestion des objections & support aux commerciaux 🤝"},
-        {"comp": "Service client & fidélisation 💎"}
+        {"comp": "Gestion administrative & commerciale"},
+        {"comp": "Prospection et qualification de leads"},
+        {"comp": "Suivi des clients & reporting"},
+        {"comp": "Recouvrement & relances professionnelles"},
+        {"comp": "Gestion d'agendas, réunions & appels entrants"},
+        {"comp": "Préparation de dossiers commerciaux"},
+        {"comp": "Communication professionnelle"},
+        {"comp": "Organisation, rigueur, sens du détail"},
+        {"comp": "Gestion des objections & support aux commerciaux"},
+        {"comp": "Service client & fidélisation"}
     ],
 
     "langues": [
-        {"nom": "Français (courant) 🇫🇷"},
-        {"nom": "Lingala 🇨🇬"},
-        {"nom": "Anglais (débutant) 🇬🇧"}
+        {"nom": "Français (courant)"},
+        {"nom": "Lingala"},
+        {"nom": "Anglais (débutant)"}
     ],
 
-    #"informatique": [
-      #  {"outil": "Pack Office 📁"},
-     #   {"outil": "Excel 📊"},
-    #    {"outil": "Google Workspace ☁️"},
-    #    {"outil": "CRM 💻"},
-    #    {"outil": "Outils de suivi & reporting 📈"}
-  #  ],
-    
-    "photo_path": None  # À remplacer par le chemin de la photo si disponible
+    "photo_path": None
 }
